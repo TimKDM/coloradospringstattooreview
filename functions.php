@@ -507,3 +507,127 @@ function coloradospringstattooreview_fetch_yelp_reviews( $yelp_id ) {
 
 	return $reviews;
 }
+
+/**
+ * Automatically populate dummy tattoo shops and reviews for testing.
+ * Triggers when logged in as admin and visiting http://yoursite.local/?cos_populate_dummy_data=1
+ */
+function coloradospringstattooreview_maybe_populate_dummy_data() {
+	if ( is_admin() && current_user_can( 'manage_options' ) && isset( $_GET['cos_populate_dummy_data'] ) ) {
+		
+		$shops = array(
+			array(
+				'title' => 'Pens & Needles Tattoo Studio',
+				'desc' => 'A premier tattoo studio located in the heart of Colorado Springs, known for custom designs and custom body piercings in a clean, sterile environment.',
+				'rating' => '4.8',
+				'price' => '$$$',
+				'address' => '101 N Tejon St, Colorado Springs, CO 80903',
+				'phone' => '(719) 287-8282',
+				'website' => 'https://www.pens-needles.com',
+				'hours' => "Mon - Thu: 12:00 PM - 8:00 PM\nFri - Sat: 12:00 PM - 10:00 PM\nSun: Closed",
+				'reviews' => array(
+					array(
+						'author' => 'Sarah Jenkins',
+						'platform' => 'google',
+						'rating' => 5,
+						'text' => 'Absolutely amazing experience. Got a fine-line floral piece from Mark. He was extremely detailed, patient, and made sure the placement was perfect before starting. The shop is spotless and the music playlist was great.',
+						'date' => '2026-06-15'
+					),
+					array(
+						'author' => 'David Miller',
+						'platform' => 'yelp',
+						'rating' => 3,
+						'text' => 'The tattoo artists are incredibly talented, but the scheduling system is a mess. I had an appointment booked weeks in advance, but still had to wait 45 minutes past my start time before getting in the chair. Work is 5 stars, service is 2 stars.',
+						'date' => '2026-05-20'
+					),
+					array(
+						'author' => 'Amanda R.',
+						'platform' => 'google',
+						'rating' => 4,
+						'text' => 'Very clean and professional shop. I got my first tattoo here and they walked me through all the aftercare steps. A bit on the pricey side, but you get what you pay for!',
+						'date' => '2026-06-01'
+					),
+					array(
+						'author' => 'Chris T.',
+						'platform' => 'facebook',
+						'rating' => 2,
+						'text' => 'Disappointed with the communication. Emailed a reference image twice and was told everything was set, but when I showed up, the artist had done a completely different sketch and seemed annoyed when I asked for adjustments.',
+						'date' => '2026-04-12'
+					)
+				)
+			),
+			array(
+				'title' => 'Self Inflicted Tattoo',
+				'desc' => 'Providing high quality custom tattooing and body piercing in a safe, professional, and friendly environment since 2009.',
+				'rating' => '4.5',
+				'price' => '$$',
+				'address' => '2020 West Colorado Ave, Colorado Springs, CO 80904',
+				'phone' => '(719) 635-1811',
+				'website' => 'https://selfinflictedtattoo.com',
+				'hours' => "Mon - Sun: 12:00 PM - 8:00 PM",
+				'reviews' => array(
+					array(
+						'author' => 'John Doe',
+						'platform' => 'google',
+						'rating' => 5,
+						'text' => 'Got a traditional eagle from James. Clean lines, solid color packing, and done incredibly fast. Highly recommend this shop for American Traditional work!',
+						'date' => '2026-06-25'
+					),
+					array(
+						'author' => 'Jessica B.',
+						'platform' => 'yelp',
+						'rating' => 3,
+						'text' => 'The tattoo turned out okay, but the artist was super quiet and didn\'t really explain what he was doing. It felt a bit like an assembly line. Decent price, though.',
+						'date' => '2026-06-10'
+					),
+					array(
+						'author' => 'Robert K.',
+						'platform' => 'direct',
+						'rating' => 5,
+						'text' => 'Awesome shop vibe, super friendly staff. Felt comfortable the entire time.',
+						'date' => '2026-07-02'
+					)
+				)
+			)
+		);
+
+		foreach ( $shops as $shop ) {
+			// Check if shop already exists to prevent duplicates
+			$existing = get_posts( array(
+				'title'     => $shop['title'],
+				'post_type' => 'tattoo_shops',
+				'post_status' => 'any',
+			) );
+
+			if ( ! empty( $existing ) ) {
+				continue;
+			}
+
+			// Insert Post
+			$post_id = wp_insert_post( array(
+				'post_title'   => $shop['title'],
+				'post_content' => $shop['desc'],
+				'post_status'  => 'publish',
+				'post_type'    => 'tattoo_shops',
+			) );
+
+			if ( ! is_wp_error( $post_id ) ) {
+				// Save Meta
+				update_post_meta( $post_id, '_tattoo_shop_rating', $shop['rating'] );
+				update_post_meta( $post_id, '_tattoo_shop_price_range', $shop['price'] );
+				update_post_meta( $post_id, '_tattoo_shop_address', $shop['address'] );
+				update_post_meta( $post_id, '_tattoo_shop_phone', $shop['phone'] );
+				update_post_meta( $post_id, '_tattoo_shop_website', $shop['website'] );
+				update_post_meta( $post_id, '_tattoo_shop_hours', $shop['hours'] );
+				
+				// Save reviews (both manual and final display array)
+				update_post_meta( $post_id, '_tattoo_shop_manual_reviews', $shop['reviews'] );
+				update_post_meta( $post_id, '_tattoo_shop_reviews', $shop['reviews'] );
+			}
+		}
+
+		wp_safe_redirect( admin_url( 'edit.php?post_type=tattoo_shops' ) );
+		exit;
+	}
+}
+add_action( 'admin_init', 'coloradospringstattooreview_maybe_populate_dummy_data' );
