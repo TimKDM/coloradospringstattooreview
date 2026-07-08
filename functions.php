@@ -204,7 +204,7 @@ function coloradospringstattooreview_render_shop_metabox( $post ) {
 
 		<!-- Automated Sync Fields -->
 		<h3><?php esc_html_e( 'API Integration & Automated Review Sync', 'coloradospringstattooreview' ); ?></h3>
-		<p class="description"><?php esc_html_e( 'Enter Google/Yelp IDs below. The theme will fetch the latest reviews from these platforms upon saving if changed or after 24 hours.', 'coloradospringstattooreview' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Enter Google Place ID below. The theme will fetch the latest reviews from Google upon saving if changed or after 24 hours.', 'coloradospringstattooreview' ); ?></p>
 		<br/>
 
 		<div class="cos-meta-row">
@@ -212,14 +212,6 @@ function coloradospringstattooreview_render_shop_metabox( $post ) {
 			<div class="cos-meta-input">
 				<input type="text" id="shop_google_place_id" name="shop_google_place_id" value="<?php echo esc_attr( $google_id ); ?>" placeholder="e.g. ChIJN1t_tDeuEmsRUsoyG83VSY4" />
 				<p class="description"><a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Find Google Place ID', 'coloradospringstattooreview' ); ?> ↗</a></p>
-			</div>
-		</div>
-
-		<div class="cos-meta-row">
-			<div class="cos-meta-label"><label for="shop_yelp_business_id"><?php esc_html_e( 'Yelp Business ID / Slug', 'coloradospringstattooreview' ); ?></label></div>
-			<div class="cos-meta-input">
-				<input type="text" id="shop_yelp_business_id" name="shop_yelp_business_id" value="<?php echo esc_attr( $yelp_id ); ?>" placeholder="e.g. shop-slug-colorado-springs" />
-				<p class="description"><?php esc_html_e( 'This is the slug at the end of the business Yelp URL.', 'coloradospringstattooreview' ); ?></p>
 			</div>
 		</div>
 
@@ -362,15 +354,11 @@ function coloradospringstattooreview_save_shop_meta( $post_id ) {
 		update_post_meta( $post_id, '_tattoo_shop_hours', sanitize_textarea_field( $_POST['shop_hours'] ) );
 	}
 
-	// Capture previous and new Google/Yelp IDs to detect changes
+	// Capture previous and new Google IDs to detect changes
 	$old_google_id = get_post_meta( $post_id, '_tattoo_shop_google_place_id', true );
-	$old_yelp_id   = get_post_meta( $post_id, '_tattoo_shop_yelp_business_id', true );
-
 	$new_google_id = isset( $_POST['shop_google_place_id'] ) ? sanitize_text_field( $_POST['shop_google_place_id'] ) : '';
-	$new_yelp_id   = isset( $_POST['shop_yelp_business_id'] ) ? sanitize_text_field( $_POST['shop_yelp_business_id'] ) : '';
 
 	update_post_meta( $post_id, '_tattoo_shop_google_place_id', $new_google_id );
-	update_post_meta( $post_id, '_tattoo_shop_yelp_business_id', $new_yelp_id );
 
 	// Save manual reviews
 	$manual_reviews = array();
@@ -391,7 +379,7 @@ function coloradospringstattooreview_save_shop_meta( $post_id ) {
 
 	// Fetch API reviews if changed, or if last fetched is more than 24 hours ago
 	$last_fetched = get_post_meta( $post_id, '_tattoo_shop_last_fetched', true );
-	$force_fetch  = ( $new_google_id !== $old_google_id ) || ( $new_yelp_id !== $old_yelp_id ) || empty( $last_fetched ) || ( time() - intval( $last_fetched ) > 86400 );
+	$force_fetch  = ( $new_google_id !== $old_google_id ) || empty( $last_fetched ) || ( time() - intval( $last_fetched ) > 86400 );
 
 	if ( $force_fetch ) {
 		$fetched_reviews = array();
@@ -401,14 +389,6 @@ function coloradospringstattooreview_save_shop_meta( $post_id ) {
 			$google_reviews = coloradospringstattooreview_fetch_google_reviews( $new_google_id );
 			if ( is_array( $google_reviews ) ) {
 				$fetched_reviews = array_merge( $fetched_reviews, $google_reviews );
-			}
-		}
-
-		// Fetch Yelp reviews
-		if ( ! empty( $new_yelp_id ) ) {
-			$yelp_reviews = coloradospringstattooreview_fetch_yelp_reviews( $new_yelp_id );
-			if ( is_array( $yelp_reviews ) ) {
-				$fetched_reviews = array_merge( $fetched_reviews, $yelp_reviews );
 			}
 		}
 
@@ -469,44 +449,261 @@ function coloradospringstattooreview_fetch_google_reviews( $place_id ) {
 }
 
 /**
- * Fetch reviews from Yelp Fusion API
+ * AJAX Bulk Importer from Google Places
  */
-function coloradospringstattooreview_fetch_yelp_reviews( $yelp_id ) {
-	$api_key = get_option( 'cos_yelp_api_key', '' );
-	if ( empty( $api_key ) ) {
-		return array();
+function coloradospringstattooreview_ajax_bulk_import_google() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cos_bulk_import_nonce' ) ) {
+		wp_send_json_error( __( 'Security verification failed.', 'coloradospringstattooreview' ) );
 	}
 
-	$url      = sprintf( 'https://api.yelp.com/v3/businesses/%s/reviews', urlencode( $yelp_id ) );
-	$response = wp_remote_get( $url, array(
-		'headers' => array(
-			'Authorization' => 'Bearer ' . $api_key,
-			'Accept'        => 'application/json',
-		),
-	) );
+	$api_key = get_option( 'cos_google_api_key', '' );
+	if ( empty( $api_key ) ) {
+		wp_send_json_error( __( 'Please save a valid Google Places API Key first.', 'coloradospringstattooreview' ) );
+	}
 
+	$logs = array();
+	$logs[] = 'Querying Google Places for "tattoo shops in Colorado Springs"...';
+
+	$url = sprintf(
+		'https://maps.googleapis.com/maps/api/place/textsearch/json?query=%s&key=%s',
+		urlencode( 'tattoo shops in Colorado Springs' ),
+		urlencode( $api_key )
+	);
+
+	$response = wp_remote_get( $url );
 	if ( is_wp_error( $response ) ) {
-		return array();
+		wp_send_json_error( __( 'Failed to reach Google Places API. Check server connection.', 'coloradospringstattooreview' ) );
 	}
 
 	$body = json_decode( wp_remote_retrieve_body( $response ), true );
-	if ( empty( $body ) || ! isset( $body['reviews'] ) || ! is_array( $body['reviews'] ) ) {
-		return array();
+	if ( empty( $body ) || ! isset( $body['results'] ) || ! is_array( $body['results'] ) ) {
+		wp_send_json_error( __( 'No results returned from Google search.', 'coloradospringstattooreview' ) );
 	}
 
-	$reviews = array();
-	foreach ( $body['reviews'] as $yelp_review ) {
-		$reviews[] = array(
-			'author'   => $yelp_review['user']['name'],
-			'platform' => 'yelp',
-			'rating'   => intval( $yelp_review['rating'] ),
-			'text'     => $yelp_review['text'],
-			'date'     => date( 'Y-m-d', strtotime( $yelp_review['time_created'] ) ),
+	$results = $body['results'];
+	$imported_count = 0;
+	$skipped_count = 0;
+
+	foreach ( $results as $place ) {
+		$name     = sanitize_text_field( $place['name'] );
+		$place_id = sanitize_text_field( $place['place_id'] );
+
+		// Check if a post already exists with this Place ID
+		$existing = get_posts( array(
+			'post_type'   => 'tattoo_shops',
+			'meta_key'    => '_tattoo_shop_google_place_id',
+			'meta_value'  => $place_id,
+			'post_status' => 'any',
+		) );
+
+		if ( ! empty( $existing ) ) {
+			$logs[] = sprintf( 'Shop "%s" already exists in database. Skipping...', $name );
+			$skipped_count++;
+			continue;
+		}
+
+		// Create the new post
+		$post_id = wp_insert_post( array(
+			'post_title'   => $name,
+			'post_content' => sprintf( 'A professional tattoo studio in Colorado Springs. Real reviews aggregated from Google Places details.', $name ),
+			'post_status'  => 'publish',
+			'post_type'    => 'tattoo_shops',
+		) );
+
+		if ( is_wp_error( $post_id ) ) {
+			$logs[] = sprintf( 'Failed to create post for "%s".', $name );
+			continue;
+		}
+
+		// Save baseline Place metadata
+		update_post_meta( $post_id, '_tattoo_shop_google_place_id', $place_id );
+		update_post_meta( $post_id, '_tattoo_shop_rating', floatval( $place['rating'] ) );
+		update_post_meta( $post_id, '_tattoo_shop_address', sanitize_text_field( $place['formatted_address'] ) );
+
+		// Details lookup
+		$details_url = sprintf(
+			'https://maps.googleapis.com/maps/api/place/details/json?place_id=%s&fields=formatted_phone_number,website,opening_hours,reviews&key=%s',
+			urlencode( $place_id ),
+			urlencode( $api_key )
 		);
+
+		$details_response = wp_remote_get( $details_url );
+		if ( ! is_wp_error( $details_response ) ) {
+			$details_body = json_decode( wp_remote_retrieve_body( $details_response ), true );
+			if ( ! empty( $details_body ) && isset( $details_body['result'] ) ) {
+				$result = $details_body['result'];
+
+				if ( isset( $result['formatted_phone_number'] ) ) {
+					update_post_meta( $post_id, '_tattoo_shop_phone', sanitize_text_field( $result['formatted_phone_number'] ) );
+				}
+				if ( isset( $result['website'] ) ) {
+					update_post_meta( $post_id, '_tattoo_shop_website', esc_url_raw( $result['website'] ) );
+				}
+				if ( isset( $result['opening_hours']['weekday_text'] ) && is_array( $result['opening_hours']['weekday_text'] ) ) {
+					$hours_text = implode( "\n", $result['opening_hours']['weekday_text'] );
+					update_post_meta( $post_id, '_tattoo_shop_hours', sanitize_textarea_field( $hours_text ) );
+				}
+
+				if ( isset( $result['reviews'] ) && is_array( $result['reviews'] ) ) {
+					$google_reviews = array();
+					foreach ( $result['reviews'] as $google_review ) {
+						$google_reviews[] = array(
+							'author'   => sanitize_text_field( $google_review['author_name'] ),
+							'platform' => 'google',
+							'rating'   => intval( $google_review['rating'] ),
+							'text'     => sanitize_textarea_field( $google_review['text'] ),
+							'date'     => date( 'Y-m-d', intval( $google_review['time'] ) ),
+						);
+					}
+					update_post_meta( $post_id, '_tattoo_shop_reviews', $google_reviews );
+				}
+			}
+		}
+
+		$logs[] = sprintf( 'Imported "%s" successfully with details & reviews.', $name );
+		$imported_count++;
 	}
 
-	return $reviews;
+	wp_send_json_success( array(
+		'message' => sprintf( 'Imported %d new shops. Skipped %d duplicate shops.', $imported_count, $skipped_count ),
+		'logs'    => $logs
+	) );
 }
+add_action( 'wp_ajax_cos_bulk_import_google', 'coloradospringstattooreview_ajax_bulk_import_google' );
+
+/**
+ * AJAX Bulk Importer from CSV File
+ */
+function coloradospringstattooreview_ajax_bulk_import_csv() {
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'cos_bulk_import_nonce' ) ) {
+		wp_send_json_error( __( 'Security verification failed.', 'coloradospringstattooreview' ) );
+	}
+
+	if ( ! isset( $_FILES['csv_file'] ) ) {
+		wp_send_json_error( __( 'No CSV file uploaded.', 'coloradospringstattooreview' ) );
+	}
+
+	$file = $_FILES['csv_file']['tmp_name'];
+	if ( ! is_file( $file ) || ! is_readable( $file ) ) {
+		wp_send_json_error( __( 'CSV file is unreadable.', 'coloradospringstattooreview' ) );
+	}
+
+	$logs = array();
+	$handle = fopen( $file, 'r' );
+	if ( ! $handle ) {
+		wp_send_json_error( __( 'Failed to open CSV file.', 'coloradospringstattooreview' ) );
+	}
+
+	$headers = fgetcsv( $handle, 1000, ',' );
+	$header_map = array_flip( array_map( 'strtolower', array_map( 'trim', $headers ) ) );
+
+	if ( ! isset( $header_map['name'] ) ) {
+		fclose( $handle );
+		wp_send_json_error( __( 'Missing required CSV column: "name". Please configure the CSV file headers properly.', 'coloradospringstattooreview' ) );
+	}
+
+	$imported_count = 0;
+	$skipped_count = 0;
+	$api_key = get_option( 'cos_google_api_key', '' );
+
+	while ( ( $row = fgetcsv( $handle, 1000, ',' ) ) !== false ) {
+		$name     = isset( $header_map['name'] ) && isset( $row[ $header_map['name'] ] ) ? sanitize_text_field( trim( $row[ $header_map['name'] ] ) ) : '';
+		$address  = isset( $header_map['address'] ) && isset( $row[ $header_map['address'] ] ) ? sanitize_text_field( trim( $row[ $header_map['address'] ] ) ) : '';
+		$phone    = isset( $header_map['phone'] ) && isset( $row[ $header_map['phone'] ] ) ? sanitize_text_field( trim( $row[ $header_map['phone'] ] ) ) : '';
+		$website  = isset( $header_map['website'] ) && isset( $row[ $header_map['website'] ] ) ? esc_url_raw( trim( $row[ $header_map['website'] ] ) ) : '';
+		$rating   = isset( $header_map['rating'] ) && isset( $row[ $header_map['rating'] ] ) ? floatval( trim( $row[ $header_map['rating'] ] ) ) : 4.5;
+		$place_id = isset( $header_map['place_id'] ) && isset( $row[ $header_map['place_id'] ] ) ? sanitize_text_field( trim( $row[ $header_map['place_id'] ] ) ) : '';
+
+		if ( empty( $name ) ) {
+			continue;
+		}
+
+		$existing = get_posts( array(
+			'title'       => $name,
+			'post_type'   => 'tattoo_shops',
+			'post_status' => 'any',
+		) );
+
+		if ( ! empty( $existing ) ) {
+			$logs[] = sprintf( 'Shop "%s" already exists in database. Skipping...', $name );
+			$skipped_count++;
+			continue;
+		}
+
+		$post_id = wp_insert_post( array(
+			'post_title'   => $name,
+			'post_content' => sprintf( 'A professional tattoo studio in Colorado Springs. Imported via CSV.', $name ),
+			'post_status'  => 'publish',
+			'post_type'    => 'tattoo_shops',
+		) );
+
+		if ( is_wp_error( $post_id ) ) {
+			$logs[] = sprintf( 'Failed to import "%s".', $name );
+			continue;
+		}
+
+		update_post_meta( $post_id, '_tattoo_shop_rating', $rating );
+		update_post_meta( $post_id, '_tattoo_shop_address', $address );
+		update_post_meta( $post_id, '_tattoo_shop_phone', $phone );
+		update_post_meta( $post_id, '_tattoo_shop_website', $website );
+
+		if ( ! empty( $place_id ) ) {
+			update_post_meta( $post_id, '_tattoo_shop_google_place_id', $place_id );
+
+			if ( ! empty( $api_key ) ) {
+				$details_url = sprintf(
+					'https://maps.googleapis.com/maps/api/place/details/json?place_id=%s&fields=formatted_phone_number,website,opening_hours,reviews&key=%s',
+					urlencode( $place_id ),
+					urlencode( $api_key )
+				);
+
+				$details_response = wp_remote_get( $details_url );
+				if ( ! is_wp_error( $details_response ) ) {
+					$details_body = json_decode( wp_remote_retrieve_body( $details_response ), true );
+					if ( ! empty( $details_body ) && isset( $details_body['result'] ) ) {
+						$result = $details_body['result'];
+
+						if ( isset( $result['formatted_phone_number'] ) && empty( $phone ) ) {
+							update_post_meta( $post_id, '_tattoo_shop_phone', sanitize_text_field( $result['formatted_phone_number'] ) );
+						}
+						if ( isset( $result['website'] ) && empty( $website ) ) {
+							update_post_meta( $post_id, '_tattoo_shop_website', esc_url_raw( $result['website'] ) );
+						}
+						if ( isset( $result['opening_hours']['weekday_text'] ) ) {
+							$hours_text = implode( "\n", $result['opening_hours']['weekday_text'] );
+							update_post_meta( $post_id, '_tattoo_shop_hours', sanitize_textarea_field( $hours_text ) );
+						}
+
+						if ( isset( $result['reviews'] ) && is_array( $result['reviews'] ) ) {
+							$google_reviews = array();
+							foreach ( $result['reviews'] as $google_review ) {
+								$google_reviews[] = array(
+									'author'   => sanitize_text_field( $google_review['author_name'] ),
+									'platform' => 'google',
+									'rating'   => intval( $google_review['rating'] ),
+									'text'     => sanitize_textarea_field( $google_review['text'] ),
+									'date'     => date( 'Y-m-d', intval( $google_review['time'] ) ),
+								);
+							}
+							update_post_meta( $post_id, '_tattoo_shop_reviews', $google_reviews );
+						}
+					}
+				}
+			}
+		}
+
+		$logs[] = sprintf( 'Imported "%s" via CSV.', $name );
+		$imported_count++;
+	}
+
+	fclose( $handle );
+
+	wp_send_json_success( array(
+		'message' => sprintf( 'Imported %d shops from CSV. Skipped %d duplicate shops.', $imported_count, $skipped_count ),
+		'logs'    => $logs
+	) );
+}
+add_action( 'wp_ajax_cos_bulk_import_csv', 'coloradospringstattooreview_ajax_bulk_import_csv' );
 
 /**
  * Automatically populate dummy tattoo shops and reviews for testing.
