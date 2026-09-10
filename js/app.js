@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('data/shops.json');
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       allShops = await res.json();
+      setupDiscoveryHub();
       renderShops();
       setupMatchQuiz();
     } catch (err) {
@@ -68,9 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return matchesStyle && matchesOp && matchesVibe && matchesSearch;
     });
 
+    // Update filter indicators & active chips
+    updateFilterUI();
+
     // Update results counter
     if (resultsCount) {
-      resultsCount.textContent = `Showing ${filtered.length} of ${allShops.length} Studios`;
+      resultsCount.textContent = `Showing ${filtered.length} of ${allShops.length} Verified Studios`;
     }
 
     // Handle empty state
@@ -89,56 +93,53 @@ document.addEventListener('DOMContentLoaded', () => {
       const stylesList = Array.isArray(shop.styles) ? shop.styles.slice(0, 3) : [];
       const shopUrl = `shop.html?slug=${encodeURIComponent(shop.slug || shop.id)}`;
 
-      // Operational pills
-      const opPills = [];
+      // Unified Spec Badges
+      const specBadges = [];
+      if (shop.vibe) {
+        specBadges.push(`<span class="spec-badge spec-vibe spec-vibe-${shop.vibe.tag}">${escapeHtml(shop.vibe.label)}</span>`);
+      }
       if (shop.operational) {
         if (shop.operational.walkIns) {
-          opPills.push('<span class="op-card-pill op-walkin">🚶 Walk-Ins</span>');
+          specBadges.push('<span class="spec-badge spec-walkin">🚶 Walk-Ins Welcome</span>');
         } else {
-          opPills.push('<span class="op-card-pill op-appt">📅 Appt Only</span>');
+          specBadges.push('<span class="spec-badge spec-appt">📅 Strict Appointment</span>');
         }
         if (shop.operational.piercing) {
-          opPills.push('<span class="op-card-pill op-pierce">💎 Piercing</span>');
+          specBadges.push('<span class="spec-badge spec-pierce">💎 Piercing On-Site</span>');
         }
         if (shop.operational.coverUps) {
-          opPills.push('<span class="op-card-pill op-cover">🔄 Cover-Ups</span>');
+          specBadges.push('<span class="spec-badge spec-cover">🔄 Cover-Up Masters</span>');
         }
       }
 
-      // Studio Vibe pill
-      const vibePill = shop.vibe ? `<span class="vibe-card-pill vibe-${shop.vibe.tag}">${escapeHtml(shop.vibe.label)}</span>` : '';
-
       return `
         <article class="shop-card ${shop.featured ? 'shop-card-featured' : ''}">
+          ${shop.featured ? `
+            <div class="card-featured-ribbon">
+              <span class="ribbon-star">⭐</span>
+              <span>#1 VERIFIED HERO STUDIO IN COLORADO SPRINGS</span>
+            </div>
+          ` : ''}
           <div class="card-body">
             <header class="card-header">
               <div class="card-meta-top">
                 <div class="card-rating">
                   <span class="star-icon">★</span>
                   <span class="rating-num">${rating}</span>
-                  <span class="reviews-count">(${reviewsCount} web reviews)</span>
+                  <span class="reviews-count">(${reviewsCount} verified reviews)</span>
                 </div>
                 ${shop.priceRange ? `<span class="card-price">${escapeHtml(shop.priceRange)}</span>` : ''}
               </div>
+
               <h3 class="card-title">
                 <a href="${shopUrl}">${escapeHtml(shop.name)}</a>
               </h3>
               ${shop.tagline ? `<p class="card-tagline">${escapeHtml(shop.tagline)}</p>` : ''}
-              ${shop.aggregateSources ? `
-                <div class="card-sources-micro">
-                  <span>Google ★${shop.aggregateSources.google ? shop.aggregateSources.google.rating : '4.9'}</span>
-                  <span class="micro-sep">•</span>
-                  <span>Yelp ★${shop.aggregateSources.yelp ? shop.aggregateSources.yelp.rating : '4.8'}</span>
-                  <span class="micro-sep">•</span>
-                  <span>Facebook ★${shop.aggregateSources.facebook ? shop.aggregateSources.facebook.rating : '5.0'}</span>
-                </div>
-              ` : ''}
             </header>
 
-            ${(vibePill || opPills.length > 0) ? `
-              <div class="card-op-pills">
-                ${vibePill}
-                ${opPills.join('')}
+            ${specBadges.length > 0 ? `
+              <div class="card-specs-strip">
+                ${specBadges.join('')}
               </div>
             ` : ''}
 
@@ -159,11 +160,20 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             ` : ''}
 
-            <div class="card-footer-action">
+            <footer class="card-footer-action">
+              ${shop.aggregateSources ? `
+                <div class="card-sources-micro">
+                  <span>Google ★${shop.aggregateSources.google ? shop.aggregateSources.google.rating : '4.9'}</span>
+                  <span class="micro-sep">•</span>
+                  <span>Yelp ★${shop.aggregateSources.yelp ? shop.aggregateSources.yelp.rating : '4.8'}</span>
+                  <span class="micro-sep">•</span>
+                  <span>FB ★${shop.aggregateSources.facebook ? shop.aggregateSources.facebook.rating : '5.0'}</span>
+                </div>
+              ` : '<span></span>'}
               <a href="${shopUrl}" class="action-btn">
-                Read Full Review <span>➔</span>
+                <span>View Full Profile</span> <span class="btn-arrow">➔</span>
               </a>
-            </div>
+            </footer>
           </div>
         </article>
       `;
@@ -235,32 +245,146 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Reset Filters
-  if (resetFiltersBtn) {
-    resetFiltersBtn.addEventListener('click', () => {
-      searchTerm = '';
-      currentStyle = 'all';
-      currentOp = 'all';
-      currentVibe = 'all';
-      if (searchInput) searchInput.value = '';
-      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-      if (filtersContainer) {
-        filtersContainer.querySelectorAll('.style-badge').forEach(b => {
-          b.classList.toggle('active', b.dataset.style === 'all');
+  // 7. Update Filter Indicators & Active Filter Chips Bar
+  function updateFilterUI() {
+    // A. Tab Indicators
+    const dotStyles = document.getElementById('dot-styles');
+    const dotOperations = document.getElementById('dot-operations');
+    const dotVibes = document.getElementById('dot-vibes');
+
+    if (dotStyles) dotStyles.style.display = (currentStyle !== 'all') ? 'inline-block' : 'none';
+    if (dotOperations) dotOperations.style.display = (currentOp !== 'all') ? 'inline-block' : 'none';
+    if (dotVibes) dotVibes.style.display = (currentVibe !== 'all') ? 'inline-block' : 'none';
+
+    // B. Active Filter Chips Bar
+    const bar = document.getElementById('active-filter-bar');
+    const chipsMount = document.getElementById('active-filter-chips');
+    if (!bar || !chipsMount) return;
+
+    const activeFilters = [];
+    if (currentStyle !== 'all') {
+      activeFilters.push({ type: 'style', label: `Style: ${currentStyle}` });
+    }
+    if (currentOp !== 'all') {
+      const opLabels = {
+        walkIns: 'Walk-Ins Welcome',
+        appointmentOnly: 'Appointment Only',
+        piercing: 'Piercing Available',
+        coverUps: 'Cover-Up Specialists'
+      };
+      activeFilters.push({ type: 'op', label: opLabels[currentOp] || currentOp });
+    }
+    if (currentVibe !== 'all') {
+      const vibeLabels = {
+        sanctuary: '🌿 Quiet Sanctuary',
+        'inclusive-heritage': '🌹 Inclusive Modern',
+        'street-shop': '⚡ Street Shop',
+        'mega-shop': '🏢 Commercial Mega-Shop'
+      };
+      activeFilters.push({ type: 'vibe', label: vibeLabels[currentVibe] || currentVibe });
+    }
+    if (searchTerm) {
+      activeFilters.push({ type: 'search', label: `"${searchTerm}"` });
+    }
+
+    if (activeFilters.length > 0) {
+      chipsMount.innerHTML = activeFilters.map(f => `
+        <button type="button" class="active-chip" data-filter-type="${f.type}" title="Click to remove filter">
+          <span>${escapeHtml(f.label)}</span>
+          <span class="chip-remove">✕</span>
+        </button>
+      `).join('');
+      bar.style.display = 'flex';
+    } else {
+      chipsMount.innerHTML = '';
+      bar.style.display = 'none';
+    }
+  }
+
+  // 8. Discovery Hub Setup (Tabs & Chip Clearing)
+  function setupDiscoveryHub() {
+    const tabs = document.querySelectorAll('.hub-tab');
+    const panels = document.querySelectorAll('.hub-panel');
+    const chipsMount = document.getElementById('active-filter-chips');
+    const clearAllBtn = document.getElementById('clear-all-filters-btn');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => {
+          p.classList.remove('active');
+          p.style.display = 'none';
         });
-      }
-      if (opFiltersContainer) {
-        opFiltersContainer.querySelectorAll('.op-badge').forEach(b => {
-          b.classList.toggle('active', b.dataset.op === 'all');
-        });
-      }
-      if (vibeFiltersContainer) {
-        vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => {
-          b.classList.toggle('active', b.dataset.vibe === 'all');
-        });
-      }
-      renderShops();
+
+        tab.classList.add('active');
+        const targetPanel = document.getElementById(`panel-${tab.dataset.tab}`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+          targetPanel.style.display = 'block';
+        }
+      });
     });
+
+    if (chipsMount) {
+      chipsMount.addEventListener('click', (e) => {
+        const chip = e.target.closest('.active-chip');
+        if (!chip) return;
+        const type = chip.dataset.filterType;
+        if (type === 'style') {
+          currentStyle = 'all';
+          if (filtersContainer) {
+            filtersContainer.querySelectorAll('.style-badge').forEach(b => b.classList.toggle('active', b.dataset.style === 'all'));
+          }
+        } else if (type === 'op') {
+          currentOp = 'all';
+          if (opFiltersContainer) {
+            opFiltersContainer.querySelectorAll('.op-badge').forEach(b => b.classList.toggle('active', b.dataset.op === 'all'));
+          }
+        } else if (type === 'vibe') {
+          currentVibe = 'all';
+          if (vibeFiltersContainer) {
+            vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => b.classList.toggle('active', b.dataset.vibe === 'all'));
+          }
+        } else if (type === 'search') {
+          searchTerm = '';
+          if (searchInput) searchInput.value = '';
+          if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+        }
+        renderShops();
+      });
+    }
+
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', resetAllFilters);
+    }
+    if (resetFiltersBtn) {
+      resetFiltersBtn.addEventListener('click', resetAllFilters);
+    }
+  }
+
+  function resetAllFilters() {
+    searchTerm = '';
+    currentStyle = 'all';
+    currentOp = 'all';
+    currentVibe = 'all';
+    if (searchInput) searchInput.value = '';
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+    if (filtersContainer) {
+      filtersContainer.querySelectorAll('.style-badge').forEach(b => {
+        b.classList.toggle('active', b.dataset.style === 'all');
+      });
+    }
+    if (opFiltersContainer) {
+      opFiltersContainer.querySelectorAll('.op-badge').forEach(b => {
+        b.classList.toggle('active', b.dataset.op === 'all');
+      });
+    }
+    if (vibeFiltersContainer) {
+      vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => {
+        b.classList.toggle('active', b.dataset.vibe === 'all');
+      });
+    }
+    renderShops();
   }
 
   // 7. Interactive 30-Second Match Quiz

@@ -67,43 +67,72 @@
           </button>
         </div>
 
-        <!-- Quick Style Filter Pills -->
-        <div class="quick-filters" id="popular-styles">
-          <span class="filter-label">Popular Styles:</span>
-          <div class="filters-pills" id="filters-container">
-            <button class="style-badge active" data-style="all">All Styles</button>
-            <button class="style-badge" data-style="Traditional">Traditional</button>
-            <button class="style-badge" data-style="Neo-Traditional">Neo-Traditional</button>
-            <button class="style-badge" data-style="Fine Line">Fine Line</button>
-            <button class="style-badge" data-style="Realism">Realism</button>
-            <button class="style-badge" data-style="Black & Grey">Black & Grey</button>
-            <button class="style-badge" data-style="Custom Work">Custom Work</button>
-            <button class="style-badge" data-style="Flash">Flash</button>
-            <button class="style-badge" data-style="Piercing">Piercing</button>
+        <!-- Directory Discovery Hub (Tabbed & Streamlined) -->
+        <div class="discovery-hub" id="discovery-hub">
+          <!-- Segmented Navigation Tabs -->
+          <div class="hub-tabs" role="tablist">
+            <button class="hub-tab active" data-tab="styles" id="tab-btn-styles" type="button">
+              <span class="tab-icon">🎨</span>
+              <span class="tab-text">Tattoo Styles</span>
+              <span class="tab-dot" id="dot-styles" style="display: none;"></span>
+            </button>
+            <button class="hub-tab" data-tab="operations" id="tab-btn-operations" type="button">
+              <span class="tab-icon">⚙️</span>
+              <span class="tab-text">Booking &amp; Walk-Ins</span>
+              <span class="tab-dot" id="dot-operations" style="display: none;"></span>
+            </button>
+            <button class="hub-tab" data-tab="vibes" id="tab-btn-vibes" type="button">
+              <span class="tab-icon">🎧</span>
+              <span class="tab-text">Studio Vibe</span>
+              <span class="tab-dot" id="dot-vibes" style="display: none;"></span>
+            </button>
           </div>
-        </div>
 
-        <!-- Quick Operational Filter Pills -->
-        <div class="operational-filters" id="operational-filters">
-          <span class="filter-label">Operational Mode:</span>
-          <div class="filters-pills" id="op-filters-container">
-            <button class="op-badge active" data-op="all">All Operations</button>
-            <button class="op-badge" data-op="walkIns">🚶 Walk-Ins Welcome</button>
-            <button class="op-badge" data-op="appointmentOnly">📅 Appointment Only</button>
-            <button class="op-badge" data-op="piercing">💎 Piercing Available</button>
-            <button class="op-badge" data-op="coverUps">🔄 Cover-Up Specialists</button>
+          <!-- Hub Filter Panels -->
+          <div class="hub-panels">
+            <!-- Styles Panel -->
+            <div class="hub-panel active" id="panel-styles">
+              <div class="filters-pills" id="filters-container">
+                <button class="style-badge active" data-style="all">All Styles</button>
+                <button class="style-badge" data-style="Traditional">Traditional</button>
+                <button class="style-badge" data-style="Neo-Traditional">Neo-Traditional</button>
+                <button class="style-badge" data-style="Fine Line">Fine Line</button>
+                <button class="style-badge" data-style="Realism">Realism</button>
+                <button class="style-badge" data-style="Black &amp; Grey">Black &amp; Grey</button>
+                <button class="style-badge" data-style="Custom Work">Custom Work</button>
+                <button class="style-badge" data-style="Flash">Flash</button>
+                <button class="style-badge" data-style="Piercing">Piercing</button>
+              </div>
+            </div>
+
+            <!-- Operations Panel -->
+            <div class="hub-panel" id="panel-operations" style="display: none;">
+              <div class="filters-pills" id="op-filters-container">
+                <button class="op-badge active" data-op="all">All Operations</button>
+                <button class="op-badge" data-op="walkIns">🚶 Walk-Ins Welcome</button>
+                <button class="op-badge" data-op="appointmentOnly">📅 Strict Appointment Only</button>
+                <button class="op-badge" data-op="piercing">💎 Professional Piercing On-Site</button>
+                <button class="op-badge" data-op="coverUps">🔄 Cover-Up &amp; Rework Masters</button>
+              </div>
+            </div>
+
+            <!-- Vibes Panel -->
+            <div class="hub-panel" id="panel-vibes" style="display: none;">
+              <div class="filters-pills" id="vibe-filters-container">
+                <button class="vibe-badge active" data-vibe="all">All Atmospheres</button>
+                <button class="vibe-badge" data-vibe="sanctuary">🌿 Quiet Sanctuary (Zero Ego)</button>
+                <button class="vibe-badge" data-vibe="inclusive-heritage">🌹 Inclusive Modern Club</button>
+                <button class="vibe-badge" data-vibe="street-shop">⚡ High-Energy Street Shop</button>
+                <button class="vibe-badge" data-vibe="mega-shop">🏢 High-Volume Mega-Shop</button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Quick Studio Vibe Filter Pills -->
-        <div class="vibe-filters" id="vibe-filters">
-          <span class="filter-label">Studio Vibe:</span>
-          <div class="filters-pills" id="vibe-filters-container">
-            <button class="vibe-badge active" data-vibe="all">All Vibes</button>
-            <button class="vibe-badge" data-vibe="sanctuary">🌿 Quiet Sanctuary</button>
-            <button class="vibe-badge" data-vibe="inclusive-heritage">🌹 Inclusive &amp; Modern</button>
-            <button class="vibe-badge" data-vibe="street-shop">⚡ High-Energy Street Shop</button>
-            <button class="vibe-badge" data-vibe="mega-shop">🏢 High-Volume Mega-Shop</button>
+          <!-- Active Filter Pill Bar -->
+          <div class="active-filter-bar" id="active-filter-bar" style="display: none;">
+            <span class="active-filter-label">Applied Filters:</span>
+            <div class="active-filter-chips" id="active-filter-chips"></div>
+            <button type="button" class="btn-clear-all" id="clear-all-filters-btn">Clear All ✕</button>
           </div>
         </div>
       </div>
