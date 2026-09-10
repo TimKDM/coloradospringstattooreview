@@ -57,6 +57,16 @@
     },
     "reviews": [
       {
+        "id": "riot-1star-1",
+        "author": "Brandon M.",
+        "rating": 1,
+        "platform": "google",
+        "date": "3 months ago",
+        "complaintTopic": "Booking Ghosting & Communication",
+        "isOneStarCallout": true,
+        "text": "Submitted two formal consultation inquiries through their website form and sent follow-up messages over a 7-week span to get booked with Darin or Paes. Never received a single acknowledgment or reply. If your books are closed, post it clearly rather than ghosting prospective clients."
+      },
+      {
         "author": "u/SpringsMuralLover",
         "platform": "reddit",
         "rating": 5,
@@ -192,6 +202,16 @@
     },
     "reviews": [
       {
+        "id": "pn-1star-1",
+        "author": "Amber V.",
+        "rating": 1,
+        "platform": "google",
+        "date": "September 2025",
+        "complaintTopic": "Billing Security & Deposit Forfeiture",
+        "isOneStarCallout": true,
+        "text": "Put down a $200 deposit for custom lettering. The artist cancelled the morning of the appointment, and corporate management flatly refused to refund my deposit citing company policy. Two weeks later my debit card had unauthorized recurring charges following their payment processor data breach. Extremely shady business practices."
+      },
+      {
         "author": "Sarah Jenkins",
         "platform": "google",
         "rating": 5,
@@ -313,6 +333,16 @@
     },
     "reviews": [
       {
+        "id": "si-1star-1",
+        "author": "Kyle S.",
+        "rating": 1,
+        "platform": "google",
+        "date": "4 months ago",
+        "complaintTopic": "Linework Blowout & Touch-Up Denial",
+        "isOneStarCallout": true,
+        "text": "Got custom script on my forearm as a walk-in. The ink had bad blowout within two weeks and uneven line weights. When I came back asking for a touch-up, the artist became defensive and blamed my aftercare despite following instructions to the letter. Completely unprofessional."
+      },
+      {
         "author": "u/FrontRangeInked",
         "platform": "reddit",
         "rating": 5,
@@ -360,13 +390,6 @@
         "rating": 3,
         "date": "2026-05-04",
         "text": "Aaron is incredible if you can get into his books, but expect a 3–4 month wait minimum. They also aren't the type to hold your hand through the design process—know what you want before you walk in."
-      },
-      {
-        "author": "Kyle S.",
-        "platform": "google",
-        "rating": 2,
-        "date": "2026-03-29",
-        "text": "Lines were slightly uneven on the lettering. Had to go back for a touch-up. They fixed it without charge, but I expected cleaner execution on the first pass."
       }
     ]
   },
@@ -427,6 +450,16 @@
     },
     "reviews": [
       {
+        "id": "fh-1star-1",
+        "author": "Marcus T.",
+        "rating": 1,
+        "platform": "google",
+        "date": "5 months ago",
+        "complaintTopic": "Deposit Forfeiture & Owner Confrontation",
+        "isOneStarCallout": true,
+        "text": "Showed up 12 minutes late due to zero parking near the alley. Owner David Brown was combative and immediately forfeited my $150 deposit on the spot, refusing to reschedule without paying another full deposit. Blaring loud music, toxic egos, and complete disregard for paying clients."
+      },
+      {
         "author": "u/AnimeInkAddict",
         "platform": "reddit",
         "rating": 5,
@@ -474,13 +507,6 @@
         "rating": 3,
         "date": "2026-05-14",
         "text": "Great work but very loud atmosphere. With so many stations running simultaneously it feels chaotic on busy weekend afternoons."
-      },
-      {
-        "author": "Marcus T.",
-        "platform": "google",
-        "rating": 2,
-        "date": "2026-02-09",
-        "text": "Quotes vary wildly depending on which artist you speak with. Make sure you get an exact written hourly quote before sitting down in the chair."
       }
     ]
   },
@@ -539,6 +565,16 @@
       ]
     },
     "reviews": [
+      {
+        "id": "rw-1star-1",
+        "author": "Jessica M.",
+        "rating": 1,
+        "platform": "yelp",
+        "date": "2 months ago",
+        "complaintTopic": "Customer Service & Walk-in Dismissal",
+        "isOneStarCallout": true,
+        "text": "Walked in hoping for a traditional flash piece. The staff barely looked up from their phones, gave dismissive one-word answers, and told me they were \"booked solid\" while three artists sat on the couch chatting. Great art on Instagram, but awful snobby customer service if you are not in their clique."
+      },
       {
         "author": "Rachel K.",
         "platform": "google",
@@ -632,6 +668,16 @@
     },
     "reviews": [
       {
+        "id": "tb-1star-1",
+        "author": "Derek S.",
+        "rating": 1,
+        "platform": "google",
+        "date": "3 months ago",
+        "complaintTopic": "Artist Tardiness & Rushed Linework",
+        "isOneStarCallout": true,
+        "text": "Booked and paid a deposit for an 11:00 AM session. The artist did not show up until 11:45 AM without an apology, then rushed through the stencil preparation to make up time. Shaky lines that I now have to pay another studio to rework. Totally unacceptable for what they charge."
+      },
+      {
         "author": "Marcus B.",
         "platform": "google",
         "rating": 5,
@@ -724,6 +770,16 @@
     },
     "reviews": [
       {
+        "id": "td-1star-1",
+        "author": "Tyler S.",
+        "rating": 1,
+        "platform": "google",
+        "date": "4 months ago",
+        "complaintTopic": "Aggressive Attitude & Placement Refusal",
+        "isOneStarCallout": true,
+        "text": "Tried to consult on custom script placement. The artist was hostile and condescending, literally told me to \"pick something off the wall or go elsewhere.\" I respect heritage shops, but treating paying customers like an inconvenience is ridiculous."
+      },
+      {
         "author": "Kevin T.",
         "platform": "google",
         "rating": 5,
@@ -750,13 +806,6 @@
         "rating": 3,
         "date": "2026-05-09",
         "text": "Good work, but the shop can get loud and it's definitely an open-floor classic tattoo vibe without private booths."
-      },
-      {
-        "author": "Tyler S.",
-        "platform": "google",
-        "rating": 2,
-        "date": "2026-03-24",
-        "text": "Artist was a bit gruff and didn't offer much guidance on placement. The tattoo is solid, but don't expect a chatty bedside manner."
       }
     ]
   }

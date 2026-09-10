@@ -148,7 +148,7 @@
 
             <!-- TAB 1: Curated Editorial Consensus View -->
             <div class="reviews-view-pane active" id="view-curated-reviews">
-              <!-- Scorecard & Progress Bars -->
+              <!-- Scorecard & Multi-Platform Volume Distribution -->
               <div class="scorecard-wrapper">
                 <div class="scorecard-main">
                   <div class="big-score" id="scorecard-score">0.0</div>
@@ -156,29 +156,13 @@
                   <div class="scorecard-label" id="scorecard-total-label">Based on 0 verified reviews</div>
                 </div>
 
-                <div class="scorecard-bars">
-                  <!-- Positive Bar -->
-                  <div class="score-bar-row">
-                    <div class="bar-info">
-                      <span class="bar-name"><strong>Positive Reviews</strong> (4-5 ★)</span>
-                      <span class="bar-count" id="pos-count-text">0 reviews</span>
-                    </div>
-                    <div class="bar-track">
-                      <div class="bar-fill bar-fill-positive" id="pos-bar-fill" style="width: 0%;"></div>
-                    </div>
-                    <div class="bar-pct" id="pos-bar-pct">0%</div>
+                <div class="scorecard-breakdown-section">
+                  <div class="scorecard-breakdown-title">
+                    <span class="scorecard-title-icon">📊</span>
+                    <span>Multi-Platform Volume & Verified Ratings</span>
                   </div>
-
-                  <!-- Critical Bar -->
-                  <div class="score-bar-row">
-                    <div class="bar-info">
-                      <span class="bar-name"><strong>Critical Reviews</strong> (1-3 ★)</span>
-                      <span class="bar-count" id="crit-count-text">0 reviews</span>
-                    </div>
-                    <div class="bar-track">
-                      <div class="bar-fill bar-fill-critical" id="crit-bar-fill" style="width: 0%;"></div>
-                    </div>
-                    <div class="bar-pct" id="crit-bar-pct">0%</div>
+                  <div class="scorecard-platforms-grid" id="scorecard-platforms-mount">
+                    <!-- Injected dynamically via js/shop.js -->
                   </div>
                 </div>
               </div>
@@ -205,6 +189,16 @@
                     <h3>Critical & What to Know</h3>
                     <span class="col-counter" id="crit-col-counter">(0)</span>
                   </div>
+
+                  <!-- 1-Star Client Advisory Banner -->
+                  <div class="critical-advisory-banner" id="critical-advisory-banner" style="display: none;">
+                    <div class="advisory-icon">🚨</div>
+                    <div class="advisory-text">
+                      <strong>Client Advisory: Relevant 1-Star Feedback</strong>
+                      <p>We prioritize transparent booking. Verified 1-star web complaints regarding billing, deposit forfeitures, or service issues are featured with prominent callouts below.</p>
+                    </div>
+                  </div>
+
                   <div class="reviews-list" id="critical-reviews-container">
                     <!-- Injected via js/shop.js -->
                   </div>

@@ -23,22 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const shopDescription = document.getElementById('shop-description');
   const shopStylesList = document.getElementById('shop-styles-list');
   
-  // Scorecard Elements
+  // Scorecard & Platform Elements
   const scorecardScore = document.getElementById('scorecard-score');
   const scorecardStars = document.getElementById('scorecard-stars');
   const scorecardTotalLabel = document.getElementById('scorecard-total-label');
+  const scorecardPlatformsMount = document.getElementById('scorecard-platforms-mount');
   
-  const posCountText = document.getElementById('pos-count-text');
-  const posBarFill = document.getElementById('pos-bar-fill');
-  const posBarPct = document.getElementById('pos-bar-pct');
   const posColCounter = document.getElementById('pos-col-counter');
   const positiveReviewsContainer = document.getElementById('positive-reviews-container');
 
-  const critCountText = document.getElementById('crit-count-text');
-  const critBarFill = document.getElementById('crit-bar-fill');
-  const critBarPct = document.getElementById('crit-bar-pct');
   const critColCounter = document.getElementById('crit-col-counter');
   const criticalReviewsContainer = document.getElementById('critical-reviews-container');
+  const criticalAdvisoryBanner = document.getElementById('critical-advisory-banner');
 
   // Sidebar Elements
   const sidebarAddress = document.getElementById('sidebar-address');
@@ -194,28 +190,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Calculate Reviews Breakdown
     const positiveReviews = reviews.filter(r => Number(r.rating) >= 4);
-    const criticalReviews = reviews.filter(r => Number(r.rating) <= 3);
+    // Sort critical reviews so 1-star reviews always appear prominently at the top
+    const criticalReviews = reviews
+      .filter(r => Number(r.rating) <= 3)
+      .sort((a, b) => {
+        const a1 = (Number(a.rating) === 1 || a.isOneStarCallout) ? -1 : 0;
+        const b1 = (Number(b.rating) === 1 || b.isOneStarCallout) ? -1 : 0;
+        if (a1 !== b1) return a1 - b1;
+        return Number(a.rating) - Number(b.rating);
+      });
 
     const posCount = positiveReviews.length;
     const critCount = criticalReviews.length;
+    const oneStarCount = criticalReviews.filter(r => Number(r.rating) === 1 || !!r.isOneStarCallout).length;
 
-    const posPct = totalReviews > 0 ? Math.round((posCount / totalReviews) * 100) : 0;
-    const critPct = totalReviews > 0 ? Math.round((critCount / totalReviews) * 100) : 0;
-
-    // Scorecard UI
+    // Scorecard UI (Truthful aggregate web numbers, no sample percentages)
     scorecardScore.textContent = formattedRating;
     scorecardStars.textContent = getStarsString(Number(shop.rating || 0));
-    scorecardTotalLabel.textContent = `Based on ${webTotal} customer reviews aggregated across Google, Yelp, and Facebook`;
+    scorecardTotalLabel.textContent = `Based on ${webTotal} customer reviews across Google, Yelp, and Facebook`;
 
-    posCountText.textContent = `${posCount} sampled review${posCount === 1 ? '' : 's'}`;
-    posBarPct.textContent = `${posPct}%`;
-    posBarFill.style.width = `${posPct}%`;
     posColCounter.textContent = `(${posCount})`;
-
-    critCountText.textContent = `${critCount} sampled review${critCount === 1 ? '' : 's'}`;
-    critBarPct.textContent = `${critPct}%`;
-    critBarFill.style.width = `${critPct}%`;
     critColCounter.textContent = `(${critCount})`;
+
+    // Render Multi-Platform Breakdown in Scorecard
+    renderScorecardPlatforms(shop);
+
+    // Toggle 1-Star Client Advisory Banner
+    if (criticalAdvisoryBanner) {
+      if (oneStarCount > 0) {
+        criticalAdvisoryBanner.style.display = 'flex';
+      } else {
+        criticalAdvisoryBanner.style.display = 'none';
+      }
+    }
 
     // Render Review Cards
     renderReviewCards(positiveReviews, positiveReviewsContainer, 'positive');
@@ -223,6 +230,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Live vs Curated Tab Switching (Option C)
     setupReviewTabs(shop);
+  }
+
+  function renderScorecardPlatforms(shop) {
+    if (!scorecardPlatformsMount) return;
+
+    const sources = shop.aggregateSources || {};
+    const platformKeys = Object.keys(sources);
+
+    if (platformKeys.length === 0) {
+      scorecardPlatformsMount.innerHTML = `<p class="text-muted">No external platforms linked yet.</p>`;
+      return;
+    }
+
+    const platformIcons = {
+      google: '🗺️',
+      yelp: '🔴',
+      facebook: '👍',
+      reddit: '💬'
+    };
+
+    scorecardPlatformsMount.innerHTML = platformKeys.map(key => {
+      const src = sources[key];
+      const icon = platformIcons[key] || '⭐';
+      const rating = Number(src.rating || 0).toFixed(1);
+      const count = Number(src.count || 0).toLocaleString();
+      return `
+        <div class="platform-metric-card platform-metric-${key}">
+          <div class="platform-metric-header">
+            <span class="platform-metric-icon">${icon}</span>
+            <span class="platform-metric-name">${escapeHtml(src.name)}</span>
+          </div>
+          <div class="platform-metric-body">
+            <span class="platform-metric-score">${rating} ★</span>
+            <span class="platform-metric-count">${count} verified reviews</span>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   function renderReviewCards(reviewsList, container, type) {
@@ -240,13 +285,34 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = reviewsList.map(r => {
       const platform = (r.platform || 'direct').toLowerCase();
       const platformLabel = formatPlatform(platform);
-      const starsStr = '★'.repeat(Number(r.rating || 5)) + '☆'.repeat(5 - Number(r.rating || 5));
+      const ratingNum = Number(r.rating || 5);
+      const starsStr = '★'.repeat(ratingNum) + '☆'.repeat(5 - ratingNum);
+      const isOneStar = ratingNum === 1 || !!r.isOneStarCallout;
+
+      const oneStarClass = isOneStar ? 'review-card-1star' : '';
+      const avatarClass = isOneStar ? 'avatar-1star' : '';
+      const starsClass = isOneStar ? 'stars-1star' : '';
+
+      const oneStarBadge = isOneStar ? `
+        <div class="card-1star-callout-badge">
+          <span class="badge-icon">🚨</span>
+          <span class="badge-text">1-Star Critical Callout</span>
+        </div>
+      ` : '';
+
+      const complaintTopicHtml = (isOneStar && r.complaintTopic) ? `
+        <div class="review-complaint-topic">
+          <span class="topic-label">Core Complaint:</span>
+          <span class="topic-tag">${escapeHtml(r.complaintTopic)}</span>
+        </div>
+      ` : '';
 
       return `
-        <article class="review-card card-${type}">
+        <article class="review-card card-${type} ${oneStarClass}">
+          ${oneStarBadge}
           <header class="review-card-header">
             <div class="review-author-wrap">
-              <span class="review-avatar">${escapeHtml(r.author ? r.author.charAt(0).toUpperCase() : 'C')}</span>
+              <span class="review-avatar ${avatarClass}">${escapeHtml(r.author ? r.author.charAt(0).toUpperCase() : 'C')}</span>
               <div>
                 <strong class="review-author">${escapeHtml(r.author || 'Anonymous Client')}</strong>
                 <span class="review-date">${escapeHtml(r.date || 'Recent')}</span>
@@ -256,8 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
           </header>
 
           <div class="review-stars-row" title="${r.rating} Stars">
-            ${starsStr}
+            <span class="${starsClass}">${starsStr}</span>
+            ${isOneStar ? '<span class="stars-label-1star">(1.0 Critical)</span>' : ''}
           </div>
+
+          ${complaintTopicHtml}
 
           <div class="review-text">
             <p>"${escapeHtml(r.text || '')}"</p>
