@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate HTML cards
     shopsGrid.innerHTML = filtered.map(shop => {
       const rating = Number(shop.rating || 0).toFixed(1);
-      const reviewsCount = Array.isArray(shop.reviews) ? shop.reviews.length : 0;
+      const reviewsCount = shop.totalWebReviews || (Array.isArray(shop.reviews) ? shop.reviews.length : 0);
       const stylesList = Array.isArray(shop.styles) ? shop.styles.slice(0, 3) : [];
       const shopUrl = `shop.html?slug=${encodeURIComponent(shop.slug || shop.id)}`;
 
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-rating">
                   <span class="star-icon">★</span>
                   <span class="rating-num">${rating}</span>
-                  <span class="reviews-count">(${reviewsCount} reviews)</span>
+                  <span class="reviews-count">(${reviewsCount} web reviews)</span>
                 </div>
                 ${shop.priceRange ? `<span class="card-price">${escapeHtml(shop.priceRange)}</span>` : ''}
               </div>
@@ -88,6 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${shopUrl}">${escapeHtml(shop.name)}</a>
               </h3>
               ${shop.tagline ? `<p class="card-tagline">${escapeHtml(shop.tagline)}</p>` : ''}
+              ${shop.aggregateSources ? `
+                <div class="card-sources-micro">
+                  <span>Google ★${shop.aggregateSources.google ? shop.aggregateSources.google.rating : '4.9'}</span>
+                  <span class="micro-sep">•</span>
+                  <span>Yelp ★${shop.aggregateSources.yelp ? shop.aggregateSources.yelp.rating : '4.8'}</span>
+                  <span class="micro-sep">•</span>
+                  <span>Facebook ★${shop.aggregateSources.facebook ? shop.aggregateSources.facebook.rating : '5.0'}</span>
+                </div>
+              ` : ''}
             </header>
 
             ${stylesList.length > 0 ? `

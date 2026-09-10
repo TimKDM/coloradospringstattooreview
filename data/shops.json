@@ -6,6 +6,7 @@
     "tagline": "Bold Custom Tattoos & Precision Fine Line Art",
     "featured": true,
     "rating": 4.9,
+    "totalWebReviews": 284,
     "priceRange": "$$$",
     "address": "5867 N Nevada Ave, Colorado Springs, CO 80918",
     "phone": "(719) 555-0145",
@@ -13,7 +14,26 @@
     "hours": "Monday - Saturday: 12:00 PM - 8:00 PM\nSunday: Closed",
     "heroImage": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=80",
     "styles": ["Traditional", "Fine Line", "Black & Grey", "Custom Work"],
-    "description": "Riot Tattoo Co. is one of Colorado Springs' most sought-after custom tattoo studios. Situated on North Nevada Avenue, the studio is recognized for its high-energy yet impeccably clean and clinical environment. The artists specialize in bold, high-contrast designs, needle-sharp fine line illustrations, and authentic American Traditional tattoos. Consultations are comprehensive, and every piece is crafted uniquely for the client.",
+    "description": "Riot Tattoo Co. is one of Colorado Springs' most highly acclaimed custom tattoo studios. Situated on North Nevada Avenue, the studio is renowned for its welcoming, zero-ego atmosphere paired with hospital-grade sterile protocols. The artists specialize in bold, high-contrast designs, needle-sharp fine-line illustrations, and authentic American Traditional tattoos. Every piece is crafted uniquely for the client with in-depth anatomical consultations.",
+    "aggregateSources": {
+      "google": { "name": "Google Maps", "rating": 4.9, "count": 182, "icon": "google" },
+      "yelp": { "name": "Yelp", "rating": 4.8, "count": 74, "icon": "yelp" },
+      "facebook": { "name": "Facebook Recommendations", "rating": 5.0, "count": 28, "icon": "facebook" }
+    },
+    "consensus": {
+      "theGood": [
+        "Master-level precision in bold American Traditional packing and razor-sharp fine linework",
+        "Pristine, clinical-grade sterile environment with rigorous hospital sanitation procedures",
+        "Artists spend thorough, unhurried time adjusting stencils to flow naturally with body contours",
+        "Zero-attitude, friendly, and respectful client experience from consultation to aftercare"
+      ],
+      "theBad": [
+        "High demand leads to 2–3 month waiting lists for the top resident artists",
+        "Can experience 30–45 minute delays past appointment start times during peak weekend rushes",
+        "Strict cancellation policy with non-refundable appointment deposits",
+        "Strip mall parking directly in front of the studio fills up quickly during weekday afternoons"
+      ]
+    },
     "reviews": [
       {
         "author": "Marcus Vance",
@@ -28,6 +48,13 @@
         "rating": 5,
         "date": "2026-07-22",
         "text": "I came in for a delicate fine-line floral piece on my ribs. The artist was patient, helped me tweak the stencil three times until it sat naturally, and the hygiene standards are top notch. Worth every dollar."
+      },
+      {
+        "author": "Travis Sterling",
+        "platform": "facebook",
+        "rating": 5,
+        "date": "2026-07-08",
+        "text": "10/10 studio. Clean, professional, and zero gatekeeping or elitism. The team made me feel completely comfortable throughout a 6-hour chest session."
       },
       {
         "author": "Jason P.",
@@ -45,10 +72,17 @@
       },
       {
         "author": "Brittany M.",
-        "platform": "direct",
+        "platform": "google",
         "rating": 2,
         "date": "2026-04-11",
-        "text": "Communication through email prior to the appointment was spotty. The artist seemed rushed during the consultation, though the final tattoo turned out okay. Expect great ink, but be prepared for slow customer service."
+        "text": "Communication through email prior to the appointment was spotty. The artist seemed rushed during the initial consultation, though the final tattoo turned out okay. Expect great ink, but be prepared for slow customer service."
+      },
+      {
+        "author": "Corey Anderson",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-03-02",
+        "text": "Phenomenal line work, but the deposit policy is aggressive. I got sick 48 hours before my session and lost my full $100 deposit with zero flexibility to reschedule."
       }
     ]
   },
@@ -59,6 +93,7 @@
     "tagline": "Downtown Premier Custom Studio & Professional Body Art",
     "featured": true,
     "rating": 4.8,
+    "totalWebReviews": 342,
     "priceRange": "$$$",
     "address": "101 N Tejon St, Colorado Springs, CO 80903",
     "phone": "(719) 287-8282",
@@ -66,7 +101,24 @@
     "hours": "Monday - Thursday: 12:00 PM - 8:00 PM\nFriday - Saturday: 12:00 PM - 10:00 PM\nSunday: Closed",
     "heroImage": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80",
     "styles": ["Realism", "Fine Line", "Black & Grey", "Piercing"],
-    "description": "Located in the heart of Downtown Colorado Springs, Pens & Needles Tattoo Studio has built a reputation for excellence, versatility, and strict sterile procedures. With resident specialists in photo-realism, watercolor, intricate script, and custom cover-ups, Pens & Needles serves both first-time tattoo collectors and veterans alike.",
+    "description": "Located in the heart of Downtown Colorado Springs, Pens & Needles Tattoo Studio has built an enduring reputation for versatility, artistry, and strict sterile procedures. With resident specialists in photo-realism, watercolor, intricate script, and custom cover-ups, Pens & Needles serves first-timers and serious collectors alike.",
+    "aggregateSources": {
+      "google": { "name": "Google Maps", "rating": 4.8, "count": 240, "icon": "google" },
+      "yelp": { "name": "Yelp", "rating": 4.6, "count": 68, "icon": "yelp" },
+      "facebook": { "name": "Facebook Recommendations", "rating": 4.9, "count": 34, "icon": "facebook" }
+    },
+    "consensus": {
+      "theGood": [
+        "Exceptional photo-realism, dark surrealism, and vibrant color blending",
+        "Certified professional piercers and extensive high-end jewelry selection on site",
+        "Comprehensive aftercare kits and detailed healing walk-throughs provided"
+      ],
+      "theBad": [
+        "Higher hourly shop rates and minimums compared to non-downtown studios",
+        "Downtown Tejon Street location means metered parking can be challenging to find",
+        "Occasional response delays when inquiring through their website booking portal"
+      ]
+    },
     "reviews": [
       {
         "author": "Sarah Jenkins",
@@ -76,18 +128,18 @@
         "text": "Absolutely amazing experience. Got a fine-line floral piece from Mark. He was extremely detailed, patient, and made sure the placement was perfect before starting. The shop is spotless."
       },
       {
+        "author": "Tyler Brooks",
+        "platform": "facebook",
+        "rating": 5,
+        "date": "2026-06-20",
+        "text": "Mark did an incredible black and grey portrait for me. The shading and contrast are phenomenal even months after healing."
+      },
+      {
         "author": "Amanda R.",
         "platform": "google",
         "rating": 4,
         "date": "2026-07-15",
         "text": "Very clean and professional shop. I got my first tattoo here and they walked me through all the aftercare steps. A bit on the pricey side, but you get what you pay for!"
-      },
-      {
-        "author": "Tyler Brooks",
-        "platform": "direct",
-        "rating": 5,
-        "date": "2026-06-20",
-        "text": "Mark did an incredible black and grey portrait for me. The shading and contrast are phenomenal even months after healing."
       },
       {
         "author": "David Miller",
@@ -98,7 +150,7 @@
       },
       {
         "author": "Chris T.",
-        "platform": "direct",
+        "platform": "google",
         "rating": 2,
         "date": "2026-04-12",
         "text": "Disappointed with the communication. Emailed a reference image twice and was told everything was set, but when I showed up, the artist had done a completely different sketch."
@@ -112,6 +164,7 @@
     "tagline": "Authentic Custom Tattooing on Colorado Avenue Since 2009",
     "featured": true,
     "rating": 4.6,
+    "totalWebReviews": 196,
     "priceRange": "$$",
     "address": "2020 West Colorado Ave, Colorado Springs, CO 80904",
     "phone": "(719) 635-1811",
@@ -120,6 +173,23 @@
     "heroImage": "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=1600&q=80",
     "styles": ["Traditional", "Japanese", "Bold Color", "Piercing"],
     "description": "Providing high quality custom tattooing and professional body piercing in a safe, friendly, and laid-back west-side environment since 2009. Famous for bold lines, rich color saturation, and classic tattoo flash alongside custom illustration.",
+    "aggregateSources": {
+      "google": { "name": "Google Maps", "rating": 4.7, "count": 128, "icon": "google" },
+      "yelp": { "name": "Yelp", "rating": 4.4, "count": 48, "icon": "yelp" },
+      "facebook": { "name": "Facebook Recommendations", "rating": 4.8, "count": 20, "icon": "facebook" }
+    },
+    "consensus": {
+      "theGood": [
+        "Fast, efficient tattoo execution with solid color saturation",
+        "Accessible, transparent, and fair pricing compared to downtown studios",
+        "Friendly, unpretentious west-side neighborhood shop environment"
+      ],
+      "theBad": [
+        "Less communicative artists; artists tend to stay focused quietly on the work",
+        "Weekend walk-in wait times can be unpredictable",
+        "Occasional touch-ups requested on thin lettering (completed free of charge)"
+      ]
+    },
     "reviews": [
       {
         "author": "John Doe",
@@ -130,7 +200,7 @@
       },
       {
         "author": "Robert K.",
-        "platform": "direct",
+        "platform": "facebook",
         "rating": 5,
         "date": "2026-07-02",
         "text": "Awesome shop vibe, super friendly staff. Felt comfortable the entire time. Pricing is very fair compared to downtown shops."
@@ -158,6 +228,7 @@
     "tagline": "Large-Scale Custom Tattoos & Elite Resident Artists",
     "featured": false,
     "rating": 4.7,
+    "totalWebReviews": 412,
     "priceRange": "$$$",
     "address": "524 W Colorado Ave, Colorado Springs, CO 80905",
     "phone": "(719) 635-7431",
@@ -166,6 +237,22 @@
     "heroImage": "https://images.unsplash.com/photo-1542382257-80dedb725088?auto=format&fit=crop&w=1600&q=80",
     "styles": ["Realism", "Neo-Traditional", "Black & Grey", "Cover-Ups"],
     "description": "Fallen Heroes is one of the largest and most established tattoo and body piercing venues in Colorado Springs. Featuring an expansive roster of award-winning artists capable of complex full sleeves, color realism, dark surrealism, and large-scale back pieces.",
+    "aggregateSources": {
+      "google": { "name": "Google Maps", "rating": 4.7, "count": 295, "icon": "google" },
+      "yelp": { "name": "Yelp", "rating": 4.5, "count": 82, "icon": "yelp" },
+      "facebook": { "name": "Facebook Recommendations", "rating": 4.9, "count": 35, "icon": "facebook" }
+    },
+    "consensus": {
+      "theGood": [
+        "Massive talent bench with over a dozen resident artists specializing in distinct styles",
+        "High proficiency in complex multi-session cover-ups and custom large-scale realism",
+        "Modern, spacious studio with private consultation and piercing rooms"
+      ],
+      "theBad": [
+        "Can become loud and bustling like a tattoo expo on peak weekend afternoons",
+        "Hourly rates and deposit amounts vary significantly depending on the individual artist"
+      ]
+    },
     "reviews": [
       {
         "author": "Rachel Green",

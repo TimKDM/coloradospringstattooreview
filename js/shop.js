@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     shopTitle.textContent = shop.name;
     shopTagline.textContent = shop.tagline || '';
     shopRating.textContent = formattedRating;
-    shopReviewsCountBadge.textContent = `(${totalReviews} Reviews)`;
+    const webTotal = shop.totalWebReviews || totalReviews;
+    shopReviewsCountBadge.textContent = `(${webTotal} Total Web Reviews)`;
     shopPrice.textContent = shop.priceRange || '$$$';
 
     if (shop.address) {
@@ -100,9 +101,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (shop.heroImage && shopHero) {
-      shopHero.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('${shop.heroImage}')`;
+      shopHero.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.9)), url('${shop.heroImage}')`;
       shopHero.style.backgroundSize = 'cover';
       shopHero.style.backgroundPosition = 'center';
+    }
+
+    // Render Multi-Platform Source Chips
+    const platformSourcesBar = document.getElementById('platform-sources-bar');
+    if (platformSourcesBar && shop.aggregateSources) {
+      const chipsHtml = Object.entries(shop.aggregateSources).map(([key, src]) => {
+        return `
+          <div class="platform-source-chip chip-${key}">
+            <span class="chip-platform-name">${escapeHtml(src.name)}</span>
+            <span class="chip-rating">★ ${Number(src.rating).toFixed(1)}</span>
+            <span class="chip-count">(${src.count} reviews)</span>
+          </div>
+        `;
+      }).join('');
+
+      platformSourcesBar.innerHTML = `
+        <span class="sources-label">Aggregated Across the Web:</span>
+        <div class="sources-chips-list">${chipsHtml}</div>
+      `;
     }
 
     // 3. About Section
@@ -114,6 +134,33 @@ document.addEventListener('DOMContentLoaded', () => {
         .join('');
     } else {
       shopStylesList.innerHTML = '<span class="text-muted">Styles not specified</span>';
+    }
+
+    // Render The Good & The Bad Consensus
+    const consensusGoodList = document.getElementById('consensus-good-list');
+    const consensusBadList = document.getElementById('consensus-bad-list');
+    const consensusSection = document.getElementById('consensus-section');
+
+    if (shop.consensus) {
+      if (consensusGoodList && Array.isArray(shop.consensus.theGood)) {
+        consensusGoodList.innerHTML = shop.consensus.theGood.map(item => `
+          <li class="consensus-item item-good">
+            <span class="bullet-icon">✔</span>
+            <span>${escapeHtml(item)}</span>
+          </li>
+        `).join('');
+      }
+
+      if (consensusBadList && Array.isArray(shop.consensus.theBad)) {
+        consensusBadList.innerHTML = shop.consensus.theBad.map(item => `
+          <li class="consensus-item item-bad">
+            <span class="bullet-icon">⚠</span>
+            <span>${escapeHtml(item)}</span>
+          </li>
+        `).join('');
+      }
+    } else if (consensusSection) {
+      consensusSection.style.display = 'none';
     }
 
     // 4. Sidebar Section
@@ -158,14 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scorecard UI
     scorecardScore.textContent = formattedRating;
     scorecardStars.textContent = getStarsString(Number(shop.rating || 0));
-    scorecardTotalLabel.textContent = `Based on ${totalReviews} customer reviews`;
+    scorecardTotalLabel.textContent = `Based on ${webTotal} customer reviews aggregated across Google, Yelp, and Facebook`;
 
-    posCountText.textContent = `${posCount} review${posCount === 1 ? '' : 's'}`;
+    posCountText.textContent = `${posCount} sampled review${posCount === 1 ? '' : 's'}`;
     posBarPct.textContent = `${posPct}%`;
     posBarFill.style.width = `${posPct}%`;
     posColCounter.textContent = `(${posCount})`;
 
-    critCountText.textContent = `${critCount} review${critCount === 1 ? '' : 's'}`;
+    critCountText.textContent = `${critCount} sampled review${critCount === 1 ? '' : 's'}`;
     critBarPct.textContent = `${critPct}%`;
     critBarFill.style.width = `${critPct}%`;
     critColCounter.textContent = `(${critCount})`;

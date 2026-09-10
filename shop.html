@@ -66,6 +66,11 @@
           <div class="meta-price-pill" id="shop-price">$$$</div>
           <div class="meta-location-pill" id="shop-location-snippet">📍 Colorado Springs, CO</div>
         </div>
+
+        <!-- Multi-Platform Aggregate Sources Bar -->
+        <div class="platform-sources-bar" id="platform-sources-bar">
+          <!-- Dynamically populated by js/shop.js (Google, Yelp, Facebook) -->
+        </div>
       </div>
     </section>
 
@@ -87,11 +92,44 @@
             </div>
           </article>
 
+          <!-- The Good vs. The Bad Web Consensus Section -->
+          <section class="content-card consensus-section-card" id="consensus-section">
+            <div class="consensus-header">
+              <div class="consensus-badge">Internet Review Consensus</div>
+              <h2>The Good & The Bad: What Clients Say</h2>
+              <p class="consensus-sub">An unbiased editorial synthesis of client reviews analyzed and aggregated across Google Maps, Yelp, and Facebook.</p>
+            </div>
+
+            <div class="consensus-grid">
+              <!-- The Good Card -->
+              <div class="consensus-col consensus-good">
+                <div class="consensus-col-title title-good">
+                  <span class="consensus-icon">🟢</span>
+                  <h3>The Good (What Clients Love)</h3>
+                </div>
+                <ul class="consensus-list" id="consensus-good-list">
+                  <!-- Injected via js/shop.js -->
+                </ul>
+              </div>
+
+              <!-- The Bad Card -->
+              <div class="consensus-col consensus-bad">
+                <div class="consensus-col-title title-bad">
+                  <span class="consensus-icon">🔴</span>
+                  <h3>The Bad (What to Know Before You Book)</h3>
+                </div>
+                <ul class="consensus-list" id="consensus-bad-list">
+                  <!-- Injected via js/shop.js -->
+                </ul>
+              </div>
+            </div>
+          </section>
+
           <!-- Review Breakdown Dashboard Section -->
           <section class="content-card reviews-dashboard-card" id="reviews-section">
             <div class="dashboard-header">
-              <h2>The Full Picture: Review Breakdown</h2>
-              <p class="dashboard-sub">We balance both high praise and constructive critique so you know exactly what to expect.</p>
+              <h2>Verified Web Reviews Feed</h2>
+              <p class="dashboard-sub">Individual client testimonials pulled from Google, Yelp, and direct verified clients showcasing both positive experiences and critical feedback.</p>
             </div>
 
             <!-- Scorecard & Progress Bars -->

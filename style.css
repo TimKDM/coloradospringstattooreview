@@ -1246,6 +1246,200 @@ img {
   text-align: center;
 }
 
+/* --- Multi-Platform Sources Bar --- */
+.platform-sources-bar {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sources-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #cbd5e1;
+}
+
+.sources-chips-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.platform-source-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.82rem;
+  color: #ffffff;
+}
+
+.platform-source-chip .chip-platform-name {
+  font-weight: 700;
+}
+
+.platform-source-chip .chip-rating {
+  color: var(--color-star);
+  font-weight: 800;
+}
+
+.platform-source-chip .chip-count {
+  font-size: 0.74rem;
+  opacity: 0.8;
+}
+
+.chip-google {
+  border-left: 3px solid #4285f4;
+}
+
+.chip-yelp {
+  border-left: 3px solid #d32323;
+}
+
+.chip-facebook {
+  border-left: 3px solid #1877f2;
+}
+
+/* Micro sources on homepage cards */
+.card-sources-micro {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.micro-sep {
+  opacity: 0.4;
+}
+
+/* --- The Good & The Bad Consensus Section --- */
+.consensus-section-card {
+  padding: 34px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+}
+
+.consensus-header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.consensus-badge {
+  display: inline-block;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: var(--border-radius-pill);
+  margin-bottom: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.consensus-header h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.consensus-sub {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.consensus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.consensus-col {
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.consensus-good {
+  background-color: var(--color-positive-bg);
+  border-color: var(--color-positive-border);
+}
+
+.consensus-bad {
+  background-color: var(--color-critical-bg);
+  border-color: var(--color-critical-border);
+}
+
+.consensus-col-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.consensus-col-title h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.title-good h3 {
+  color: var(--color-positive);
+}
+
+.title-bad h3 {
+  color: var(--color-critical);
+}
+
+.consensus-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.consensus-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.consensus-item .bullet-icon {
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.item-good .bullet-icon {
+  color: var(--color-positive);
+}
+
+.item-bad .bullet-icon {
+  color: var(--color-critical);
+}
+
 /* --- Responsive Media Queries --- */
 @media (max-width: 992px) {
   .shop-layout-grid {
