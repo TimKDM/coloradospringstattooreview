@@ -280,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'google': return 'Google Review';
       case 'yelp': return 'Yelp Review';
       case 'facebook': return 'Facebook';
+      case 'reddit': return 'Reddit Community';
       case 'direct': return 'Direct Client';
       default: return 'Verified Review';
     }

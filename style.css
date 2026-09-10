@@ -1052,6 +1052,11 @@ img {
   color: #1877f2;
 }
 
+.platform-reddit {
+  background-color: rgba(255, 69, 0, 0.12);
+  color: #ff4500;
+}
+
 .review-stars-row {
   color: var(--color-star);
   font-size: 0.92rem;
@@ -1306,6 +1311,10 @@ img {
 
 .chip-facebook {
   border-left: 3px solid #1877f2;
+}
+
+.chip-reddit {
+  border-left: 3px solid #ff4500;
 }
 
 /* Micro sources on homepage cards */

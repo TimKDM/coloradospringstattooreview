@@ -19,7 +19,7 @@
       "Black & Grey",
       "Custom Work"
     ],
-    "description": "Riot Tattoo Co. is one of Colorado Springs' most highly acclaimed custom tattoo studios. Situated on North Nevada Avenue, the studio is renowned for its welcoming, zero-ego atmosphere paired with hospital-grade sterile protocols. The artists specialize in bold, high-contrast designs, needle-sharp fine-line illustrations, and authentic American Traditional tattoos. Every piece is crafted uniquely for the client with in-depth anatomical consultations.",
+    "description": "Riot Tattoo Co. (operating as Riot Gallery Tattoo) is one of Colorado Springs' premier custom tattoo studios, located on North Nevada Avenue at the Pikes Peak Harley-Davidson complex. Renowned for a private, zero-attitude setting and hospital-grade sterile protocols, resident artists including veteran Darin Newhouse specialize in bold high-contrast illustrations, razor-sharp fine linework, and dark surrealism. Every piece is crafted uniquely with dedicated anatomical stencil consultations.",
     "aggregateSources": {
       "google": {
         "name": "Google Maps",
@@ -35,32 +35,39 @@
       },
       "facebook": {
         "name": "Facebook Recommendations",
-        "rating": 5,
+        "rating": 5.0,
         "count": 28,
         "icon": "facebook"
       }
     },
     "consensus": {
       "theGood": [
-        "Master-level precision in bold American Traditional packing and razor-sharp fine linework",
-        "Pristine, clinical-grade sterile environment with rigorous hospital sanitation procedures",
-        "Artists spend thorough, unhurried time adjusting stencils to flow naturally with body contours",
-        "Zero-attitude, friendly, and respectful client experience from consultation to aftercare"
+        "Master-level precision in bold American Traditional packing, high-contrast black & grey, and razor-sharp fine lines",
+        "Veteran artist Darin Newhouse brings decades of convention-level artistry in comic, horror, and custom realism",
+        "Pristine, clinical-grade sterile environment with a private, zero-attitude studio vibe away from downtown chaos",
+        "Artists spend dedicated, unhurried time adjusting stencils to flow naturally with body anatomy"
       ],
       "theBad": [
-        "High demand leads to 2–3 month waiting lists for the top resident artists",
-        "Can experience 30–45 minute delays past appointment start times during peak weekend rushes",
+        "Niche location inside the Pikes Peak Harley dealership on North Nevada makes casual walk-in discovery limited",
+        "High demand leads to 2–3 month waiting lists for top resident artists",
         "Strict cancellation policy with non-refundable appointment deposits",
-        "Strip mall parking directly in front of the studio fills up quickly during weekday afternoons"
+        "Can experience 30–45 minute delays past appointment start times during peak weekend rushes"
       ]
     },
     "reviews": [
       {
-        "author": "Marcus Vance",
+        "author": "Derrick M.",
         "platform": "google",
         "rating": 5,
-        "date": "2026-08-14",
-        "text": "Best tattoo experience I've had in Colorado. Got a full Japanese traditional forearm sleeve started here. The line work is razor sharp, solid black packing, and the healing process was completely seamless. Highly recommended!"
+        "date": "2026-08-18",
+        "text": "Got tattooed by Darin at Riot Gallery. Unbelievable precision. He was super attentive to the placement and the shop inside Pikes Peak Harley is spotless. Best tattoo in Colorado Springs hands down."
+      },
+      {
+        "author": "u/SpringsInkEnthusiast",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-07-30",
+        "text": "If you want custom dark realism or comic ink without the downtown shop circus, go see Darin at Riot Gallery. The shop inside Harley is super chill and the work is world-class."
       },
       {
         "author": "Elena Rostova",
@@ -77,6 +84,13 @@
         "text": "10/10 studio. Clean, professional, and zero gatekeeping or elitism. The team made me feel completely comfortable throughout a 6-hour chest session."
       },
       {
+        "author": "Samantha L.",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-05-30",
+        "text": "Clean setup, awesome music, and very gentle hands. My botanical sternum piece healed like a dream. Highly recommend booking well in advance!"
+      },
+      {
         "author": "Jason P.",
         "platform": "google",
         "rating": 5,
@@ -91,6 +105,13 @@
         "text": "The tattoo artistry is incredible—definitely 5 stars on the finished ink. However, booking is difficult and they run behind schedule. I waited almost 40 minutes past my appointment time before we got seated in the chair."
       },
       {
+        "author": "u/MountainCollector",
+        "platform": "reddit",
+        "rating": 3,
+        "date": "2026-04-25",
+        "text": "Darin and the team are master tattooers, but keep in mind this is an appointment-only custom setup tucked inside the motorcycle dealership. Don't expect to just walk in off the street."
+      },
+      {
         "author": "Brittany M.",
         "platform": "google",
         "rating": 2,
@@ -103,34 +124,6 @@
         "rating": 3,
         "date": "2026-03-02",
         "text": "Phenomenal line work, but the deposit policy is aggressive. I got sick 48 hours before my session and lost my full $100 deposit with zero flexibility to reschedule."
-      },
-      {
-        "author": "Derrick M.",
-        "platform": "google",
-        "rating": 5,
-        "date": "2026-08-18",
-        "text": "Got tattooed by Darin at Riot Gallery. Unbelievable precision. He was super attentive to the placement and the shop inside Pikes Peak Harley is spotless. Best tattoo in Colorado Springs hands down."
-      },
-      {
-        "author": "Kelsey W.",
-        "platform": "yelp",
-        "rating": 5,
-        "date": "2026-07-29",
-        "text": "Amazing vibe and phenomenal fine-line detail. The artists are true professionals who make you feel completely welcome. No attitude whatsoever."
-      },
-      {
-        "author": "Brandon T.",
-        "platform": "yelp",
-        "rating": 3,
-        "date": "2026-06-14",
-        "text": "The artwork is top tier, 5 stars on quality. Giving 3 stars because booking communication was really slow and we started 35 minutes late. Incredible artist though."
-      },
-      {
-        "author": "Samantha L.",
-        "platform": "google",
-        "rating": 5,
-        "date": "2026-05-30",
-        "text": "Clean setup, awesome music, and very gentle hands. My botanical sternum piece healed like a dream. Highly recommend booking well in advance!"
       }
     ]
   },
@@ -154,7 +147,7 @@
       "Black & Grey",
       "Piercing"
     ],
-    "description": "Located in the heart of Downtown Colorado Springs, Pens & Needles Tattoo Studio has built an enduring reputation for versatility, artistry, and strict sterile procedures. With resident specialists in photo-realism, watercolor, intricate script, and custom cover-ups, Pens & Needles serves first-timers and serious collectors alike.",
+    "description": "Located in the heart of Downtown Colorado Springs on Tejon Street, Pens & Needles Tattoo Studio built an enduring reputation for sterile excellence, top apprentice training, and body piercing. Note: In recent years the studio transitioned under the Certified Tattoo Studios banner, prompting active community discussion regarding price structures and artist lineups.",
     "aggregateSources": {
       "google": {
         "name": "Google Maps",
@@ -177,14 +170,16 @@
     },
     "consensus": {
       "theGood": [
-        "Exceptional photo-realism, dark surrealism, and vibrant color blending",
-        "Certified professional piercers and extensive high-end jewelry selection on site",
-        "Comprehensive aftercare kits and detailed healing walk-throughs provided"
+        "Storied legacy of outstanding photo-realism, fine linework, and sterile hospital-grade procedures",
+        "Top-tier piercing reputation on Reddit for exclusively using single-use hollow needles rather than piercing guns",
+        "Historic home to renowned resident artists like Justin Hulsey, Joe Othon, and Mandie Doom",
+        "Prime downtown location with comprehensive healing kits and aftercare instructions provided"
       ],
       "theBad": [
-        "Higher hourly shop rates and minimums compared to non-downtown studios",
-        "Downtown Tejon Street location means metered parking can be challenging to find",
-        "Occasional response delays when inquiring through their website booking portal"
+        "Heavy Reddit criticism surrounding the rebrand/transition to Certified Tattoo Studios regarding steep corporate pricing and minimums",
+        "Frequent community warnings regarding non-refundable deposit disputes and artist schedule shuffling",
+        "Downtown Tejon Street location means metered parking can be challenging to find on weekends",
+        "Communication delays reported when submitting requests through third-party web booking forms"
       ]
     },
     "reviews": [
@@ -194,6 +189,20 @@
         "rating": 5,
         "date": "2026-08-01",
         "text": "Absolutely amazing experience. Got a fine-line floral piece from Mark. He was extremely detailed, patient, and made sure the placement was perfect before starting. The shop is spotless."
+      },
+      {
+        "author": "u/COS_Local719",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-07-14",
+        "text": "Justin Hulsey and Joe back in the Pens & Needles heyday did some of the best black and grey in the state. If you get into the hands of one of their seasoned resident artists, the technical work is pristine."
+      },
+      {
+        "author": "u/PiercingAficionado",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-06-28",
+        "text": "Only place in Colorado Springs I trusted for my daith and nostril piercings. They strictly use hollow needles (never guns!), explain sanitation step-by-step, and have a beautiful jewelry selection."
       },
       {
         "author": "Tyler Brooks",
@@ -210,6 +219,13 @@
         "text": "Very clean and professional shop. I got my first tattoo here and they walked me through all the aftercare steps. A bit on the pricey side, but you get what you pay for!"
       },
       {
+        "author": "u/DowntownResident",
+        "platform": "reddit",
+        "rating": 2,
+        "date": "2026-05-22",
+        "text": "Heads up for anyone looking at Pens & Needles: they transitioned into Certified Tattoo Studios and the vibe went very corporate. Quoted me almost double what other reputable shops in town charge for the exact same custom flash."
+      },
+      {
         "author": "David Miller",
         "platform": "yelp",
         "rating": 3,
@@ -222,12 +238,19 @@
         "rating": 2,
         "date": "2026-04-12",
         "text": "Disappointed with the communication. Emailed a reference image twice and was told everything was set, but when I showed up, the artist had done a completely different sketch."
+      },
+      {
+        "author": "u/TattooRegretRecovery",
+        "platform": "reddit",
+        "rating": 2,
+        "date": "2026-03-18",
+        "text": "Put down a hefty deposit online after seeing their social media, only to show up and find out my assigned artist was a visiting guest rather than the resident I requested. Make sure you get written confirmation."
       }
     ]
   },
   {
     "id": "self-inflicted",
-    "name": "Self Inflicted Tattoo",
+    "name": "Self Inflicted / Westside Tattoo",
     "slug": "self-inflicted",
     "tagline": "Authentic Custom Tattooing on Colorado Avenue Since 2009",
     "featured": true,
@@ -243,9 +266,9 @@
       "Traditional",
       "Japanese",
       "Bold Color",
-      "Piercing"
+      "Cover-Ups"
     ],
-    "description": "Providing high quality custom tattooing and professional body piercing in a safe, friendly, and laid-back west-side environment since 2009. Famous for bold lines, rich color saturation, and classic tattoo flash alongside custom illustration.",
+    "description": "Providing high quality custom tattooing and body art on historic West Colorado Avenue since 2009. Universally acclaimed on local Reddit threads as a Colorado Springs staple where 'pretty much anyone in the shop does killer work,' Westside Tattoo is celebrated for bold American Traditional, solid color saturation, and unmatched cover-up mastery.",
     "aggregateSources": {
       "google": {
         "name": "Google Maps",
@@ -268,17 +291,33 @@
     },
     "consensus": {
       "theGood": [
-        "Fast, efficient tattoo execution with solid color saturation",
-        "Accessible, transparent, and fair pricing compared to downtown studios",
-        "Friendly, unpretentious west-side neighborhood shop environment"
+        "Widely hailed on r/ColoradoSprings as a community go-to where virtually every artist on the roster delivers solid work",
+        "Artist Aaron Moore is locally renowned as the top specialist in Colorado Springs for complex cover-ups",
+        "Vicki receives consistent Reddit shoutouts for dainty, fine-line, and delicate botanical work; Melek Tastekin praised for illustrative ink",
+        "Fair, transparent pricing with excellent color packing and classic street shop camaraderie"
       ],
       "theBad": [
-        "Less communicative artists; artists tend to stay focused quietly on the work",
-        "Weekend walk-in wait times can be unpredictable",
-        "Occasional touch-ups requested on thin lettering (completed free of charge)"
+        "Top artists like Aaron Moore book out months in advance with long waitlists",
+        "Old-school street tattoo shop culture: direct and no-nonsense, which some first-timers perceive as blunt or quiet",
+        "Walk-in availability on weekends can involve unpredictable waits",
+        "Occasional fine-lettering touch-ups needed (promptly honored by the shop free of charge)"
       ]
     },
     "reviews": [
+      {
+        "author": "u/FrontRangeInked",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-08-12",
+        "text": "Westside Tattoo is my absolute go-to in the Springs. Honestly pretty much anyone in that shop does killer work, but Aaron Moore is a wizard with cover-ups. Saved my shoulder from a terrible 20-year-old tribal piece."
+      },
+      {
+        "author": "u/BotanicalInkGirl",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-07-25",
+        "text": "Went to Vicki at Westside for small, dainty botanical script on my forearm. She was so gentle, the lines healed razor thin without blowing out, and the price was super fair compared to downtown studios."
+      },
       {
         "author": "John Doe",
         "platform": "google",
@@ -294,11 +333,25 @@
         "text": "Awesome shop vibe, super friendly staff. Felt comfortable the entire time. Pricing is very fair compared to downtown shops."
       },
       {
+        "author": "u/OldColoradoCityGuy",
+        "platform": "reddit",
+        "rating": 4,
+        "date": "2026-06-18",
+        "text": "Melek Tastekin and Drake are both extremely talented. The shop has an authentic street shop feel. No corporate fluff, just real tattooers doing solid work on the West side."
+      },
+      {
         "author": "Jessica B.",
         "platform": "yelp",
         "rating": 3,
         "date": "2026-06-10",
         "text": "The tattoo turned out okay, but the artist was super quiet and didn't really explain what he was doing. It felt a bit like an assembly line. Decent price, though."
+      },
+      {
+        "author": "u/ColoradoNative99",
+        "platform": "reddit",
+        "rating": 3,
+        "date": "2026-05-04",
+        "text": "Aaron is incredible if you can get into his books, but expect a 3–4 month wait minimum. They also aren't the type to hold your hand through the design process—know what you want before you walk in."
       },
       {
         "author": "Kyle S.",
@@ -329,7 +382,7 @@
       "Black & Grey",
       "Cover-Ups"
     ],
-    "description": "Fallen Heroes is one of the largest and most established tattoo and body piercing venues in Colorado Springs. Featuring an expansive roster of award-winning artists capable of complex full sleeves, color realism, dark surrealism, and large-scale back pieces.",
+    "description": "Fallen Heroes is one of Colorado Springs' largest and most prestigious tattoo powerhouses. Situated on West Colorado Avenue, the expansive facility features over a dozen resident artists specializing in everything from full anime and color realism to dark surrealism and heavy cover-ups. Regularly praised on r/ColoradoSprings for artist versatility and hospital-grade hygiene.",
     "aggregateSources": {
       "google": {
         "name": "Google Maps",
@@ -352,36 +405,74 @@
     },
     "consensus": {
       "theGood": [
-        "Massive talent bench with over a dozen resident artists specializing in distinct styles",
-        "High proficiency in complex multi-session cover-ups and custom large-scale realism",
-        "Modern, spacious studio with private consultation and piercing rooms"
+        "Massive, multifaceted artist roster on r/ColoradoSprings with specific experts for realism, anime, cartoons, and cover-ups",
+        "Reece Allen is heavily recommended by local Redditors as the top choice for anime and pop-culture saturation",
+        "Lindsay Fernandez (@ln_fernandez) praised for delicate custom designs; Jay noted for an exceptionally gentle hand",
+        "Spotless, modern, high-ceiling facility with dedicated piercing rooms and state-of-the-art sterilizers"
       ],
       "theBad": [
-        "Can become loud and bustling like a tattoo expo on peak weekend afternoons",
-        "Hourly rates and deposit amounts vary significantly depending on the individual artist"
+        "Bustling, high-volume floor with 10+ stations active can feel noisy and chaotic like a tattoo convention on Saturdays",
+        "Hourly pricing is set independently by each contractor ($150 to $250+/hr), leading to price discrepancies between artists",
+        "Deposits are strictly non-refundable and require advance notice to reschedule",
+        "Walk-in availability is hit-or-miss due to packed artist schedules"
       ]
     },
     "reviews": [
+      {
+        "author": "u/AnimeInkAddict",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-08-16",
+        "text": "If you are looking for anime, gaming, or cartoon tattoos in Colorado Springs, Reece Allen at Fallen Heroes is unmatched. The line weight, bold colors, and character accuracy are next level."
+      },
+      {
+        "author": "u/PikesPeakTats",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-07-28",
+        "text": "Lindsay Fernandez (@ln_fernandez) at Fallen Heroes did my entire backpiece. True professional, incredibly talented artist, and made a 7-hour session feel totally manageable."
+      },
       {
         "author": "Rachel Green",
         "platform": "google",
         "rating": 5,
         "date": "2026-08-05",
-        "text": "Massive, impressive facility! The artists are true professionals. My realistic wolf portrait looks like a photograph."
+        "text": "Massive, impressive facility! The artists are true professionals. My realistic wolf portrait from AJ Cullen looks like a photograph."
+      },
+      {
+        "author": "u/CheyenneMtnLiving",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-06-30",
+        "text": "Shoutout to Jay at Fallen Heroes! I got tattooed on my ribs which is notoriously painful, but he has the gentlest hand of anyone who has ever inked me. 10/10."
       },
       {
         "author": "Samuel L.",
         "platform": "google",
         "rating": 5,
         "date": "2026-07-18",
-        "text": "Incredible work and clean setup. Best place in town for large-scale custom pieces."
+        "text": "Incredible work and clean setup. Best place in town for large-scale custom pieces and cover-ups. Iso did an amazing job saving my old tattoo."
+      },
+      {
+        "author": "u/RockiesFan719",
+        "platform": "reddit",
+        "rating": 3,
+        "date": "2026-05-29",
+        "text": "The tattoo quality is 5 stars, but the atmosphere on a Saturday afternoon feels like an expo floor. With 10 machines buzzing and people walking around, don't expect a quiet, relaxing session."
       },
       {
         "author": "Chad W.",
         "platform": "yelp",
         "rating": 3,
         "date": "2026-05-14",
-        "text": "Great work but very loud atmosphere. With so many stations running simultaneously it feels chaotic on weekend afternoons."
+        "text": "Great work but very loud atmosphere. With so many stations running simultaneously it feels chaotic on busy weekend afternoons."
+      },
+      {
+        "author": "Marcus T.",
+        "platform": "google",
+        "rating": 2,
+        "date": "2026-02-09",
+        "text": "Quotes vary wildly depending on which artist you speak with. Make sure you get an exact written hourly quote before sitting down in the chair."
       }
     ]
   }
