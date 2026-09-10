@@ -3,7 +3,7 @@
     "id": "riot-tattoo",
     "name": "Riot Tattoo Co.",
     "slug": "riot-tattoo",
-    "tagline": "Bold Custom Tattoos & Precision Fine Line Art",
+    "tagline": "Premier Custom Tattoo Collective Founded by Paes 164 & Darin Newhouse",
     "featured": true,
     "rating": 4.9,
     "totalWebReviews": 284,
@@ -14,12 +14,13 @@
     "hours": "Monday - Saturday: 12:00 PM - 8:00 PM\nSunday: Closed",
     "heroImage": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=80",
     "styles": [
+      "Neo-Traditional",
       "Traditional",
       "Fine Line",
       "Black & Grey",
       "Custom Work"
     ],
-    "description": "Riot Tattoo Co. (operating as Riot Gallery Tattoo) is one of Colorado Springs' premier custom tattoo studios, located on North Nevada Avenue at the Pikes Peak Harley-Davidson complex. Renowned for a private, zero-attitude setting and hospital-grade sterile protocols, resident artists including veteran Darin Newhouse specialize in bold high-contrast illustrations, razor-sharp fine linework, and dark surrealism. Every piece is crafted uniquely with dedicated anatomical stencil consultations.",
+    "description": "Riot Tattoo Co. (operating as Riot Gallery Tattoo) is one of Colorado Springs' premier custom tattoo studios and fine art spaces, located on North Nevada Avenue at the Pikes Peak Harley-Davidson complex. Co-founded by legendary Colorado Springs muralist and tattoo master Paes 164 alongside veteran artist Darin Newhouse, the studio was created as an artist-first, drama-free collective. Resident artists specialize in signature freehand neo-traditional work, bold color packing, razor-sharp fine lines, and convention-grade dark realism.",
     "aggregateSources": {
       "google": {
         "name": "Google Maps",
@@ -42,19 +43,26 @@
     },
     "consensus": {
       "theGood": [
+        "Co-founded by famed Colorado Springs muralist Paes 164 and veteran tattooer Darin Newhouse, uniting freehand neo-traditional with master dark realism",
         "Master-level precision in bold American Traditional packing, high-contrast black & grey, and razor-sharp fine lines",
-        "Veteran artist Darin Newhouse brings decades of convention-level artistry in comic, horror, and custom realism",
-        "Pristine, clinical-grade sterile environment with a private, zero-attitude studio vibe away from downtown chaos",
-        "Artists spend dedicated, unhurried time adjusting stencils to flow naturally with body anatomy"
+        "Pristine, clinical-grade sterile environment with a private, zero-attitude collective setting away from downtown chaos",
+        "Artists spend dedicated, unhurried time adjusting stencils and freehand markers to flow naturally with body anatomy"
       ],
       "theBad": [
         "Niche location inside the Pikes Peak Harley dealership on North Nevada makes casual walk-in discovery limited",
-        "High demand leads to 2–3 month waiting lists for top resident artists",
+        "High demand leads to 2–3 month waiting lists for co-founders Paes 164 and Darin Newhouse",
         "Strict cancellation policy with non-refundable appointment deposits",
         "Can experience 30–45 minute delays past appointment start times during peak weekend rushes"
       ]
     },
     "reviews": [
+      {
+        "author": "u/SpringsMuralLover",
+        "platform": "reddit",
+        "rating": 5,
+        "date": "2026-08-20",
+        "text": "Paes 164 is an absolute legend in Colorado Springs. When he established Riot Gallery inside Harley with Darin, it created the ultimate dream team. Got a freehand neo-traditional sleeve from Paes and the color saturation and flow are unmatched."
+      },
       {
         "author": "Derrick M.",
         "platform": "google",
