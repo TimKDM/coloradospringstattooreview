@@ -189,7 +189,17 @@
         "title": "Dedicated Freehand Fit Session",
         "text": "Paes and Darin frequently draw directly on your skin with markers to fit anatomy. Expect your first 45 minutes to focus entirely on flow and stenciling."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "sanctuary",
+      "label": "🌿 Quiet Private Sanctuary",
+      "noiseLevel": "Low & Relaxed",
+      "intimidationScore": 0,
+      "intimidationLabel": "Zero Ego (0/10) • Ultra Welcoming",
+      "layout": "Private Creative Suites & Dedicated Consultation Areas",
+      "musicAndCulture": "Curated ambient & indie playlist, collaborative artist-client dialogue, sensory-friendly pace",
+      "summary": "Designed as an upscale artistic retreat rather than a chaotic street shop. Paes 164 and Darin Newhouse have cultivated a deeply respectful, focused environment where clients feel heard, unhurried, and completely at ease."
+    }
   },
   {
     "id": "pens-and-needles",
@@ -354,7 +364,17 @@
         "title": "Billing & Card Monitoring",
         "text": "Following reported payment processor security issues, we recommend paying in cash or closely monitoring card statements after transactions."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "corporate-chain",
+      "label": "💳 Corporate Retail Franchise",
+      "noiseLevel": "Moderate & Controlled",
+      "intimidationScore": 4,
+      "intimidationLabel": "Commercial Retail (4/10) • Sales-Oriented",
+      "layout": "Multi-Room Modern Retail Space with iPad Check-In Kiosks & Sales Desk",
+      "musicAndCulture": "Mainstream radio/pop, corporate standardized policies, sales commission focus",
+      "summary": "Operates more like an upscale chain franchise than a gritty independent shop. Very clean and structured with corporate protocols, though client reviews frequently cite a transactional, sales-heavy feel compared to local collectives."
+    }
   },
   {
     "id": "self-inflicted",
@@ -517,7 +537,17 @@
         "title": "Know Your Concept for Walk-Ins",
         "text": "Westside is an authentic street shop where artists are focused and quiet. Bring clear references and know your sizing before sitting down."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "street-shop",
+      "label": "⚡ High-Energy Street Shop",
+      "noiseLevel": "High & Energetic",
+      "intimidationScore": 3,
+      "intimidationLabel": "Low Street Grit (3/10) • Friendly Camaraderie",
+      "layout": "Historic Old Colorado City Street Shop Front with Multiple Working Stations",
+      "musicAndCulture": "Upbeat rock/metal, constant artist humor and cross-station banter, high walk-in camaraderie",
+      "summary": "A quintessential neighborhood street shop with real soul. The energy is buzzing, loud, and fun, with machine hum and laughter filling the room. Great for spontaneous flash or walk-ins where you want to hang out and feel like one of the crew."
+    }
   },
   {
     "id": "fallen-heroes",
@@ -727,7 +757,17 @@
         "title": "Walk-In Artist Verification",
         "text": "With 30 stations, unassigned walk-ins are frequently placed with junior apprentices. Always review the assigned artist's portfolio before sitting."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "mega-shop",
+      "label": "🏢 High-Volume Commercial Mega-Shop",
+      "noiseLevel": "High & Bustling",
+      "intimidationScore": 6,
+      "intimidationLabel": "Commercial Street (6/10) • Fast & Transactional",
+      "layout": "Expansive 8,500 Sq Ft Complex with 30 Open Stations and Active Piercing Counters",
+      "musicAndCulture": "High-decibel soundtrack, continuous client turnover, bustling lobby queues, front-desk coordination",
+      "summary": "An imposing commercial powerhouse with the atmosphere of a busy central station. It delivers unbeatable immediate walk-in capacity, but can feel overwhelming, loud, and impersonal for clients seeking quiet intimacy or custom collaboration."
+    }
   },
   {
     "id": "rose-of-the-west",
@@ -868,7 +908,17 @@
         "title": "Call Shop Directly for Quickest Booking",
         "text": "Artists prefer direct phone calls or in-person visits over Instagram DMs, which can take several days to answer during flash rushes."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "inclusive-heritage",
+      "label": "🌹 Inclusive Modern Club",
+      "noiseLevel": "Moderate & Conversational",
+      "intimidationScore": 1,
+      "intimidationLabel": "Virtually Zero (1/10) • Safe & Supportive",
+      "layout": "Pristine Open-Concept Downtown Loft with Framed Vintage Flash",
+      "musicAndCulture": "Woman-owned, LGBTQ+ inclusive, classic vinyl/rock tunes, spotless aesthetic hygiene",
+      "summary": "Striking the perfect balance between historic Americana tattoo heritage and modern progressive hospitality. Intimidation is nonexistent, stations are hospital-grade sterile, and the energy is warm and encouraging."
+    }
   },
   {
     "id": "timeless-body-art",
@@ -1004,7 +1054,17 @@
         "title": "High-Resolution Portrait References",
         "text": "Ryan requires high-contrast, uncompressed digital photographs for memorial and portrait work to achieve true photographic realism."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "sanctuary",
+      "label": "🎨 Focused Craftsman Studio",
+      "noiseLevel": "Low & Methodical",
+      "intimidationScore": 2,
+      "intimidationLabel": "Gentle Professional (2/10) • Focused & Calm",
+      "layout": "Quiet Studio Stations Optimized for Long-Duration Realism Sessions",
+      "musicAndCulture": "Subdued background audio, deep artistic concentration, comfortable ergonomic seating",
+      "summary": "A serious, quiet sanctuary tailored specifically for long day-sessions. Artists like Ryan and Sean work with surgical focus on anatomical reference and micro-detail, providing a calming atmosphere free from loud distractions."
+    }
   },
   {
     "id": "tattoo-demon",
@@ -1133,6 +1193,16 @@
         "title": "Direct Old-School Consultation",
         "text": "Artists prefer wall flash or classic motifs. Bring concrete ideas for custom pieces as artists are blunt about placements that don't fit the format."
       }
-    ]
+    ],
+    "vibe": {
+      "tag": "street-shop",
+      "label": "👹 Gritty Tejon Heritage Street Shop",
+      "noiseLevel": "Moderate to High",
+      "intimidationScore": 4,
+      "intimidationLabel": "Old-School Traditional (4/10) • Authentic No-BS",
+      "layout": "Dense Tejon Street Heritage Storefront with Flash Covering Every Wall Surface",
+      "musicAndCulture": "Classic rock, vintage biker/skate subculture roots, no corporate polish, authentic grit",
+      "summary": "Dave Wulff’s venerable Tejon Street mainstay is an unfiltered homage to 1980s and 90s tattoo culture. There are no trendy pastel walls or corporate kiosks here—just raw, honest craftsmanship, heavy ink, and authentic street pedigree."
+    }
   }
 ]

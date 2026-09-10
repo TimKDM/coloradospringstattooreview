@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearSearchBtn = document.getElementById('clear-search-btn');
   const filtersContainer = document.getElementById('filters-container');
   const opFiltersContainer = document.getElementById('op-filters-container');
+  const vibeFiltersContainer = document.getElementById('vibe-filters-container');
   const resultsCount = document.getElementById('results-count');
   const noResultsMsg = document.getElementById('no-results-msg');
   const resetFiltersBtn = document.getElementById('reset-filters-btn');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let allShops = [];
   let currentStyle = 'all';
   let currentOp = 'all';
+  let currentVibe = 'all';
   let searchTerm = '';
 
   // 1. Fetch shops data
@@ -50,15 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
         (currentOp === 'piercing' && shop.operational && shop.operational.piercing === true) ||
         (currentOp === 'coverUps' && shop.operational && shop.operational.coverUps === true);
 
+      // Studio Vibe filter
+      const matchesVibe = (currentVibe === 'all') ||
+        (shop.vibe && shop.vibe.tag === currentVibe);
+
       // Search term filter
       const term = searchTerm.toLowerCase().trim();
       const matchesSearch = !term || 
         shop.name.toLowerCase().includes(term) ||
         (shop.address && shop.address.toLowerCase().includes(term)) ||
         (shop.description && shop.description.toLowerCase().includes(term)) ||
+        (shop.vibe && (shop.vibe.label.toLowerCase().includes(term) || shop.vibe.summary.toLowerCase().includes(term))) ||
         (Array.isArray(shop.styles) && shop.styles.some(s => s.toLowerCase().includes(term)));
 
-      return matchesStyle && matchesOp && matchesSearch;
+      return matchesStyle && matchesOp && matchesVibe && matchesSearch;
     });
 
     // Update results counter
@@ -98,6 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      // Studio Vibe pill
+      const vibePill = shop.vibe ? `<span class="vibe-card-pill vibe-${shop.vibe.tag}">${escapeHtml(shop.vibe.label)}</span>` : '';
+
       return `
         <article class="shop-card ${shop.featured ? 'shop-card-featured' : ''}">
           <div class="card-body">
@@ -125,8 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
               ` : ''}
             </header>
 
-            ${opPills.length > 0 ? `
+            ${(vibePill || opPills.length > 0) ? `
               <div class="card-op-pills">
+                ${vibePill}
                 ${opPills.join('')}
               </div>
             ` : ''}
@@ -210,12 +221,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Reset Filters
+  // 6. Studio Vibe Filter Event Delegation
+  if (vibeFiltersContainer) {
+    vibeFiltersContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.vibe-badge');
+      if (!btn) return;
+
+      vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentVibe = btn.dataset.vibe || 'all';
+      renderShops();
+    });
+  }
+
+  // 7. Reset Filters
   if (resetFiltersBtn) {
     resetFiltersBtn.addEventListener('click', () => {
       searchTerm = '';
       currentStyle = 'all';
       currentOp = 'all';
+      currentVibe = 'all';
       if (searchInput) searchInput.value = '';
       if (clearSearchBtn) clearSearchBtn.style.display = 'none';
       if (filtersContainer) {
@@ -226,6 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (opFiltersContainer) {
         opFiltersContainer.querySelectorAll('.op-badge').forEach(b => {
           b.classList.toggle('active', b.dataset.op === 'all');
+        });
+      }
+      if (vibeFiltersContainer) {
+        vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => {
+          b.classList.toggle('active', b.dataset.vibe === 'all');
         });
       }
       renderShops();

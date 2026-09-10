@@ -2909,3 +2909,242 @@ img {
   }
 }
 
+/* --- Studio Vibe Filters & Badges --- */
+.vibe-filters {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.vibe-badge {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vibe-badge:hover {
+  border-color: #6366f1;
+  color: #4338ca;
+}
+
+.vibe-badge.active {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4f46e5;
+}
+
+/* Vibe Card Pills on Homepage */
+.vibe-card-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vibe-card-pill.vibe-sanctuary {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.vibe-card-pill.vibe-inclusive-heritage {
+  background: #fdf2f8;
+  color: #9d174d;
+  border: 1px solid #fbcfe8;
+}
+
+.vibe-card-pill.vibe-street-shop {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #ffedd5;
+}
+
+.vibe-card-pill.vibe-mega-shop {
+  background: #f1f5f9;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.vibe-card-pill.vibe-corporate-chain {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* --- Studio Profile Vibe Check Module --- */
+.vibe-card-section {
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.vibe-section-header {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.vibe-title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.vibe-main-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.vibe-sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.vibe-overview-header {
+  margin-bottom: 24px;
+}
+
+.vibe-badge-lg {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-pill);
+  margin-bottom: 12px;
+}
+
+.vibe-badge-lg.vibe-sanctuary {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.vibe-badge-lg.vibe-inclusive-heritage {
+  background: #fdf2f8;
+  color: #9d174d;
+  border: 1px solid #fbcfe8;
+}
+
+.vibe-badge-lg.vibe-street-shop {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #ffedd5;
+}
+
+.vibe-badge-lg.vibe-mega-shop {
+  background: #f1f5f9;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+
+.vibe-badge-lg.vibe-corporate-chain {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.vibe-editorial-summary {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: #f8fafc;
+  border-left: 4px solid #4f46e5;
+  padding: 14px 18px;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  margin: 0;
+}
+
+.vibe-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.vibe-matrix-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vibe-attr-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.vibe-attr-icon {
+  font-size: 1.2rem;
+}
+
+.vibe-meter-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vibe-meter-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: var(--border-radius-pill);
+  overflow: hidden;
+}
+
+.vibe-meter-fill {
+  height: 100%;
+  border-radius: var(--border-radius-pill);
+  transition: width 0.4s ease;
+}
+
+.vibe-meter-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.vibe-pill {
+  display: inline-block;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.vibe-attr-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .vibe-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

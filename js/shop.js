@@ -231,13 +231,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Live vs Curated Tab Switching (Option C)
     setupReviewTabs(shop);
 
-    // 7. Render Resident Artists & Booking Status
+    // 7. Render Studio Vibe Check & Atmosphere
+    renderVibeCheck(shop);
+
+    // 8. Render Resident Artists & Booking Status
     renderArtists(shop);
 
-    // 8. Render Before You Book Client Advisory
+    // 9. Render Before You Book Client Advisory
     renderBeforeYouBook(shop);
 
-    // 9. Setup Studio Claim Modal
+    // 10. Setup Studio Claim Modal
     setupClaimModal(shop);
   }
 
@@ -437,6 +440,73 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+  }
+
+  function renderVibeCheck(shop) {
+    const mount = document.getElementById('vibe-content-mount');
+    if (!mount) return;
+    const vibe = shop.vibe;
+    if (!vibe) {
+      const section = document.getElementById('vibe-section');
+      if (section) section.style.display = 'none';
+      return;
+    }
+
+    const score = Number(vibe.intimidationScore || 0);
+    const meterPct = Math.min(100, Math.max(8, score * 10));
+    let meterColor = '#10b981'; // green
+    if (score >= 3 && score <= 4) meterColor = '#f59e0b'; // amber
+    if (score >= 5) meterColor = '#ef4444'; // red
+
+    mount.innerHTML = `
+      <div class="vibe-overview-header">
+        <div class="vibe-badge-lg vibe-${vibe.tag}">
+          ${escapeHtml(vibe.label)}
+        </div>
+        <p class="vibe-editorial-summary">${escapeHtml(vibe.summary)}</p>
+      </div>
+
+      <div class="vibe-matrix-grid">
+        <div class="vibe-matrix-card">
+          <div class="vibe-attr-header">
+            <span class="vibe-attr-icon">🧘</span>
+            <strong>Intimidation &amp; Ego Level</strong>
+          </div>
+          <div class="vibe-meter-wrap">
+            <div class="vibe-meter-bar">
+              <div class="vibe-meter-fill" style="width: ${meterPct}%; background-color: ${meterColor};"></div>
+            </div>
+            <span class="vibe-meter-label">${escapeHtml(vibe.intimidationLabel)}</span>
+          </div>
+        </div>
+
+        <div class="vibe-matrix-card">
+          <div class="vibe-attr-header">
+            <span class="vibe-attr-icon">🔊</span>
+            <strong>Acoustics &amp; Noise Level</strong>
+          </div>
+          <div class="vibe-attr-value">
+            <span class="vibe-pill">${escapeHtml(vibe.noiseLevel)}</span>
+          </div>
+        </div>
+
+        <div class="vibe-matrix-card">
+          <div class="vibe-attr-header">
+            <span class="vibe-attr-icon">🏛️</span>
+            <strong>Studio Layout &amp; Station Setup</strong>
+          </div>
+          <p class="vibe-attr-text">${escapeHtml(vibe.layout)}</p>
+        </div>
+
+        <div class="vibe-matrix-card">
+          <div class="vibe-attr-header">
+            <span class="vibe-attr-icon">🎶</span>
+            <strong>Music &amp; Shop Culture</strong>
+          </div>
+          <p class="vibe-attr-text">${escapeHtml(vibe.musicAndCulture)}</p>
+        </div>
+      </div>
+    `;
   }
 
   function renderArtists(shop) {
