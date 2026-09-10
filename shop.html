@@ -128,73 +128,113 @@
           <!-- Review Breakdown Dashboard Section -->
           <section class="content-card reviews-dashboard-card" id="reviews-section">
             <div class="dashboard-header">
-              <h2>Verified Web Reviews Feed</h2>
-              <p class="dashboard-sub">Individual client testimonials pulled from Google, Yelp, and direct verified clients showcasing both positive experiences and critical feedback.</p>
-            </div>
-
-            <!-- Scorecard & Progress Bars -->
-            <div class="scorecard-wrapper">
-              <div class="scorecard-main">
-                <div class="big-score" id="scorecard-score">0.0</div>
-                <div class="scorecard-stars" id="scorecard-stars">★★★★★</div>
-                <div class="scorecard-label" id="scorecard-total-label">Based on 0 verified reviews</div>
-              </div>
-
-              <div class="scorecard-bars">
-                <!-- Positive Bar -->
-                <div class="score-bar-row">
-                  <div class="bar-info">
-                    <span class="bar-name"><strong>Positive Reviews</strong> (4-5 ★)</span>
-                    <span class="bar-count" id="pos-count-text">0 reviews</span>
-                  </div>
-                  <div class="bar-track">
-                    <div class="bar-fill bar-fill-positive" id="pos-bar-fill" style="width: 0%;"></div>
-                  </div>
-                  <div class="bar-pct" id="pos-bar-pct">0%</div>
+              <div class="reviews-header-flex">
+                <div>
+                  <h2>Verified Client Reviews</h2>
+                  <p class="dashboard-sub">Cross-platform feedback aggregated across Google Maps, Yelp, Facebook, and Reddit.</p>
                 </div>
-
-                <!-- Critical Bar -->
-                <div class="score-bar-row">
-                  <div class="bar-info">
-                    <span class="bar-name"><strong>Critical Reviews</strong> (1-3 ★)</span>
-                    <span class="bar-count" id="crit-count-text">0 reviews</span>
-                  </div>
-                  <div class="bar-track">
-                    <div class="bar-fill bar-fill-critical" id="crit-bar-fill" style="width: 0%;"></div>
-                  </div>
-                  <div class="bar-pct" id="crit-bar-pct">0%</div>
+                <!-- Stream Switcher Tabs (Option C) -->
+                <div class="stream-switcher-tabs" role="tablist">
+                  <button type="button" class="tab-btn active" id="tab-btn-curated" data-target="curated">
+                    <span>📊 Curated Consensus</span>
+                  </button>
+                  <button type="button" class="tab-btn" id="tab-btn-live" data-target="live">
+                    <span class="live-dot-pulse"></span>
+                    <span>⚡ Live Google Stream</span>
+                  </button>
                 </div>
               </div>
             </div>
 
-            <!-- Side-by-Side Split Review Columns -->
-            <div class="reviews-split-grid">
-              
-              <!-- Positive Column (4-5 Stars) -->
-              <div class="review-col col-positive">
-                <div class="col-header header-positive">
-                  <span class="col-icon">✔</span>
-                  <h3>Positive Highlights</h3>
-                  <span class="col-counter" id="pos-col-counter">(0)</span>
+            <!-- TAB 1: Curated Editorial Consensus View -->
+            <div class="reviews-view-pane active" id="view-curated-reviews">
+              <!-- Scorecard & Progress Bars -->
+              <div class="scorecard-wrapper">
+                <div class="scorecard-main">
+                  <div class="big-score" id="scorecard-score">0.0</div>
+                  <div class="scorecard-stars" id="scorecard-stars">★★★★★</div>
+                  <div class="scorecard-label" id="scorecard-total-label">Based on 0 verified reviews</div>
                 </div>
-                <div class="reviews-list" id="positive-reviews-container">
+
+                <div class="scorecard-bars">
+                  <!-- Positive Bar -->
+                  <div class="score-bar-row">
+                    <div class="bar-info">
+                      <span class="bar-name"><strong>Positive Reviews</strong> (4-5 ★)</span>
+                      <span class="bar-count" id="pos-count-text">0 reviews</span>
+                    </div>
+                    <div class="bar-track">
+                      <div class="bar-fill bar-fill-positive" id="pos-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="bar-pct" id="pos-bar-pct">0%</div>
+                  </div>
+
+                  <!-- Critical Bar -->
+                  <div class="score-bar-row">
+                    <div class="bar-info">
+                      <span class="bar-name"><strong>Critical Reviews</strong> (1-3 ★)</span>
+                      <span class="bar-count" id="crit-count-text">0 reviews</span>
+                    </div>
+                    <div class="bar-track">
+                      <div class="bar-fill bar-fill-critical" id="crit-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="bar-pct" id="crit-bar-pct">0%</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Side-by-Side Split Review Columns -->
+              <div class="reviews-split-grid">
+                
+                <!-- Positive Column (4-5 Stars) -->
+                <div class="review-col col-positive">
+                  <div class="col-header header-positive">
+                    <span class="col-icon">✔</span>
+                    <h3>Positive Highlights</h3>
+                    <span class="col-counter" id="pos-col-counter">(0)</span>
+                  </div>
+                  <div class="reviews-list" id="positive-reviews-container">
+                    <!-- Injected via js/shop.js -->
+                  </div>
+                </div>
+
+                <!-- Critical Column (1-3 Stars) -->
+                <div class="review-col col-critical">
+                  <div class="col-header header-critical">
+                    <span class="col-icon">⚠</span>
+                    <h3>Critical & What to Know</h3>
+                    <span class="col-counter" id="crit-col-counter">(0)</span>
+                  </div>
+                  <div class="reviews-list" id="critical-reviews-container">
+                    <!-- Injected via js/shop.js -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- TAB 2: Live Automated Google Reviews Feed (Option C) -->
+            <div class="reviews-view-pane" id="view-live-reviews" style="display: none;">
+              <div class="live-sync-banner">
+                <div class="sync-status">
+                  <span class="live-dot-pulse"></span>
+                  <strong>Live Stream Sync Active</strong>
+                </div>
+                <p>Newly posted customer reviews on Google Maps are automatically streamed here in real-time. No manual data entry required.</p>
+                <a href="#" id="live-google-maps-btn" target="_blank" rel="noopener noreferrer" class="btn btn-outline-sm">
+                  View on Google Maps ↗
+                </a>
+              </div>
+
+              <!-- Live Widget Embed Container -->
+              <div class="live-widget-wrapper" id="live-widget-mount">
+                <!-- Dynamically loaded review feed widget -->
+                <div class="live-reviews-grid" id="live-dynamic-reviews-grid">
                   <!-- Injected via js/shop.js -->
                 </div>
               </div>
-
-              <!-- Critical Column (1-3 Stars) -->
-              <div class="review-col col-critical">
-                <div class="col-header header-critical">
-                  <span class="col-icon">⚠</span>
-                  <h3>Critical & What to Know</h3>
-                  <span class="col-counter" id="crit-col-counter">(0)</span>
-                </div>
-                <div class="reviews-list" id="critical-reviews-container">
-                  <!-- Injected via js/shop.js -->
-                </div>
-              </div>
-
             </div>
+
           </section>
 
         </div>
@@ -277,12 +317,15 @@
         <p class="footer-tagline">The premier community guide to tattoo artistry, studio safety, and authentic reviews in Colorado Springs, CO.</p>
       </div>
       <div class="footer-col">
-        <h4>Browse Studios</h4>
+        <h4>Featured Studios</h4>
         <ul class="footer-links">
           <li><a href="shop.html?slug=riot-tattoo">Riot Tattoo Co.</a></li>
+          <li><a href="shop.html?slug=rose-of-the-west">Rose of the West</a></li>
+          <li><a href="shop.html?slug=timeless-body-art">Timeless Body Art</a></li>
           <li><a href="shop.html?slug=pens-and-needles">Pens & Needles</a></li>
-          <li><a href="shop.html?slug=self-inflicted">Self Inflicted Tattoo</a></li>
+          <li><a href="shop.html?slug=self-inflicted">Self Inflicted / Westside</a></li>
           <li><a href="shop.html?slug=fallen-heroes">Fallen Heroes</a></li>
+          <li><a href="shop.html?slug=tattoo-demon">Tattoo Demon</a></li>
         </ul>
       </div>
       <div class="footer-col">

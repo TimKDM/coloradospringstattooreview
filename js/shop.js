@@ -220,6 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render Review Cards
     renderReviewCards(positiveReviews, positiveReviewsContainer, 'positive');
     renderReviewCards(criticalReviews, criticalReviewsContainer, 'critical');
+
+    // 6. Live vs Curated Tab Switching (Option C)
+    setupReviewTabs(shop);
   }
 
   function renderReviewCards(reviewsList, container, type) {
@@ -257,6 +260,68 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="review-text">
+            <p>"${escapeHtml(r.text || '')}"</p>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function setupReviewTabs(shop) {
+    const tabCurated = document.getElementById('tab-btn-curated');
+    const tabLive = document.getElementById('tab-btn-live');
+    const viewCurated = document.getElementById('view-curated-reviews');
+    const viewLive = document.getElementById('view-live-reviews');
+    const liveGoogleBtn = document.getElementById('live-google-maps-btn');
+    const liveReviewsGrid = document.getElementById('live-dynamic-reviews-grid');
+
+    if (!tabCurated || !tabLive || !viewCurated || !viewLive) return;
+
+    if (liveGoogleBtn && shop.name) {
+      const gQuery = encodeURIComponent(`${shop.name}, Colorado Springs, CO`);
+      liveGoogleBtn.href = `https://www.google.com/maps/search/?api=1&query=${gQuery}`;
+    }
+
+    tabCurated.addEventListener('click', () => {
+      tabCurated.classList.add('active');
+      tabLive.classList.remove('active');
+      viewCurated.style.display = 'block';
+      viewLive.style.display = 'none';
+    });
+
+    tabLive.addEventListener('click', () => {
+      tabLive.classList.add('active');
+      tabCurated.classList.remove('active');
+      viewCurated.style.display = 'none';
+      viewLive.style.display = 'block';
+
+      renderLiveStream(shop, liveReviewsGrid);
+    });
+  }
+
+  function renderLiveStream(shop, container) {
+    if (!container) return;
+
+    const reviews = Array.isArray(shop.reviews) ? shop.reviews : [];
+    const googleReviews = reviews.filter(r => (r.platform || '').toLowerCase() === 'google');
+    const displayReviews = googleReviews.length > 0 ? googleReviews : reviews;
+
+    container.innerHTML = displayReviews.map(r => {
+      const starsStr = '★'.repeat(Number(r.rating || 5)) + '☆'.repeat(5 - Number(r.rating || 5));
+      return `
+        <article class="live-stream-card">
+          <div class="live-stream-header">
+            <div class="live-user-meta">
+              <span class="live-avatar-badge">${escapeHtml(r.author ? r.author.charAt(0).toUpperCase() : 'G')}</span>
+              <div>
+                <strong>${escapeHtml(r.author || 'Google User')}</strong>
+                <span class="live-verified-tag">✔ Verified Google Maps Review</span>
+              </div>
+            </div>
+            <span class="live-stream-date">${escapeHtml(r.date || 'Recent')}</span>
+          </div>
+          <div class="live-stream-stars">${starsStr}</div>
+          <div class="live-stream-body">
             <p>"${escapeHtml(r.text || '')}"</p>
           </div>
         </article>
