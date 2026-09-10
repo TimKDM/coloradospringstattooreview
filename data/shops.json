@@ -13,12 +13,32 @@
     "website": "https://www.riottattoocos.com",
     "hours": "Monday - Saturday: 12:00 PM - 8:00 PM\nSunday: Closed",
     "heroImage": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=80",
-    "styles": ["Traditional", "Fine Line", "Black & Grey", "Custom Work"],
+    "styles": [
+      "Traditional",
+      "Fine Line",
+      "Black & Grey",
+      "Custom Work"
+    ],
     "description": "Riot Tattoo Co. is one of Colorado Springs' most highly acclaimed custom tattoo studios. Situated on North Nevada Avenue, the studio is renowned for its welcoming, zero-ego atmosphere paired with hospital-grade sterile protocols. The artists specialize in bold, high-contrast designs, needle-sharp fine-line illustrations, and authentic American Traditional tattoos. Every piece is crafted uniquely for the client with in-depth anatomical consultations.",
     "aggregateSources": {
-      "google": { "name": "Google Maps", "rating": 4.9, "count": 182, "icon": "google" },
-      "yelp": { "name": "Yelp", "rating": 4.8, "count": 74, "icon": "yelp" },
-      "facebook": { "name": "Facebook Recommendations", "rating": 5.0, "count": 28, "icon": "facebook" }
+      "google": {
+        "name": "Google Maps",
+        "rating": 4.9,
+        "count": 182,
+        "icon": "google"
+      },
+      "yelp": {
+        "name": "Yelp",
+        "rating": 4.8,
+        "count": 74,
+        "icon": "yelp"
+      },
+      "facebook": {
+        "name": "Facebook Recommendations",
+        "rating": 5,
+        "count": 28,
+        "icon": "facebook"
+      }
     },
     "consensus": {
       "theGood": [
@@ -83,6 +103,34 @@
         "rating": 3,
         "date": "2026-03-02",
         "text": "Phenomenal line work, but the deposit policy is aggressive. I got sick 48 hours before my session and lost my full $100 deposit with zero flexibility to reschedule."
+      },
+      {
+        "author": "Derrick M.",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-08-18",
+        "text": "Got tattooed by Darin at Riot Gallery. Unbelievable precision. He was super attentive to the placement and the shop inside Pikes Peak Harley is spotless. Best tattoo in Colorado Springs hands down."
+      },
+      {
+        "author": "Kelsey W.",
+        "platform": "yelp",
+        "rating": 5,
+        "date": "2026-07-29",
+        "text": "Amazing vibe and phenomenal fine-line detail. The artists are true professionals who make you feel completely welcome. No attitude whatsoever."
+      },
+      {
+        "author": "Brandon T.",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-06-14",
+        "text": "The artwork is top tier, 5 stars on quality. Giving 3 stars because booking communication was really slow and we started 35 minutes late. Incredible artist though."
+      },
+      {
+        "author": "Samantha L.",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-05-30",
+        "text": "Clean setup, awesome music, and very gentle hands. My botanical sternum piece healed like a dream. Highly recommend booking well in advance!"
       }
     ]
   },
@@ -100,12 +148,32 @@
     "website": "https://www.pens-needles.com",
     "hours": "Monday - Thursday: 12:00 PM - 8:00 PM\nFriday - Saturday: 12:00 PM - 10:00 PM\nSunday: Closed",
     "heroImage": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80",
-    "styles": ["Realism", "Fine Line", "Black & Grey", "Piercing"],
+    "styles": [
+      "Realism",
+      "Fine Line",
+      "Black & Grey",
+      "Piercing"
+    ],
     "description": "Located in the heart of Downtown Colorado Springs, Pens & Needles Tattoo Studio has built an enduring reputation for versatility, artistry, and strict sterile procedures. With resident specialists in photo-realism, watercolor, intricate script, and custom cover-ups, Pens & Needles serves first-timers and serious collectors alike.",
     "aggregateSources": {
-      "google": { "name": "Google Maps", "rating": 4.8, "count": 240, "icon": "google" },
-      "yelp": { "name": "Yelp", "rating": 4.6, "count": 68, "icon": "yelp" },
-      "facebook": { "name": "Facebook Recommendations", "rating": 4.9, "count": 34, "icon": "facebook" }
+      "google": {
+        "name": "Google Maps",
+        "rating": 4.8,
+        "count": 240,
+        "icon": "google"
+      },
+      "yelp": {
+        "name": "Yelp",
+        "rating": 4.6,
+        "count": 68,
+        "icon": "yelp"
+      },
+      "facebook": {
+        "name": "Facebook Recommendations",
+        "rating": 4.9,
+        "count": 34,
+        "icon": "facebook"
+      }
     },
     "consensus": {
       "theGood": [
@@ -171,12 +239,32 @@
     "website": "https://selfinflictedtattoo.com",
     "hours": "Monday - Sunday: 12:00 PM - 8:00 PM",
     "heroImage": "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=1600&q=80",
-    "styles": ["Traditional", "Japanese", "Bold Color", "Piercing"],
+    "styles": [
+      "Traditional",
+      "Japanese",
+      "Bold Color",
+      "Piercing"
+    ],
     "description": "Providing high quality custom tattooing and professional body piercing in a safe, friendly, and laid-back west-side environment since 2009. Famous for bold lines, rich color saturation, and classic tattoo flash alongside custom illustration.",
     "aggregateSources": {
-      "google": { "name": "Google Maps", "rating": 4.7, "count": 128, "icon": "google" },
-      "yelp": { "name": "Yelp", "rating": 4.4, "count": 48, "icon": "yelp" },
-      "facebook": { "name": "Facebook Recommendations", "rating": 4.8, "count": 20, "icon": "facebook" }
+      "google": {
+        "name": "Google Maps",
+        "rating": 4.7,
+        "count": 128,
+        "icon": "google"
+      },
+      "yelp": {
+        "name": "Yelp",
+        "rating": 4.4,
+        "count": 48,
+        "icon": "yelp"
+      },
+      "facebook": {
+        "name": "Facebook Recommendations",
+        "rating": 4.8,
+        "count": 20,
+        "icon": "facebook"
+      }
     },
     "consensus": {
       "theGood": [
@@ -235,12 +323,32 @@
     "website": "https://fallenheroestattoo.com",
     "hours": "Monday - Saturday: 11:00 AM - 9:00 PM\nSunday: 12:00 PM - 6:00 PM",
     "heroImage": "https://images.unsplash.com/photo-1542382257-80dedb725088?auto=format&fit=crop&w=1600&q=80",
-    "styles": ["Realism", "Neo-Traditional", "Black & Grey", "Cover-Ups"],
+    "styles": [
+      "Realism",
+      "Neo-Traditional",
+      "Black & Grey",
+      "Cover-Ups"
+    ],
     "description": "Fallen Heroes is one of the largest and most established tattoo and body piercing venues in Colorado Springs. Featuring an expansive roster of award-winning artists capable of complex full sleeves, color realism, dark surrealism, and large-scale back pieces.",
     "aggregateSources": {
-      "google": { "name": "Google Maps", "rating": 4.7, "count": 295, "icon": "google" },
-      "yelp": { "name": "Yelp", "rating": 4.5, "count": 82, "icon": "yelp" },
-      "facebook": { "name": "Facebook Recommendations", "rating": 4.9, "count": 35, "icon": "facebook" }
+      "google": {
+        "name": "Google Maps",
+        "rating": 4.7,
+        "count": 295,
+        "icon": "google"
+      },
+      "yelp": {
+        "name": "Yelp",
+        "rating": 4.5,
+        "count": 82,
+        "icon": "yelp"
+      },
+      "facebook": {
+        "name": "Facebook Recommendations",
+        "rating": 4.9,
+        "count": 35,
+        "icon": "facebook"
+      }
     },
     "consensus": {
       "theGood": [

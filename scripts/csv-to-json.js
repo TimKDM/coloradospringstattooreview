@@ -148,8 +148,8 @@ for (const rev of importedReviews) {
   }
 }
 
-// Recalculate average rating
-if (targetShop.reviews.length > 0) {
+// Recalculate average rating if not using a multi-platform aggregate score
+if (!targetShop.aggregateSources && targetShop.reviews.length > 0) {
   const sum = targetShop.reviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
   targetShop.rating = parseFloat((sum / targetShop.reviews.length).toFixed(1));
 }
