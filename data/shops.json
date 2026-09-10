@@ -1,0 +1,193 @@
+[
+  {
+    "id": "riot-tattoo",
+    "name": "Riot Tattoo Co.",
+    "slug": "riot-tattoo",
+    "tagline": "Bold Custom Tattoos & Precision Fine Line Art",
+    "featured": true,
+    "rating": 4.9,
+    "priceRange": "$$$",
+    "address": "5867 N Nevada Ave, Colorado Springs, CO 80918",
+    "phone": "(719) 555-0145",
+    "website": "https://www.riottattoocos.com",
+    "hours": "Monday - Saturday: 12:00 PM - 8:00 PM\nSunday: Closed",
+    "heroImage": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=80",
+    "styles": ["Traditional", "Fine Line", "Black & Grey", "Custom Work"],
+    "description": "Riot Tattoo Co. is one of Colorado Springs' most sought-after custom tattoo studios. Situated on North Nevada Avenue, the studio is recognized for its high-energy yet impeccably clean and clinical environment. The artists specialize in bold, high-contrast designs, needle-sharp fine line illustrations, and authentic American Traditional tattoos. Consultations are comprehensive, and every piece is crafted uniquely for the client.",
+    "reviews": [
+      {
+        "author": "Marcus Vance",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-08-14",
+        "text": "Best tattoo experience I've had in Colorado. Got a full Japanese traditional forearm sleeve started here. The line work is razor sharp, solid black packing, and the healing process was completely seamless. Highly recommended!"
+      },
+      {
+        "author": "Elena Rostova",
+        "platform": "yelp",
+        "rating": 5,
+        "date": "2026-07-22",
+        "text": "I came in for a delicate fine-line floral piece on my ribs. The artist was patient, helped me tweak the stencil three times until it sat naturally, and the hygiene standards are top notch. Worth every dollar."
+      },
+      {
+        "author": "Jason P.",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-06-05",
+        "text": "Cleanest shop in the Springs. Great playlist, super welcoming vibe, and absolute master artists. Don't go anywhere else."
+      },
+      {
+        "author": "Derek Kowalski",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-05-19",
+        "text": "The tattoo artistry is incredible—definitely 5 stars on the finished ink. However, booking is difficult and they run behind schedule. I waited almost 40 minutes past my appointment time before we got seated in the chair."
+      },
+      {
+        "author": "Brittany M.",
+        "platform": "direct",
+        "rating": 2,
+        "date": "2026-04-11",
+        "text": "Communication through email prior to the appointment was spotty. The artist seemed rushed during the consultation, though the final tattoo turned out okay. Expect great ink, but be prepared for slow customer service."
+      }
+    ]
+  },
+  {
+    "id": "pens-and-needles",
+    "name": "Pens & Needles Tattoo Studio",
+    "slug": "pens-and-needles",
+    "tagline": "Downtown Premier Custom Studio & Professional Body Art",
+    "featured": true,
+    "rating": 4.8,
+    "priceRange": "$$$",
+    "address": "101 N Tejon St, Colorado Springs, CO 80903",
+    "phone": "(719) 287-8282",
+    "website": "https://www.pens-needles.com",
+    "hours": "Monday - Thursday: 12:00 PM - 8:00 PM\nFriday - Saturday: 12:00 PM - 10:00 PM\nSunday: Closed",
+    "heroImage": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80",
+    "styles": ["Realism", "Fine Line", "Black & Grey", "Piercing"],
+    "description": "Located in the heart of Downtown Colorado Springs, Pens & Needles Tattoo Studio has built a reputation for excellence, versatility, and strict sterile procedures. With resident specialists in photo-realism, watercolor, intricate script, and custom cover-ups, Pens & Needles serves both first-time tattoo collectors and veterans alike.",
+    "reviews": [
+      {
+        "author": "Sarah Jenkins",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-08-01",
+        "text": "Absolutely amazing experience. Got a fine-line floral piece from Mark. He was extremely detailed, patient, and made sure the placement was perfect before starting. The shop is spotless."
+      },
+      {
+        "author": "Amanda R.",
+        "platform": "google",
+        "rating": 4,
+        "date": "2026-07-15",
+        "text": "Very clean and professional shop. I got my first tattoo here and they walked me through all the aftercare steps. A bit on the pricey side, but you get what you pay for!"
+      },
+      {
+        "author": "Tyler Brooks",
+        "platform": "direct",
+        "rating": 5,
+        "date": "2026-06-20",
+        "text": "Mark did an incredible black and grey portrait for me. The shading and contrast are phenomenal even months after healing."
+      },
+      {
+        "author": "David Miller",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-05-20",
+        "text": "The tattoo artists are undeniably talented, but the scheduling system is a mess. I had an appointment booked weeks in advance, but still had to wait 45 minutes past my start time."
+      },
+      {
+        "author": "Chris T.",
+        "platform": "direct",
+        "rating": 2,
+        "date": "2026-04-12",
+        "text": "Disappointed with the communication. Emailed a reference image twice and was told everything was set, but when I showed up, the artist had done a completely different sketch."
+      }
+    ]
+  },
+  {
+    "id": "self-inflicted",
+    "name": "Self Inflicted Tattoo",
+    "slug": "self-inflicted",
+    "tagline": "Authentic Custom Tattooing on Colorado Avenue Since 2009",
+    "featured": true,
+    "rating": 4.6,
+    "priceRange": "$$",
+    "address": "2020 West Colorado Ave, Colorado Springs, CO 80904",
+    "phone": "(719) 635-1811",
+    "website": "https://selfinflictedtattoo.com",
+    "hours": "Monday - Sunday: 12:00 PM - 8:00 PM",
+    "heroImage": "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?auto=format&fit=crop&w=1600&q=80",
+    "styles": ["Traditional", "Japanese", "Bold Color", "Piercing"],
+    "description": "Providing high quality custom tattooing and professional body piercing in a safe, friendly, and laid-back west-side environment since 2009. Famous for bold lines, rich color saturation, and classic tattoo flash alongside custom illustration.",
+    "reviews": [
+      {
+        "author": "John Doe",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-08-10",
+        "text": "Got a traditional eagle from James. Clean lines, solid color packing, and done incredibly fast. Highly recommend this shop for American Traditional work!"
+      },
+      {
+        "author": "Robert K.",
+        "platform": "direct",
+        "rating": 5,
+        "date": "2026-07-02",
+        "text": "Awesome shop vibe, super friendly staff. Felt comfortable the entire time. Pricing is very fair compared to downtown shops."
+      },
+      {
+        "author": "Jessica B.",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-06-10",
+        "text": "The tattoo turned out okay, but the artist was super quiet and didn't really explain what he was doing. It felt a bit like an assembly line. Decent price, though."
+      },
+      {
+        "author": "Kyle S.",
+        "platform": "google",
+        "rating": 2,
+        "date": "2026-03-29",
+        "text": "Lines were slightly uneven on the lettering. Had to go back for a touch-up. They fixed it without charge, but I expected cleaner execution on the first pass."
+      }
+    ]
+  },
+  {
+    "id": "fallen-heroes",
+    "name": "Fallen Heroes Tattoo & Piercing",
+    "slug": "fallen-heroes",
+    "tagline": "Large-Scale Custom Tattoos & Elite Resident Artists",
+    "featured": false,
+    "rating": 4.7,
+    "priceRange": "$$$",
+    "address": "524 W Colorado Ave, Colorado Springs, CO 80905",
+    "phone": "(719) 635-7431",
+    "website": "https://fallenheroestattoo.com",
+    "hours": "Monday - Saturday: 11:00 AM - 9:00 PM\nSunday: 12:00 PM - 6:00 PM",
+    "heroImage": "https://images.unsplash.com/photo-1542382257-80dedb725088?auto=format&fit=crop&w=1600&q=80",
+    "styles": ["Realism", "Neo-Traditional", "Black & Grey", "Cover-Ups"],
+    "description": "Fallen Heroes is one of the largest and most established tattoo and body piercing venues in Colorado Springs. Featuring an expansive roster of award-winning artists capable of complex full sleeves, color realism, dark surrealism, and large-scale back pieces.",
+    "reviews": [
+      {
+        "author": "Rachel Green",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-08-05",
+        "text": "Massive, impressive facility! The artists are true professionals. My realistic wolf portrait looks like a photograph."
+      },
+      {
+        "author": "Samuel L.",
+        "platform": "google",
+        "rating": 5,
+        "date": "2026-07-18",
+        "text": "Incredible work and clean setup. Best place in town for large-scale custom pieces."
+      },
+      {
+        "author": "Chad W.",
+        "platform": "yelp",
+        "rating": 3,
+        "date": "2026-05-14",
+        "text": "Great work but very loud atmosphere. With so many stations running simultaneously it feels chaotic on weekend afternoons."
+      }
+    ]
+  }
+]

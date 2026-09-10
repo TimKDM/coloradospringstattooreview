@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Studio Review | Colorado Springs Tattoo Review</title>
+  <meta name="description" id="page-meta-desc" content="Read authentic client reviews, rating breakdown, and studio details for tattoo shops in Colorado Springs." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="single-shop-page">
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="site-branding">
+        <a href="/" class="site-logo">
+          <span class="logo-accent">COS</span> Tattoo Review
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/">← Back to All Studios</a></li>
+        </ul>
+      </nav>
+      <div class="header-action">
+        <a href="/" class="btn btn-secondary">Browse Directory</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="shop-main-content">
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs-bar">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="sep">/</span>
+          <a href="/">Studios</a>
+          <span class="sep">/</span>
+          <span id="breadcrumb-shop-name" class="current">Studio</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Shop Hero Header Banner -->
+    <section class="shop-hero-banner" id="shop-hero">
+      <div class="hero-bg-overlay"></div>
+      <div class="container shop-hero-inner">
+        <div class="shop-hero-badge" id="shop-badge">Featured Studio</div>
+        <h1 class="shop-hero-title" id="shop-title">Loading Studio...</h1>
+        <p class="shop-hero-tagline" id="shop-tagline"></p>
+        
+        <div class="shop-hero-meta">
+          <div class="meta-rating-pill">
+            <span class="star-icon">★</span>
+            <span class="rating-value" id="shop-rating">0.0</span>
+            <span class="reviews-count" id="shop-reviews-count-badge">(0 Reviews)</span>
+          </div>
+          <div class="meta-price-pill" id="shop-price">$$$</div>
+          <div class="meta-location-pill" id="shop-location-snippet">📍 Colorado Springs, CO</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Shop Detail Content -->
+    <section class="shop-detail-section">
+      <div class="container shop-layout-grid">
+        
+        <!-- Left / Primary Column -->
+        <div class="shop-primary-content">
+          
+          <!-- About the Studio Card -->
+          <article class="content-card about-card">
+            <h2>About the Studio</h2>
+            <p id="shop-description" class="shop-description-text">Loading studio details...</p>
+            
+            <div class="shop-styles-wrap">
+              <h4>Specialties & Styles:</h4>
+              <div class="style-tags-list" id="shop-styles-list"></div>
+            </div>
+          </article>
+
+          <!-- Review Breakdown Dashboard Section -->
+          <section class="content-card reviews-dashboard-card" id="reviews-section">
+            <div class="dashboard-header">
+              <h2>The Full Picture: Review Breakdown</h2>
+              <p class="dashboard-sub">We balance both high praise and constructive critique so you know exactly what to expect.</p>
+            </div>
+
+            <!-- Scorecard & Progress Bars -->
+            <div class="scorecard-wrapper">
+              <div class="scorecard-main">
+                <div class="big-score" id="scorecard-score">0.0</div>
+                <div class="scorecard-stars" id="scorecard-stars">★★★★★</div>
+                <div class="scorecard-label" id="scorecard-total-label">Based on 0 verified reviews</div>
+              </div>
+
+              <div class="scorecard-bars">
+                <!-- Positive Bar -->
+                <div class="score-bar-row">
+                  <div class="bar-info">
+                    <span class="bar-name"><strong>Positive Reviews</strong> (4-5 ★)</span>
+                    <span class="bar-count" id="pos-count-text">0 reviews</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill bar-fill-positive" id="pos-bar-fill" style="width: 0%;"></div>
+                  </div>
+                  <div class="bar-pct" id="pos-bar-pct">0%</div>
+                </div>
+
+                <!-- Critical Bar -->
+                <div class="score-bar-row">
+                  <div class="bar-info">
+                    <span class="bar-name"><strong>Critical Reviews</strong> (1-3 ★)</span>
+                    <span class="bar-count" id="crit-count-text">0 reviews</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill bar-fill-critical" id="crit-bar-fill" style="width: 0%;"></div>
+                  </div>
+                  <div class="bar-pct" id="crit-bar-pct">0%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side-by-Side Split Review Columns -->
+            <div class="reviews-split-grid">
+              
+              <!-- Positive Column (4-5 Stars) -->
+              <div class="review-col col-positive">
+                <div class="col-header header-positive">
+                  <span class="col-icon">✔</span>
+                  <h3>Positive Highlights</h3>
+                  <span class="col-counter" id="pos-col-counter">(0)</span>
+                </div>
+                <div class="reviews-list" id="positive-reviews-container">
+                  <!-- Injected via js/shop.js -->
+                </div>
+              </div>
+
+              <!-- Critical Column (1-3 Stars) -->
+              <div class="review-col col-critical">
+                <div class="col-header header-critical">
+                  <span class="col-icon">⚠</span>
+                  <h3>Critical & What to Know</h3>
+                  <span class="col-counter" id="crit-col-counter">(0)</span>
+                </div>
+                <div class="reviews-list" id="critical-reviews-container">
+                  <!-- Injected via js/shop.js -->
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Right / Sidebar Column -->
+        <aside class="shop-sidebar">
+          
+          <!-- Contact & Info Widget -->
+          <div class="sidebar-widget info-widget">
+            <h3>Studio Information</h3>
+            
+            <div class="widget-row">
+              <span class="widget-icon">📍</span>
+              <div class="widget-text">
+                <strong>Address</strong>
+                <span id="sidebar-address">Loading...</span>
+                <a href="#" id="sidebar-map-link" target="_blank" rel="noopener noreferrer" class="widget-sublink">Open in Google Maps ↗</a>
+              </div>
+            </div>
+
+            <div class="widget-row">
+              <span class="widget-icon">📞</span>
+              <div class="widget-text">
+                <strong>Phone</strong>
+                <a href="#" id="sidebar-phone">Loading...</a>
+              </div>
+            </div>
+
+            <div class="widget-row">
+              <span class="widget-icon">🌐</span>
+              <div class="widget-text">
+                <strong>Official Website</strong>
+                <a href="#" id="sidebar-website" target="_blank" rel="noopener noreferrer">Visit Website ↗</a>
+              </div>
+            </div>
+
+            <div class="widget-row">
+              <span class="widget-icon">🕒</span>
+              <div class="widget-text">
+                <strong>Operating Hours</strong>
+                <p id="sidebar-hours" class="hours-text">Loading...</p>
+              </div>
+            </div>
+
+            <div class="widget-action">
+              <a href="#" id="sidebar-cta-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+                Visit Studio Website
+              </a>
+            </div>
+          </div>
+
+          <!-- Transparency Notice Widget -->
+          <div class="sidebar-widget transparency-widget">
+            <h4>⚖️ Our Review Policy</h4>
+            <p>We believe in radical transparency. Unlike platforms that let businesses pay to hide negative reviews, we showcase both positive highlights and genuine critique so you make informed decisions about your body art.</p>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Error State / Not Found (Hidden by default) -->
+    <section class="not-found-section" id="not-found-section" style="display: none;">
+      <div class="container text-center">
+        <h2>Studio Not Found</h2>
+        <p>We couldn't find the tattoo studio you were looking for.</p>
+        <a href="/" class="btn btn-primary">Return to Directory</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <a href="/" class="site-logo footer-logo">
+          <span class="logo-accent">COS</span> Tattoo Review
+        </a>
+        <p class="footer-tagline">The premier community guide to tattoo artistry, studio safety, and authentic reviews in Colorado Springs, CO.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Browse Studios</h4>
+        <ul class="footer-links">
+          <li><a href="shop.html?slug=riot-tattoo">Riot Tattoo Co.</a></li>
+          <li><a href="shop.html?slug=pens-and-needles">Pens & Needles</a></li>
+          <li><a href="shop.html?slug=self-inflicted">Self Inflicted Tattoo</a></li>
+          <li><a href="shop.html?slug=fallen-heroes">Fallen Heroes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Directory</h4>
+        <ul class="footer-links">
+          <li><a href="/">Browse All Studios</a></li>
+          <li><a href="/">Home</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Colorado Springs Tattoo Review. Independent directory. All trademarks belong to their respective owners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shop Logic Script -->
+  <script src="js/shop.js"></script>
+</body>
+</html>

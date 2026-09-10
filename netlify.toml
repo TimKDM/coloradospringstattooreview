@@ -1,0 +1,25 @@
+# Netlify Configuration for Colorado Springs Tattoo Review
+
+[build]
+  publish = "."
+
+# Clean URL Rewrites for Shop Detail Pages
+[[redirects]]
+  from = "/shops/:slug"
+  to = "/shop.html?slug=:slug"
+  status = 200
+
+# Security and Performance Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/data/*.json"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+    Access-Control-Allow-Origin = "*"

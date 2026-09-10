@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colorado Springs Tattoo Review | Best Tattoo Shops & Honest Reviews</title>
+  <meta name="description" content="Discover top-rated tattoo shops in Colorado Springs. Compare Google, Yelp, and client reviews with balanced positive and critical breakdowns. Featuring Riot Tattoo Co. and more." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="site-branding">
+        <a href="/" class="site-logo">
+          <span class="logo-accent">COS</span> Tattoo Review
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/" class="active">Studios</a></li>
+          <li><a href="#popular-styles">Styles</a></li>
+          <li><a href="#how-it-works">About</a></li>
+        </ul>
+      </nav>
+      <div class="header-action">
+        <a href="#shops-section" class="btn btn-primary">Find an Artist</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Homepage Hero Section -->
+    <section class="home-hero">
+      <div class="container hero-box">
+        <div class="hero-badge">Colorado Springs Local Directory</div>
+        <h1 class="hero-main-title">Discover the Best Tattoo Studios in Colorado Springs</h1>
+        <p class="hero-sub">Unbiased ratings, full positive and critical review breakdowns, and verified studio information to help you pick the right artist.</p>
+        
+        <!-- Interactive Search Bar -->
+        <div class="search-bar-container">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search by studio name, style, or address (e.g., Riot, Fine Line, Tejon St)..." 
+              autocomplete="off"
+            />
+            <button type="button" id="clear-search-btn" class="clear-btn" style="display: none;">✕</button>
+          </div>
+        </div>
+
+        <!-- Quick Style Filter Pills -->
+        <div class="quick-filters" id="popular-styles">
+          <span class="filter-label">Popular Styles:</span>
+          <div class="filters-pills" id="filters-container">
+            <button class="style-badge active" data-style="all">All Styles</button>
+            <button class="style-badge" data-style="Traditional">Traditional</button>
+            <button class="style-badge" data-style="Fine Line">Fine Line</button>
+            <button class="style-badge" data-style="Realism">Realism</button>
+            <button class="style-badge" data-style="Black & Grey">Black & Grey</button>
+            <button class="style-badge" data-style="Custom Work">Custom Work</button>
+            <button class="style-badge" data-style="Piercing">Piercing</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studios Directory Grid Section -->
+    <section class="directory-section" id="shops-section">
+      <div class="container">
+        <header class="section-header">
+          <div class="section-header-left">
+            <h2>Featured Tattoo Studios</h2>
+            <p class="section-subtext">Verified studios across Colorado Springs ranked by customer satisfaction.</p>
+          </div>
+          <div class="section-header-right">
+            <span class="results-count" id="results-count">Loading studios...</span>
+          </div>
+        </header>
+
+        <!-- Dynamic Grid Container populated by app.js -->
+        <div class="shops-listings-grid" id="shops-grid">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Loading tattoo studios...</p>
+          </div>
+        </div>
+
+        <!-- No Results Fallback Message -->
+        <div class="no-results" id="no-results-msg" style="display: none;">
+          <h3>No studios found matching your search.</h3>
+          <p>Try clearing your search term or selecting "All Styles" above.</p>
+          <button type="button" class="btn btn-secondary" id="reset-filters-btn">Reset All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Us / How It Works Section -->
+    <section class="info-section" id="how-it-works">
+      <div class="container">
+        <div class="info-header">
+          <h2>Why Use Colorado Springs Tattoo Review?</h2>
+          <p>We believe getting a tattoo is a major decision that deserves transparency, not just filtered marketing.</p>
+        </div>
+
+        <div class="info-cards-grid">
+          <div class="info-card">
+            <div class="info-card-icon">⚖️</div>
+            <h3>Balanced Reviews</h3>
+            <p>Every studio page breaks down both <strong>Positive Highlights</strong> and <strong>Critical Feedback</strong> side-by-side so you get the full picture before booking.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">📍</div>
+            <h3>100% Local Studios</h3>
+            <p>All shops are physically inspected and verified local businesses operating within the Colorado Springs metropolitan area.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">⚡</div>
+            <h3>Aggregated Platforms</h3>
+            <p>We compile customer experiences across Google, Yelp, and direct verified clients in one convenient directory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <a href="/" class="site-logo footer-logo">
+          <span class="logo-accent">COS</span> Tattoo Review
+        </a>
+        <p class="footer-tagline">The premier community guide to tattoo artistry, studio safety, and authentic reviews in Colorado Springs, CO.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Top Studios</h4>
+        <ul class="footer-links">
+          <li><a href="shop.html?slug=riot-tattoo">Riot Tattoo Co.</a></li>
+          <li><a href="shop.html?slug=pens-and-needles">Pens & Needles</a></li>
+          <li><a href="shop.html?slug=self-inflicted">Self Inflicted Tattoo</a></li>
+          <li><a href="shop.html?slug=fallen-heroes">Fallen Heroes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Directory</h4>
+        <ul class="footer-links">
+          <li><a href="/">Browse All Studios</a></li>
+          <li><a href="#how-it-works">How Reviews Work</a></li>
+          <li><a href="#popular-styles">Browse by Style</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Colorado Springs Tattoo Review. Independent directory. All trademarks belong to their respective owners.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>

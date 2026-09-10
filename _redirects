@@ -1,0 +1,2 @@
+# Netlify Redirects
+/shops/:slug    /shop.html?slug=:slug   200
