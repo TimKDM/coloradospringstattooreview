@@ -230,6 +230,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Live vs Curated Tab Switching (Option C)
     setupReviewTabs(shop);
+
+    // 7. Render Resident Artists & Booking Status
+    renderArtists(shop);
+
+    // 8. Render Before You Book Client Advisory
+    renderBeforeYouBook(shop);
+
+    // 9. Setup Studio Claim Modal
+    setupClaimModal(shop);
   }
 
   function renderScorecardPlatforms(shop) {
@@ -428,6 +437,104 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+  }
+
+  function renderArtists(shop) {
+    const mount = document.getElementById('artists-grid-mount');
+    if (!mount) return;
+    const artists = shop.artists || [];
+    if (artists.length === 0) {
+      mount.innerHTML = '<p class="text-muted">Resident artist roster currently undergoing annual verification.</p>';
+      return;
+    }
+    const statusLabels = {
+      open: '🟢 Books Open',
+      waitlist: '🟡 Waitlist',
+      closed: '🔴 Books Closed'
+    };
+    mount.innerHTML = artists.map(a => {
+      const statusClass = `status-${a.bookingStatus || 'open'}`;
+      const statusText = a.bookingStatus === 'waitlist' 
+        ? `🟡 Waitlist (${a.waitlistTime || '1–2 Mos'})` 
+        : (statusLabels[a.bookingStatus] || '🟢 Books Open');
+      const cleanHandle = a.handle ? a.handle.replace('@', '') : '';
+      const igUrl = cleanHandle ? `https://instagram.com/${cleanHandle}` : '#';
+
+      return `
+        <div class="artist-profile-card">
+          <div class="artist-card-top">
+            <div class="artist-avatar">${escapeHtml(a.name.charAt(0).toUpperCase())}</div>
+            <div class="artist-main-info">
+              <h4 class="artist-name">${escapeHtml(a.name)}</h4>
+              <span class="artist-role">${escapeHtml(a.role || 'Resident Artist')}</span>
+            </div>
+          </div>
+          <div class="artist-card-status">
+            <span class="booking-status-badge ${statusClass}">${statusText}</span>
+          </div>
+          <div class="artist-card-action">
+            ${a.handle ? `<a href="${igUrl}" target="_blank" rel="noopener noreferrer" class="artist-ig-link">📸 ${escapeHtml(a.handle)} ↗</a>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderBeforeYouBook(shop) {
+    const mount = document.getElementById('before-you-book-mount');
+    if (!mount) return;
+    const advisories = shop.beforeYouBook || [];
+    if (advisories.length === 0) {
+      mount.innerHTML = '<p class="text-muted">No specific booking advisories recorded for this studio.</p>';
+      return;
+    }
+    const typeIcons = { warning: '⚠️', tip: '💡', parking: '🚗' };
+    mount.innerHTML = advisories.map(adv => {
+      const icon = typeIcons[adv.type] || '📌';
+      return `
+        <div class="advisory-card advisory-${adv.type || 'tip'}">
+          <div class="advisory-header">
+            <span class="advisory-icon">${icon}</span>
+            <strong class="advisory-title">${escapeHtml(adv.title)}</strong>
+          </div>
+          <p class="advisory-body">${escapeHtml(adv.text)}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function setupClaimModal(shop) {
+    const claimBtn = document.getElementById('claim-profile-btn');
+    const modal = document.getElementById('claim-modal');
+    const closeBtn = document.getElementById('claim-modal-close');
+    const form = document.getElementById('claim-profile-form');
+    const successMsg = document.getElementById('claim-success-msg');
+    const shopIdInput = document.getElementById('claim-shop-id');
+    const subtitle = document.getElementById('claim-modal-subtitle');
+
+    if (!claimBtn || !modal) return;
+    if (shopIdInput) shopIdInput.value = shop.id || '';
+    if (subtitle && shop.name) {
+      subtitle.textContent = `Submit verified updates or roster additions for ${shop.name} to our editorial review board.`;
+    }
+
+    claimBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
+    if (closeBtn) closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.style.display = 'none';
+        if (successMsg) successMsg.style.display = 'block';
+        setTimeout(() => {
+          modal.style.display = 'none';
+          form.reset();
+          form.style.display = 'block';
+          if (successMsg) successMsg.style.display = 'none';
+        }, 3000);
+      });
+    }
   }
 
   initShopPage();

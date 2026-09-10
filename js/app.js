@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('search-input');
   const clearSearchBtn = document.getElementById('clear-search-btn');
   const filtersContainer = document.getElementById('filters-container');
+  const opFiltersContainer = document.getElementById('op-filters-container');
   const resultsCount = document.getElementById('results-count');
   const noResultsMsg = document.getElementById('no-results-msg');
   const resetFiltersBtn = document.getElementById('reset-filters-btn');
 
   let allShops = [];
   let currentStyle = 'all';
+  let currentOp = 'all';
   let searchTerm = '';
 
   // 1. Fetch shops data
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       allShops = await res.json();
       renderShops();
+      setupMatchQuiz();
     } catch (err) {
       console.error('Failed to load shops:', err);
       shopsGrid.innerHTML = `
@@ -40,6 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const matchesStyle = (currentStyle === 'all') || 
         (Array.isArray(shop.styles) && shop.styles.some(s => s.toLowerCase() === currentStyle.toLowerCase()));
 
+      // Operational filter
+      const matchesOp = (currentOp === 'all') ||
+        (currentOp === 'walkIns' && shop.operational && shop.operational.walkIns === true) ||
+        (currentOp === 'appointmentOnly' && shop.operational && shop.operational.walkIns === false) ||
+        (currentOp === 'piercing' && shop.operational && shop.operational.piercing === true) ||
+        (currentOp === 'coverUps' && shop.operational && shop.operational.coverUps === true);
+
       // Search term filter
       const term = searchTerm.toLowerCase().trim();
       const matchesSearch = !term || 
@@ -48,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         (shop.description && shop.description.toLowerCase().includes(term)) ||
         (Array.isArray(shop.styles) && shop.styles.some(s => s.toLowerCase().includes(term)));
 
-      return matchesStyle && matchesSearch;
+      return matchesStyle && matchesOp && matchesSearch;
     });
 
     // Update results counter
@@ -71,6 +81,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const reviewsCount = shop.totalWebReviews || (Array.isArray(shop.reviews) ? shop.reviews.length : 0);
       const stylesList = Array.isArray(shop.styles) ? shop.styles.slice(0, 3) : [];
       const shopUrl = `shop.html?slug=${encodeURIComponent(shop.slug || shop.id)}`;
+
+      // Operational pills
+      const opPills = [];
+      if (shop.operational) {
+        if (shop.operational.walkIns) {
+          opPills.push('<span class="op-card-pill op-walkin">🚶 Walk-Ins</span>');
+        } else {
+          opPills.push('<span class="op-card-pill op-appt">📅 Appt Only</span>');
+        }
+        if (shop.operational.piercing) {
+          opPills.push('<span class="op-card-pill op-pierce">💎 Piercing</span>');
+        }
+        if (shop.operational.coverUps) {
+          opPills.push('<span class="op-card-pill op-cover">🔄 Cover-Ups</span>');
+        }
+      }
 
       return `
         <article class="shop-card ${shop.featured ? 'shop-card-featured' : ''}">
@@ -98,6 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
               ` : ''}
             </header>
+
+            ${opPills.length > 0 ? `
+              <div class="card-op-pills">
+                ${opPills.join('')}
+              </div>
+            ` : ''}
 
             ${stylesList.length > 0 ? `
               <div class="card-styles">
@@ -164,11 +196,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Reset Filters
+  // 5. Operational Filter Event Delegation
+  if (opFiltersContainer) {
+    opFiltersContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.op-badge');
+      if (!btn) return;
+
+      opFiltersContainer.querySelectorAll('.op-badge').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentOp = btn.dataset.op || 'all';
+      renderShops();
+    });
+  }
+
+  // 6. Reset Filters
   if (resetFiltersBtn) {
     resetFiltersBtn.addEventListener('click', () => {
       searchTerm = '';
       currentStyle = 'all';
+      currentOp = 'all';
       if (searchInput) searchInput.value = '';
       if (clearSearchBtn) clearSearchBtn.style.display = 'none';
       if (filtersContainer) {
@@ -176,8 +223,178 @@ document.addEventListener('DOMContentLoaded', () => {
           b.classList.toggle('active', b.dataset.style === 'all');
         });
       }
+      if (opFiltersContainer) {
+        opFiltersContainer.querySelectorAll('.op-badge').forEach(b => {
+          b.classList.toggle('active', b.dataset.op === 'all');
+        });
+      }
       renderShops();
     });
+  }
+
+  // 7. Interactive 30-Second Match Quiz
+  function setupMatchQuiz() {
+    const openBtn = document.getElementById('open-quiz-btn');
+    const modal = document.getElementById('quiz-modal');
+    const closeBtn = document.getElementById('quiz-modal-close');
+    if (!openBtn || !modal) return;
+
+    const answers = {
+      style: '',
+      timing: '',
+      budget: '',
+      name: '',
+      email: ''
+    };
+
+    const step1 = document.getElementById('quiz-step-1');
+    const step2 = document.getElementById('quiz-step-2');
+    const step3 = document.getElementById('quiz-step-3');
+    const step4 = document.getElementById('quiz-step-4');
+    const resultBox = document.getElementById('quiz-result');
+    const leadForm = document.getElementById('quiz-lead-form');
+
+    function resetQuiz() {
+      answers.style = '';
+      answers.timing = '';
+      answers.budget = '';
+      answers.name = '';
+      answers.email = '';
+      if (step1) step1.style.display = 'block';
+      if (step2) step2.style.display = 'none';
+      if (step3) step3.style.display = 'none';
+      if (step4) step4.style.display = 'none';
+      if (resultBox) {
+        resultBox.style.display = 'none';
+        resultBox.innerHTML = '';
+      }
+      if (leadForm) leadForm.reset();
+    }
+
+    openBtn.addEventListener('click', () => {
+      resetQuiz();
+      modal.style.display = 'flex';
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // Step 1 option clicks
+    if (step1) {
+      step1.addEventListener('click', (e) => {
+        const btn = e.target.closest('.quiz-option-btn');
+        if (!btn) return;
+        answers.style = btn.dataset.val;
+        step1.style.display = 'none';
+        if (step2) step2.style.display = 'block';
+      });
+    }
+
+    // Step 2 option clicks
+    if (step2) {
+      step2.addEventListener('click', (e) => {
+        const btn = e.target.closest('.quiz-option-btn');
+        if (!btn) return;
+        answers.timing = btn.dataset.val;
+        step2.style.display = 'none';
+        if (step3) step3.style.display = 'block';
+      });
+    }
+
+    // Step 3 option clicks
+    if (step3) {
+      step3.addEventListener('click', (e) => {
+        const btn = e.target.closest('.quiz-option-btn');
+        if (!btn) return;
+        answers.budget = btn.dataset.val;
+        step3.style.display = 'none';
+        if (step4) step4.style.display = 'block';
+      });
+    }
+
+    // Step 4: Lead Form submit & Match Logic
+    if (leadForm) {
+      leadForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        answers.name = document.getElementById('quiz-name').value.trim();
+        answers.email = document.getElementById('quiz-email').value.trim();
+
+        step4.style.display = 'none';
+
+        // Evaluate Best Match
+        let matchedSlug = 'riot-tattoo';
+        let matchReason = '';
+        let artistMatch = '';
+
+        if (answers.style === 'piercing') {
+          matchedSlug = 'fallen-heroes';
+          artistMatch = 'Professional Piercing Team';
+          matchReason = 'Largest verified jewelry counter and certified piercers in Colorado Springs.';
+        } else if (answers.timing === 'walkin' && answers.style === 'traditional') {
+          matchedSlug = 'rose-of-the-west';
+          artistMatch = 'Eric or Justin';
+          matchReason = 'Downtown street shop walk-in accessibility combined with flawless American traditional flash.';
+        } else if (answers.timing === 'walkin') {
+          matchedSlug = 'self-inflicted';
+          artistMatch = 'Westside Resident Staff';
+          matchReason = 'Welcoming street-shop culture with daily open walk-in chairs and no elitist attitude.';
+        } else if (answers.style === 'traditional') {
+          matchedSlug = 'rose-of-the-west';
+          artistMatch = 'Eric or Justin';
+          matchReason = 'Unrivaled bold line saturation and iconic Americana tattooing.';
+        } else if (answers.style === 'coverup') {
+          matchedSlug = 'riot-tattoo';
+          artistMatch = 'Paes 164 & Darin Newhouse';
+          matchReason = 'Master-grade blast-overs and anatomical cover-up composition with 5.0 ★ client satisfaction.';
+        } else {
+          // Default / Realism / High Custom / Willing to wait
+          matchedSlug = 'riot-tattoo';
+          artistMatch = 'Paes 164 & Darin Newhouse';
+          matchReason = 'Rated #1 studio in Colorado Springs. Pure 5.0 ★ consensus with zero deposit disputes.';
+        }
+
+        const matchedShop = allShops.find(s => (s.slug === matchedSlug || s.id === matchedSlug)) || allShops[0];
+
+        if (resultBox && matchedShop) {
+          resultBox.innerHTML = `
+            <div class="modal-header">
+              <span class="modal-icon">🎯</span>
+              <div class="match-badge">Top Verified Match for ${escapeHtml(answers.name)}</div>
+              <h3>${escapeHtml(matchedShop.name)}</h3>
+              <div class="match-rating">★ ${Number(matchedShop.rating).toFixed(1)} (${matchedShop.totalWebReviews || 0} web reviews)</div>
+            </div>
+            <div class="match-card-body">
+              <div class="match-highlight-box">
+                <strong>Recommended Resident Artists:</strong> ${artistMatch}
+              </div>
+              <p class="match-reason-text"><strong>Why This Shop Fits You:</strong> ${matchReason}</p>
+              <div class="match-policy-chips">
+                <span>📍 ${escapeHtml(matchedShop.address || 'Colorado Springs')}</span>
+                <span>${matchedShop.operational && matchedShop.operational.walkIns ? '🚶 Walk-Ins Welcome' : '📅 Strict Appointment'}</span>
+                <span>💰 ${escapeHtml(matchedShop.priceRange || '$$$')}</span>
+              </div>
+              <div class="match-action-row">
+                <a href="shop.html?slug=${matchedShop.slug || matchedShop.id}" class="btn btn-primary btn-block">
+                  View Full Studio Profile &amp; Reviews ➔
+                </a>
+                <button type="button" class="btn btn-secondary btn-block" id="quiz-restart-btn">Take Quiz Again</button>
+              </div>
+            </div>
+          `;
+          resultBox.style.display = 'block';
+
+          const restartBtn = document.getElementById('quiz-restart-btn');
+          if (restartBtn) {
+            restartBtn.addEventListener('click', resetQuiz);
+          }
+        }
+      });
+    }
   }
 
   // Utilities

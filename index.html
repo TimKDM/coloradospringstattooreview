@@ -27,6 +27,7 @@
       <nav class="main-nav">
         <ul>
           <li><a href="/" class="active">Studios</a></li>
+          <li><a href="pricing-guide.html">💰 2026 Cost Guide</a></li>
           <li><a href="#popular-styles">Styles</a></li>
           <li><a href="#how-it-works">About</a></li>
         </ul>
@@ -59,6 +60,13 @@
           </div>
         </div>
 
+        <!-- 30-Second Match Quiz CTA -->
+        <div class="hero-quiz-cta">
+          <button type="button" class="btn btn-secondary btn-quiz-launch" id="open-quiz-btn">
+            ⚡ <strong>Take the 30-Second Artist Match Quiz</strong> — Match with the best studio for your style &amp; timeline
+          </button>
+        </div>
+
         <!-- Quick Style Filter Pills -->
         <div class="quick-filters" id="popular-styles">
           <span class="filter-label">Popular Styles:</span>
@@ -72,6 +80,18 @@
             <button class="style-badge" data-style="Custom Work">Custom Work</button>
             <button class="style-badge" data-style="Flash">Flash</button>
             <button class="style-badge" data-style="Piercing">Piercing</button>
+          </div>
+        </div>
+
+        <!-- Quick Operational Filter Pills -->
+        <div class="operational-filters" id="operational-filters">
+          <span class="filter-label">Operational Mode:</span>
+          <div class="filters-pills" id="op-filters-container">
+            <button class="op-badge active" data-op="all">All Operations</button>
+            <button class="op-badge" data-op="walkIns">🚶 Walk-Ins Welcome</button>
+            <button class="op-badge" data-op="appointmentOnly">📅 Appointment Only</button>
+            <button class="op-badge" data-op="piercing">💎 Piercing Available</button>
+            <button class="op-badge" data-op="coverUps">🔄 Cover-Up Specialists</button>
           </div>
         </div>
       </div>
@@ -160,9 +180,10 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Directory</h4>
+        <h4>Directory & Resources</h4>
         <ul class="footer-links">
           <li><a href="/">Browse All Studios</a></li>
+          <li><a href="pricing-guide.html">💰 2026 Cost & Deposit Guide</a></li>
           <li><a href="#how-it-works">How Reviews Work</a></li>
           <li><a href="#popular-styles">Browse by Style</a></li>
         </ul>
@@ -174,6 +195,117 @@
       </div>
     </div>
   </footer>
+
+  <!-- 30-Second Artist Match Quiz Modal -->
+  <div class="modal-backdrop" id="quiz-modal" style="display: none;">
+    <div class="modal-box quiz-modal-box">
+      <button type="button" class="modal-close" id="quiz-modal-close" aria-label="Close modal">&times;</button>
+      <div id="quiz-content">
+        <!-- Step 1: Style / Specialty -->
+        <div class="quiz-step" id="quiz-step-1">
+          <div class="modal-header">
+            <span class="modal-icon">🎨</span>
+            <h3>Step 1 of 3: What style of tattoo do you want?</h3>
+            <p>Select your primary artistic direction:</p>
+          </div>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-key="style" data-val="realism">
+              <strong>Black &amp; Grey / Realism</strong>
+              <span>Portraits, high detail, fine art</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="style" data-val="traditional">
+              <strong>Traditional / Neo-Traditional</strong>
+              <span>Bold lines, iconic Americana, vibrant colors</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="style" data-val="fineline">
+              <strong>Fine Line &amp; Minimalist</strong>
+              <span>Subtle script, delicate micro-detail, floral</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="style" data-val="coverup">
+              <strong>Cover-Up &amp; Rework</strong>
+              <span>Blast-over or concealing previous tattoo</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="style" data-val="piercing">
+              <strong>Body Piercing &amp; Jewelry</strong>
+              <span>Professional body piercing &amp; high-grade titanium</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Timing / Walk-in -->
+        <div class="quiz-step" id="quiz-step-2" style="display: none;">
+          <div class="modal-header">
+            <span class="modal-icon">⏱️</span>
+            <h3>Step 2 of 3: What is your timeline?</h3>
+            <p>How soon are you looking to get tattooed?</p>
+          </div>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-key="timing" data-val="walkin">
+              <strong>Today / Immediate Walk-In</strong>
+              <span>Need open walk-in chairs available right now</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="timing" data-val="flexible">
+              <strong>Within 1–2 Weeks</strong>
+              <span>Flexible timing; ready to put down a standard deposit</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="timing" data-val="waitlist">
+              <strong>Willing to Wait for Elite Masters</strong>
+              <span>Happy to join a 1–3 month waitlist for premier artists</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Budget / Scale -->
+        <div class="quiz-step" id="quiz-step-3" style="display: none;">
+          <div class="modal-header">
+            <span class="modal-icon">💵</span>
+            <h3>Step 3 of 3: Estimated Size &amp; Budget</h3>
+            <p>What scope are you planning for this project?</p>
+          </div>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-option-btn" data-key="budget" data-val="small">
+              <strong>Small / Flash ($80 – $250)</strong>
+              <span>Palm-sized or smaller, shop minimum work</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="budget" data-val="medium">
+              <strong>Half-Day Custom ($350 – $750)</strong>
+              <span>Forearm, calf, shoulder, or bicep piece</span>
+            </button>
+            <button type="button" class="quiz-option-btn" data-key="budget" data-val="large">
+              <strong>Multi-Session / Sleeve ($1,200+)</strong>
+              <span>Full sleeve, back piece, or full-day realism session</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Lead Capture -->
+        <div class="quiz-step" id="quiz-step-4" style="display: none;">
+          <div class="modal-header">
+            <span class="modal-icon">✨</span>
+            <h3>We found your optimal Colorado Springs studio!</h3>
+            <p>Enter your details below to unlock your personalized recommendation and direct studio booking guide.</p>
+          </div>
+          <form id="quiz-lead-form" class="modal-form">
+            <div class="form-group">
+              <label for="quiz-name">Your First Name</label>
+              <input type="text" id="quiz-name" required placeholder="e.g. Marcus" />
+            </div>
+            <div class="form-group">
+              <label for="quiz-email">Your Email Address</label>
+              <input type="email" id="quiz-email" required placeholder="marcus@gmail.com" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">See Matched Studio &amp; Artists ➔</button>
+            <p class="form-disclaimer">Zero spam. Pure local editorial curation.</p>
+          </form>
+        </div>
+
+        <!-- Quiz Result Display -->
+        <div class="quiz-result" id="quiz-result" style="display: none;">
+          <!-- Dynamically inserted by app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Application Script -->
   <script src="js/app.js"></script>

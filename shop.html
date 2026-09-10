@@ -26,7 +26,8 @@
       </div>
       <nav class="main-nav">
         <ul>
-          <li><a href="/">← Back to All Studios</a></li>
+          <li><a href="/">← Directory</a></li>
+          <li><a href="pricing-guide.html">💰 Cost & Deposit Guide</a></li>
         </ul>
       </nav>
       <div class="header-action">
@@ -91,6 +92,38 @@
               <div class="style-tags-list" id="shop-styles-list"></div>
             </div>
           </article>
+
+          <!-- Resident Artists & Booking Status Section -->
+          <section class="content-card artists-card-section" id="artists-section">
+            <div class="artists-section-header">
+              <div class="artists-title-wrap">
+                <span class="artists-main-icon">🎨</span>
+                <div>
+                  <h2>Resident Artists & Booking Availability</h2>
+                  <p class="artists-sub">Find verified resident tattooers, specialties, Instagram portfolios, and booking waitlists.</p>
+                </div>
+              </div>
+            </div>
+            <div class="artists-grid" id="artists-grid-mount">
+              <!-- Injected via js/shop.js -->
+            </div>
+          </section>
+
+          <!-- Before You Book: Critical Client Advisory -->
+          <section class="content-card advisory-card-section" id="before-you-book-section">
+            <div class="advisory-section-header">
+              <div class="advisory-title-wrap">
+                <span class="advisory-main-icon">🛡️</span>
+                <div>
+                  <h2>Before You Book: Essential Client Advisories</h2>
+                  <p class="advisory-sub">Pre-booking guidance regarding parking, deposit terms, and artist assignments.</p>
+                </div>
+              </div>
+            </div>
+            <div class="advisory-cards-grid" id="before-you-book-mount">
+              <!-- Injected via js/shop.js -->
+            </div>
+          </section>
 
           <!-- The Good vs. The Bad Web Consensus Section -->
           <section class="content-card consensus-section-card" id="consensus-section">
@@ -280,6 +313,15 @@
             </div>
           </div>
 
+          <!-- Studio Claim / Update Action -->
+          <div class="sidebar-widget claim-profile-card">
+            <h4>Are you the studio owner?</h4>
+            <p>Keep your resident artist roster, waitlist status, and studio details accurate on Colorado Springs' premier guide.</p>
+            <button type="button" class="btn btn-outline-sm btn-block" id="claim-profile-btn">
+              Claim or Update Profile ↗
+            </button>
+          </div>
+
           <!-- Transparency Notice Widget -->
           <div class="sidebar-widget transparency-widget">
             <h4>⚖️ Our Review Policy</h4>
@@ -323,9 +365,10 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Directory</h4>
+        <h4>Directory & Resources</h4>
         <ul class="footer-links">
           <li><a href="/">Browse All Studios</a></li>
+          <li><a href="pricing-guide.html">💰 2026 Cost & Deposit Guide</a></li>
           <li><a href="/">Home</a></li>
         </ul>
       </div>
@@ -336,6 +379,40 @@
       </div>
     </div>
   </footer>
+
+  <!-- Studio Claim Modal -->
+  <div class="modal-backdrop" id="claim-modal" style="display: none;">
+    <div class="modal-box">
+      <button type="button" class="modal-close" id="claim-modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-icon">🏛️</span>
+        <h3>Claim or Update Studio Profile</h3>
+        <p id="claim-modal-subtitle">Submit verified studio updates or request an updated artist roster for this listing.</p>
+      </div>
+      <form id="claim-profile-form" class="modal-form">
+        <input type="hidden" id="claim-shop-id" value="" />
+        <div class="form-group">
+          <label for="claim-name">Your Full Name & Role</label>
+          <input type="text" id="claim-name" required placeholder="e.g. Jane Doe (Owner / Lead Artist)" />
+        </div>
+        <div class="form-group">
+          <label for="claim-email">Official Business Email</label>
+          <input type="email" id="claim-email" required placeholder="name@yourstudio.com" />
+        </div>
+        <div class="form-group">
+          <label for="claim-notes">Requested Updates or Artist Changes</label>
+          <textarea id="claim-notes" rows="3" required placeholder="Specify updated booking status, artist additions, or studio hours..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Verification Request</button>
+        <p class="form-disclaimer">Verified by King Digital Marketing editorial team within 24–48 hours.</p>
+      </form>
+      <div id="claim-success-msg" class="claim-success" style="display: none;">
+        <span class="success-icon">✅</span>
+        <h4>Verification Request Received!</h4>
+        <p>Thank you! Our editorial team will verify your studio credentials and update the profile accordingly.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Shop Logic Script -->
   <script src="js/shop.js"></script>
