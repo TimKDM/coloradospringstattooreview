@@ -1,9 +1,15 @@
 /**
  * Colorado Springs Tattoo Review - Homepage Application Script
- * Handles fetching shops from data/shops.json, live search, and style filtering.
+ * Features:
+ * - Dual Directory Views: Verified Studios & Resident Artists Roster
+ * - Independent Collectives & Artist Craft Spotlight
+ * - Un-Biased Data & Proportional Review Transparency
+ * - Live Search, Operational & Atmospheric Filters
+ * - Un-Rigged 30-Second Artist Match Quiz
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Studios DOM
   const shopsGrid = document.getElementById('shops-grid');
   const searchInput = document.getElementById('search-input');
   const clearSearchBtn = document.getElementById('clear-search-btn');
@@ -14,33 +20,88 @@ document.addEventListener('DOMContentLoaded', () => {
   const noResultsMsg = document.getElementById('no-results-msg');
   const resetFiltersBtn = document.getElementById('reset-filters-btn');
 
+  // View Switcher DOM
+  const viewStudiosTab = document.getElementById('view-studios-tab');
+  const viewArtistsTab = document.getElementById('view-artists-tab');
+  const studiosViewContainer = document.getElementById('studios-view-container');
+  const artistsViewContainer = document.getElementById('artists-view-container');
+  const navArtistsLink = document.getElementById('nav-artists-link');
+
+  // Artists DOM
+  const artistsGrid = document.getElementById('artists-grid');
+  const artistsResultsCount = document.getElementById('artists-results-count');
+  const noArtistsMsg = document.getElementById('no-artists-msg');
+  const resetArtistFiltersBtn = document.getElementById('reset-artist-filters-btn');
+  const artistSpecialtyChips = document.getElementById('artist-specialty-chips');
+  const artistStatusChips = document.getElementById('artist-status-chips');
+  const indieOnlyCheckbox = document.getElementById('indie-only-checkbox');
+
+  // State
   let allShops = [];
+  let allArtists = [];
+  let currentView = 'studios'; // 'studios' or 'artists'
   let currentStyle = 'all';
   let currentOp = 'all';
   let currentVibe = 'all';
+  let currentArtistSpecialty = 'all';
+  let currentArtistStatus = 'all';
+  let indieOnly = false;
   let searchTerm = '';
 
-  // 1. Fetch shops data
-  async function loadShops() {
+  // 1. Fetch shops and extract artists
+  async function loadData() {
     try {
       const res = await fetch('data/shops.json');
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       allShops = await res.json();
+
+      extractArtists();
       setupDiscoveryHub();
+      setupViewSwitcher();
+      setupArtistFilters();
       renderShops();
+      renderArtists();
       setupMatchQuiz();
+
+      // Update Header Badges
+      const studiosBadge = document.getElementById('studios-badge-count');
+      const artistsBadge = document.getElementById('artists-badge-count');
+      if (studiosBadge) studiosBadge.textContent = `${allShops.length} Studios`;
+      if (artistsBadge) artistsBadge.textContent = `${allArtists.length} Verified Artists`;
     } catch (err) {
-      console.error('Failed to load shops:', err);
-      shopsGrid.innerHTML = `
-        <div class="error-state">
-          <p>⚠️ Unable to load tattoo studios right now. Please check back shortly.</p>
-        </div>
-      `;
+      console.error('Failed to load directory data:', err);
+      if (shopsGrid) {
+        shopsGrid.innerHTML = `
+          <div class="error-state">
+            <p>⚠️ Unable to load tattoo directory right now. Please check back shortly.</p>
+          </div>
+        `;
+      }
     }
+  }
+
+  function extractArtists() {
+    allArtists = [];
+    allShops.forEach(shop => {
+      if (Array.isArray(shop.artists)) {
+        shop.artists.forEach(artist => {
+          allArtists.push({
+            ...artist,
+            shopName: shop.name,
+            shopSlug: shop.slug || shop.id,
+            shopAddress: shop.address,
+            shopPrice: shop.priceRange,
+            isIndie: !!(shop.studioType && shop.studioType.includes('Independent'))
+          });
+        });
+      }
+    });
   }
 
   // 2. Filter and Render Shops
   function renderShops() {
+    if (!shopsGrid) return;
+
     const filtered = allShops.filter(shop => {
       // Style filter
       const matchesStyle = (currentStyle === 'all') || 
@@ -64,7 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
         (shop.address && shop.address.toLowerCase().includes(term)) ||
         (shop.description && shop.description.toLowerCase().includes(term)) ||
         (shop.vibe && (shop.vibe.label.toLowerCase().includes(term) || shop.vibe.summary.toLowerCase().includes(term))) ||
-        (Array.isArray(shop.styles) && shop.styles.some(s => s.toLowerCase().includes(term)));
+        (Array.isArray(shop.styles) && shop.styles.some(s => s.toLowerCase().includes(term))) ||
+        (Array.isArray(shop.artists) && shop.artists.some(a => 
+          a.name.toLowerCase().includes(term) || 
+          (a.handle && a.handle.toLowerCase().includes(term)) ||
+          (a.specialties && a.specialties.some(sp => sp.toLowerCase().includes(term)))
+        ));
 
       return matchesStyle && matchesOp && matchesVibe && matchesSearch;
     });
@@ -90,36 +156,54 @@ document.addEventListener('DOMContentLoaded', () => {
     shopsGrid.innerHTML = filtered.map(shop => {
       const rating = Number(shop.rating || 0).toFixed(1);
       const reviewsCount = shop.totalWebReviews || (Array.isArray(shop.reviews) ? shop.reviews.length : 0);
-      const stylesList = Array.isArray(shop.styles) ? shop.styles.slice(0, 3) : [];
+      const stylesList = Array.isArray(shop.styles) ? shop.styles.slice(0, 4) : [];
       const shopUrl = `shop.html?slug=${encodeURIComponent(shop.slug || shop.id)}`;
+      const isIndie = !!(shop.studioType && shop.studioType.includes('Independent'));
 
-      // Unified Spec Badges
+      // Studio Operational Badges
       const specBadges = [];
+      if (isIndie) {
+        specBadges.push('<span class="spec-badge spec-indie">🌿 Indie Collective</span>');
+      } else if (shop.studioType && shop.studioType.includes('Commercial')) {
+        specBadges.push('<span class="spec-badge spec-commercial">🏢 Commercial Complex</span>');
+      } else if (shop.studioType && shop.studioType.includes('Retail')) {
+        specBadges.push('<span class="spec-badge spec-franchise">💳 Retail Franchise</span>');
+      }
+
       if (shop.vibe) {
         specBadges.push(`<span class="spec-badge spec-vibe spec-vibe-${shop.vibe.tag}">${escapeHtml(shop.vibe.label)}</span>`);
       }
+
       if (shop.operational) {
         if (shop.operational.walkIns) {
           specBadges.push('<span class="spec-badge spec-walkin">🚶 Walk-Ins Welcome</span>');
         } else {
           specBadges.push('<span class="spec-badge spec-appt">📅 Strict Appointment</span>');
         }
-        if (shop.operational.piercing) {
-          specBadges.push('<span class="spec-badge spec-pierce">💎 Piercing On-Site</span>');
-        }
         if (shop.operational.coverUps) {
           specBadges.push('<span class="spec-badge spec-cover">🔄 Cover-Up Masters</span>');
         }
       }
 
+      // Resident Artists Strip on Shop Card
+      const residentArtists = Array.isArray(shop.artists) ? shop.artists : [];
+      const artistsStripHtml = residentArtists.length > 0 ? `
+        <div class="card-resident-strip">
+          <span class="resident-strip-label">Resident Artists:</span>
+          <div class="resident-strip-pills">
+            ${residentArtists.slice(0, 3).map(a => `
+              <span class="resident-pill" title="${escapeHtml(a.role || '')}">
+                <strong class="pill-name">${escapeHtml(a.name)}</strong>
+                ${a.specialties && a.specialties[0] ? `<span class="pill-spec">${escapeHtml(a.specialties[0])}</span>` : ''}
+              </span>
+            `).join('')}
+            ${residentArtists.length > 3 ? `<span class="resident-pill-more">+${residentArtists.length - 3} more</span>` : ''}
+          </div>
+        </div>
+      ` : '';
+
       return `
-        <article class="shop-card ${shop.featured ? 'shop-card-featured' : ''}">
-          ${shop.featured ? `
-            <div class="card-featured-ribbon">
-              <span class="ribbon-star">⭐</span>
-              <span>#1 VERIFIED HERO STUDIO IN COLORADO SPRINGS</span>
-            </div>
-          ` : ''}
+        <article class="shop-card ${isIndie ? 'shop-card-indie' : ''}">
           <div class="card-body">
             <header class="card-header">
               <div class="card-meta-top">
@@ -143,6 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             ` : ''}
 
+            ${artistsStripHtml}
+
             ${stylesList.length > 0 ? `
               <div class="card-styles">
                 ${stylesList.map(s => `<span class="card-style-pill">${escapeHtml(s)}</span>`).join('')}
@@ -150,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ` : ''}
 
             <div class="card-excerpt">
-              <p>${escapeHtml(truncate(shop.description || '', 140))}</p>
+              <p>${escapeHtml(truncate(shop.description || '', 135))}</p>
             </div>
 
             ${shop.address ? `
@@ -171,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
               ` : '<span></span>'}
               <a href="${shopUrl}" class="action-btn">
-                <span>View Full Profile</span> <span class="btn-arrow">➔</span>
+                <span>View Dossier &amp; Roster</span> <span class="btn-arrow">➔</span>
               </a>
             </footer>
           </div>
@@ -180,74 +266,245 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
-  // 3. Search Events
+  // 3. Filter and Render Artists Roster
+  function renderArtists() {
+    if (!artistsGrid) return;
+
+    const term = searchTerm.toLowerCase().trim();
+
+    const filtered = allArtists.filter(artist => {
+      // Specialty Filter
+      const matchesSpecialty = (currentArtistSpecialty === 'all') ||
+        (Array.isArray(artist.specialties) && artist.specialties.some(s => s.toLowerCase().includes(currentArtistSpecialty.toLowerCase())));
+
+      // Availability Filter
+      const matchesStatus = (currentArtistStatus === 'all') ||
+        (artist.bookingStatus === currentArtistStatus);
+
+      // Indie Only Filter
+      const matchesIndie = !indieOnly || artist.isIndie === true;
+
+      // Search term
+      const matchesSearch = !term ||
+        artist.name.toLowerCase().includes(term) ||
+        (artist.handle && artist.handle.toLowerCase().includes(term)) ||
+        (artist.role && artist.role.toLowerCase().includes(term)) ||
+        (artist.bioSnippet && artist.bioSnippet.toLowerCase().includes(term)) ||
+        (artist.shopName && artist.shopName.toLowerCase().includes(term)) ||
+        (Array.isArray(artist.specialties) && artist.specialties.some(sp => sp.toLowerCase().includes(term)));
+
+      return matchesSpecialty && matchesStatus && matchesIndie && matchesSearch;
+    });
+
+    if (artistsResultsCount) {
+      artistsResultsCount.textContent = `Showing ${filtered.length} of ${allArtists.length} Verified Artists`;
+    }
+
+    if (filtered.length === 0) {
+      artistsGrid.innerHTML = '';
+      if (noArtistsMsg) noArtistsMsg.style.display = 'block';
+      return;
+    }
+
+    if (noArtistsMsg) noArtistsMsg.style.display = 'none';
+
+    const statusMap = {
+      open: '🟢 Books Open',
+      waitlist: '🟡 Waitlist',
+      closed: '🔴 Books Closed'
+    };
+
+    artistsGrid.innerHTML = filtered.map(a => {
+      const cleanHandle = a.handle ? a.handle.replace('@', '') : '';
+      const igUrl = cleanHandle ? `https://instagram.com/${cleanHandle}` : '#';
+      const shopUrl = `shop.html?slug=${encodeURIComponent(a.shopSlug)}`;
+      const statusText = a.bookingStatus === 'waitlist'
+        ? `🟡 Waitlist (${a.waitlistTime || '1–2 Mos'})`
+        : (statusMap[a.bookingStatus] || '🟢 Books Open');
+
+      return `
+        <article class="artist-showcase-card ${a.isIndie ? 'artist-card-indie' : ''}">
+          <div class="artist-card-header">
+            <div class="artist-badge-avatar">${escapeHtml(a.avatarInitials || a.name.slice(0, 2).toUpperCase())}</div>
+            <div class="artist-header-titles">
+              <h3 class="artist-card-name">${escapeHtml(a.name)}</h3>
+              <span class="artist-card-role">${escapeHtml(a.role || 'Resident Tattooer')}</span>
+              <div class="artist-shop-link">
+                <a href="${shopUrl}">📍 ${escapeHtml(a.shopName)}</a>
+                ${a.isIndie ? '<span class="indie-micro-tag">🌿 Indie</span>' : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="artist-status-row">
+            <span class="booking-badge status-${a.bookingStatus || 'open'}">${statusText}</span>
+            ${a.waitlistTime && a.bookingStatus === 'open' ? `<span class="artist-wait-note">⏱ ${escapeHtml(a.waitlistTime)}</span>` : ''}
+          </div>
+
+          ${Array.isArray(a.specialties) && a.specialties.length > 0 ? `
+            <div class="artist-specialties-strip">
+              ${a.specialties.map(sp => `<span class="artist-spec-tag">${escapeHtml(sp)}</span>`).join('')}
+            </div>
+          ` : ''}
+
+          <div class="artist-bio-box">
+            <p>${escapeHtml(a.bioSnippet || 'Resident custom tattooer providing dedicated artistry and client-focused sessions.')}</p>
+          </div>
+
+          <footer class="artist-card-footer">
+            ${cleanHandle ? `
+              <a href="${igUrl}" target="_blank" rel="noopener noreferrer" class="artist-portfolio-btn" title="View Instagram portfolio for ${escapeHtml(a.name)}">
+                <span>📸 ${escapeHtml(a.handle)}</span> <span class="ext-arrow">↗</span>
+              </a>
+            ` : '<span></span>'}
+            <a href="${shopUrl}#artists-section" class="artist-studio-btn">
+              <span>View Studio Roster</span> ➔
+            </a>
+          </footer>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // 4. View Switcher Setup
+  function setupViewSwitcher() {
+    if (!viewStudiosTab || !viewArtistsTab) return;
+
+    function switchView(view) {
+      currentView = view;
+      if (view === 'studios') {
+        viewStudiosTab.classList.add('active');
+        viewArtistsTab.classList.remove('active');
+        if (studiosViewContainer) studiosViewContainer.style.display = 'block';
+        if (artistsViewContainer) artistsViewContainer.style.display = 'none';
+        renderShops();
+      } else {
+        viewArtistsTab.classList.add('active');
+        viewStudiosTab.classList.remove('active');
+        if (studiosViewContainer) studiosViewContainer.style.display = 'none';
+        if (artistsViewContainer) artistsViewContainer.style.display = 'block';
+        renderArtists();
+      }
+    }
+
+    viewStudiosTab.addEventListener('click', () => switchView('studios'));
+    viewArtistsTab.addEventListener('click', () => switchView('artists'));
+
+    if (navArtistsLink) {
+      navArtistsLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView('artists');
+        const switcher = document.getElementById('directory-view-switcher');
+        if (switcher) switcher.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  }
+
+  // 5. Artist Filter Listeners
+  function setupArtistFilters() {
+    if (artistSpecialtyChips) {
+      artistSpecialtyChips.addEventListener('click', (e) => {
+        const btn = e.target.closest('.artist-chip');
+        if (!btn) return;
+        artistSpecialtyChips.querySelectorAll('.artist-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentArtistSpecialty = btn.dataset.specialty;
+        renderArtists();
+      });
+    }
+
+    if (artistStatusChips) {
+      artistStatusChips.addEventListener('click', (e) => {
+        const btn = e.target.closest('.artist-chip');
+        if (!btn) return;
+        artistStatusChips.querySelectorAll('.artist-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentArtistStatus = btn.dataset.status;
+        renderArtists();
+      });
+    }
+
+    if (indieOnlyCheckbox) {
+      indieOnlyCheckbox.addEventListener('change', (e) => {
+        indieOnly = e.target.checked;
+        renderArtists();
+      });
+    }
+
+    if (resetArtistFiltersBtn) {
+      resetArtistFiltersBtn.addEventListener('click', () => {
+        currentArtistSpecialty = 'all';
+        currentArtistStatus = 'all';
+        indieOnly = false;
+        if (indieOnlyCheckbox) indieOnlyCheckbox.checked = false;
+        if (artistSpecialtyChips) {
+          artistSpecialtyChips.querySelectorAll('.artist-chip').forEach(b => b.classList.toggle('active', b.dataset.specialty === 'all'));
+        }
+        if (artistStatusChips) {
+          artistStatusChips.querySelectorAll('.artist-chip').forEach(b => b.classList.toggle('active', b.dataset.status === 'all'));
+        }
+        renderArtists();
+      });
+    }
+  }
+
+  // 6. Search Input Listener
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-      searchTerm = e.target.value;
+      searchTerm = e.target.value.trim();
       if (clearSearchBtn) {
-        clearSearchBtn.style.display = searchTerm.length > 0 ? 'inline-flex' : 'none';
+        clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
       }
       renderShops();
+      renderArtists();
     });
   }
 
   if (clearSearchBtn) {
     clearSearchBtn.addEventListener('click', () => {
-      if (searchInput) {
-        searchInput.value = '';
-        searchTerm = '';
-        clearSearchBtn.style.display = 'none';
-        searchInput.focus();
-        renderShops();
-      }
+      searchTerm = '';
+      if (searchInput) searchInput.value = '';
+      clearSearchBtn.style.display = 'none';
+      renderShops();
+      renderArtists();
     });
   }
 
-  // 4. Style Pills Event Delegation
+  // 7. Discovery Hub Filters
   if (filtersContainer) {
     filtersContainer.addEventListener('click', (e) => {
       const btn = e.target.closest('.style-badge');
       if (!btn) return;
-
       filtersContainer.querySelectorAll('.style-badge').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      currentStyle = btn.dataset.style || 'all';
+      currentStyle = btn.dataset.style;
       renderShops();
     });
   }
 
-  // 5. Operational Filter Event Delegation
   if (opFiltersContainer) {
     opFiltersContainer.addEventListener('click', (e) => {
       const btn = e.target.closest('.op-badge');
       if (!btn) return;
-
       opFiltersContainer.querySelectorAll('.op-badge').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      currentOp = btn.dataset.op || 'all';
+      currentOp = btn.dataset.op;
       renderShops();
     });
   }
 
-  // 6. Studio Vibe Filter Event Delegation
   if (vibeFiltersContainer) {
     vibeFiltersContainer.addEventListener('click', (e) => {
       const btn = e.target.closest('.vibe-badge');
       if (!btn) return;
-
       vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      currentVibe = btn.dataset.vibe || 'all';
+      currentVibe = btn.dataset.vibe;
       renderShops();
     });
   }
 
-  // 7. Update Filter Indicators & Active Filter Chips Bar
   function updateFilterUI() {
-    // A. Tab Indicators
     const dotStyles = document.getElementById('dot-styles');
     const dotOperations = document.getElementById('dot-operations');
     const dotVibes = document.getElementById('dot-vibes');
@@ -256,7 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dotOperations) dotOperations.style.display = (currentOp !== 'all') ? 'inline-block' : 'none';
     if (dotVibes) dotVibes.style.display = (currentVibe !== 'all') ? 'inline-block' : 'none';
 
-    // B. Active Filter Chips Bar
     const bar = document.getElementById('active-filter-bar');
     const chipsMount = document.getElementById('active-filter-chips');
     if (!bar || !chipsMount) return;
@@ -276,10 +532,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (currentVibe !== 'all') {
       const vibeLabels = {
-        sanctuary: '🌿 Quiet Sanctuary',
-        'inclusive-heritage': '🌹 Inclusive Modern',
-        'street-shop': '⚡ Street Shop',
-        'mega-shop': '🏢 Commercial Mega-Shop'
+        sanctuary: '🌿 Indie Sanctuaries',
+        'inclusive-heritage': '🌹 Modern Inclusive',
+        'street-shop': '⚡ Street Shops',
+        'mega-shop': '🏢 Commercial Mega-Shops'
       };
       activeFilters.push({ type: 'vibe', label: vibeLabels[currentVibe] || currentVibe });
     }
@@ -301,7 +557,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 8. Discovery Hub Setup (Tabs & Chip Clearing)
   function setupDiscoveryHub() {
     const tabs = document.querySelectorAll('.hub-tab');
     const panels = document.querySelectorAll('.hub-panel');
@@ -351,15 +606,12 @@ document.addEventListener('DOMContentLoaded', () => {
           if (clearSearchBtn) clearSearchBtn.style.display = 'none';
         }
         renderShops();
+        renderArtists();
       });
     }
 
-    if (clearAllBtn) {
-      clearAllBtn.addEventListener('click', resetAllFilters);
-    }
-    if (resetFiltersBtn) {
-      resetFiltersBtn.addEventListener('click', resetAllFilters);
-    }
+    if (clearAllBtn) clearAllBtn.addEventListener('click', resetAllFilters);
+    if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetAllFilters);
   }
 
   function resetAllFilters() {
@@ -370,43 +622,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) searchInput.value = '';
     if (clearSearchBtn) clearSearchBtn.style.display = 'none';
     if (filtersContainer) {
-      filtersContainer.querySelectorAll('.style-badge').forEach(b => {
-        b.classList.toggle('active', b.dataset.style === 'all');
-      });
+      filtersContainer.querySelectorAll('.style-badge').forEach(b => b.classList.toggle('active', b.dataset.style === 'all'));
     }
     if (opFiltersContainer) {
-      opFiltersContainer.querySelectorAll('.op-badge').forEach(b => {
-        b.classList.toggle('active', b.dataset.op === 'all');
-      });
+      opFiltersContainer.querySelectorAll('.op-badge').forEach(b => b.classList.toggle('active', b.dataset.op === 'all'));
     }
     if (vibeFiltersContainer) {
-      vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => {
-        b.classList.toggle('active', b.dataset.vibe === 'all');
-      });
+      vibeFiltersContainer.querySelectorAll('.vibe-badge').forEach(b => b.classList.toggle('active', b.dataset.vibe === 'all'));
     }
     renderShops();
+    renderArtists();
   }
 
-  // 7. Interactive 30-Second Match Quiz
+  // 8. Un-Rigged 30-Second Match Quiz
   function setupMatchQuiz() {
-    const openBtn = document.getElementById('open-quiz-btn');
     const modal = document.getElementById('quiz-modal');
+    const openBtn = document.getElementById('open-quiz-btn');
     const closeBtn = document.getElementById('quiz-modal-close');
-    if (!openBtn || !modal) return;
+    if (!modal || !openBtn) return;
 
-    const answers = {
-      style: '',
-      timing: '',
-      budget: '',
-      name: '',
-      email: ''
-    };
+    const answers = { style: '', timing: '', budget: '', name: '', email: '' };
 
     const step1 = document.getElementById('quiz-step-1');
     const step2 = document.getElementById('quiz-step-2');
     const step3 = document.getElementById('quiz-step-3');
     const step4 = document.getElementById('quiz-step-4');
-    const resultBox = document.getElementById('quiz-result');
+    const resultBox = document.getElementById('quiz-result-box');
     const leadForm = document.getElementById('quiz-lead-form');
 
     function resetQuiz() {
@@ -439,7 +680,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === modal) modal.style.display = 'none';
     });
 
-    // Step 1 option clicks
     if (step1) {
       step1.addEventListener('click', (e) => {
         const btn = e.target.closest('.quiz-option-btn');
@@ -450,7 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Step 2 option clicks
     if (step2) {
       step2.addEventListener('click', (e) => {
         const btn = e.target.closest('.quiz-option-btn');
@@ -461,7 +700,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Step 3 option clicks
     if (step3) {
       step3.addEventListener('click', (e) => {
         const btn = e.target.closest('.quiz-option-btn');
@@ -472,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Step 4: Lead Form submit & Match Logic
     if (leadForm) {
       leadForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -481,36 +718,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         step4.style.display = 'none';
 
-        // Evaluate Best Match
-        let matchedSlug = 'riot-tattoo';
+        // Un-Rigged, Objective Artist-Centered Match Algorithm
+        let matchedSlug = 'self-inflicted';
         let matchReason = '';
         let artistMatch = '';
 
-        if (answers.style === 'piercing') {
-          matchedSlug = 'fallen-heroes';
-          artistMatch = 'Professional Piercing Team';
-          matchReason = 'Largest verified jewelry counter and certified piercers in Colorado Springs.';
-        } else if (answers.timing === 'walkin' && answers.style === 'traditional') {
-          matchedSlug = 'rose-of-the-west';
-          artistMatch = 'Eric or Justin';
-          matchReason = 'Downtown street shop walk-in accessibility combined with flawless American traditional flash.';
-        } else if (answers.timing === 'walkin') {
+        if (answers.style === 'coverup') {
           matchedSlug = 'self-inflicted';
-          artistMatch = 'Westside Resident Staff';
-          matchReason = 'Welcoming street-shop culture with daily open walk-in chairs and no elitist attitude.';
+          artistMatch = 'Aaron Moore (@aaronmooretattoo)';
+          matchReason = 'Widely recognized across Colorado Springs as the city\'s #1 cover-up wizard for turning old or dark ink into clean, vibrant art.';
+        } else if (answers.style === 'anime') {
+          matchedSlug = 'fallen-heroes';
+          artistMatch = 'Reece Allen (@reeceallentattoos)';
+          matchReason = 'Nationally acclaimed on Reddit and Instagram for flawless anime character fidelity, vivid color saturation, and razor linework.';
         } else if (answers.style === 'traditional') {
           matchedSlug = 'rose-of-the-west';
-          artistMatch = 'Eric or Justin';
-          matchReason = 'Unrivaled bold line saturation and iconic Americana tattooing.';
-        } else if (answers.style === 'coverup') {
-          matchedSlug = 'riot-tattoo';
-          artistMatch = 'Paes 164 & Darin Newhouse';
-          matchReason = 'Master-grade blast-overs and anatomical cover-up composition with 5.0 ★ client satisfaction.';
+          artistMatch = 'Lauren (@roseofthewest_lauren) & Benton (@bentontattoos)';
+          matchReason = 'The Springs\' gold standard for American Traditional with heavy lines, authentic painted flash, and timeless color packing.';
+        } else if (answers.style === 'fineline') {
+          matchedSlug = 'self-inflicted';
+          artistMatch = 'Vicki (@vicki_westside_ink)';
+          matchReason = 'Gentle needle craft specializing in delicate botanical floras and razor-thin script that heals without blowouts.';
+        } else if (answers.style === 'realism') {
+          matchedSlug = 'timeless-body-art';
+          artistMatch = 'Ryan (@ryan_timelessbodyart) & Sean';
+          matchReason = 'Festival-award winning portrait realism and dark surrealism with true photographic micro-contrast and surgical precision.';
+        } else if (answers.style === 'piercing') {
+          matchedSlug = 'pens-and-needles';
+          artistMatch = 'Elena P. (Certified Body Piercing)';
+          matchReason = 'Dedicated piercer strictly utilizing single-use sterile hollow needles and implant-grade titanium body jewelry.';
+        } else if (answers.timing === 'walkin') {
+          matchedSlug = 'tattoo-demon';
+          artistMatch = 'Dave Wulff & Manny C.';
+          matchReason = 'Authentic Tejon Street walk-in heritage with wall flash, fast chairs, and zero corporate pretension.';
         } else {
-          // Default / Realism / High Custom / Willing to wait
+          // Custom Large Scale / Freehand
           matchedSlug = 'riot-tattoo';
           artistMatch = 'Paes 164 & Darin Newhouse';
-          matchReason = 'Rated #1 studio in Colorado Springs. Pure 5.0 ★ consensus with zero deposit disputes.';
+          matchReason = 'Boutique custom art collective specializing in anatomical freehand stencils, neo-traditional color, and dark realism.';
         }
 
         const matchedShop = allShops.find(s => (s.slug === matchedSlug || s.id === matchedSlug)) || allShops[0];
@@ -525,9 +770,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="match-card-body">
               <div class="match-highlight-box">
-                <strong>Recommended Resident Artists:</strong> ${artistMatch}
+                <strong>Recommended Resident Artist:</strong> ${artistMatch}
               </div>
-              <p class="match-reason-text"><strong>Why This Shop Fits You:</strong> ${matchReason}</p>
+              <p class="match-reason-text"><strong>Why This Artist Fits You:</strong> ${matchReason}</p>
               <div class="match-policy-chips">
                 <span>📍 ${escapeHtml(matchedShop.address || 'Colorado Springs')}</span>
                 <span>${matchedShop.operational && matchedShop.operational.walkIns ? '🚶 Walk-Ins Welcome' : '📅 Strict Appointment'}</span>
@@ -535,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div class="match-action-row">
                 <a href="shop.html?slug=${matchedShop.slug || matchedShop.id}" class="btn btn-primary btn-block">
-                  View Full Studio Profile &amp; Reviews ➔
+                  View Full Studio Profile &amp; Artist Roster ➔
                 </a>
                 <button type="button" class="btn btn-secondary btn-block" id="quiz-restart-btn">Take Quiz Again</button>
               </div>
@@ -569,5 +814,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize
-  loadShops();
+  loadData();
 });

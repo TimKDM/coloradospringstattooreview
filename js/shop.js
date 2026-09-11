@@ -533,15 +533,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <div class="artist-profile-card">
           <div class="artist-card-top">
-            <div class="artist-avatar">${escapeHtml(a.name.charAt(0).toUpperCase())}</div>
+            <div class="artist-avatar">${escapeHtml(a.avatarInitials || a.name.slice(0, 2).toUpperCase())}</div>
             <div class="artist-main-info">
               <h4 class="artist-name">${escapeHtml(a.name)}</h4>
-              <span class="artist-role">${escapeHtml(a.role || 'Resident Artist')}</span>
+              <span class="artist-role">${escapeHtml(a.role || 'Resident Tattooer')}</span>
             </div>
           </div>
           <div class="artist-card-status">
             <span class="booking-status-badge ${statusClass}">${statusText}</span>
+            ${a.waitlistTime && a.bookingStatus === 'open' ? `<span class="artist-wait-note">⏱ ${escapeHtml(a.waitlistTime)}</span>` : ''}
           </div>
+          ${Array.isArray(a.specialties) && a.specialties.length > 0 ? `
+            <div class="artist-specialties-strip">
+              ${a.specialties.map(sp => `<span class="artist-spec-tag">${escapeHtml(sp)}</span>`).join('')}
+            </div>
+          ` : ''}
+          ${a.bioSnippet ? `
+            <div class="artist-bio-box">
+              <p>${escapeHtml(a.bioSnippet)}</p>
+            </div>
+          ` : ''}
           <div class="artist-card-action">
             ${a.handle ? `<a href="${igUrl}" target="_blank" rel="noopener noreferrer" class="artist-ig-link">📸 ${escapeHtml(a.handle)} ↗</a>` : ''}
           </div>

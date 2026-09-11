@@ -9,12 +9,23 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Top Gazette Masthead Bar -->
+  <div class="masthead-issue-bar">
+    <div class="container masthead-inner">
+      <span>EST. 2026</span>
+      <span class="masthead-sep">•</span>
+      <span class="masthead-tagline">THE PIKES PEAK INK DOSSIER</span>
+      <span class="masthead-sep">•</span>
+      <span>VOL. 01 • INDEPENDENT DIRECTORY</span>
+    </div>
+  </div>
 
   <!-- Site Navigation Header -->
   <header class="site-header">
@@ -27,13 +38,13 @@
       <nav class="main-nav">
         <ul>
           <li><a href="/" class="active">Studios</a></li>
+          <li><a href="#directory-view-switcher" id="nav-artists-link">Artists</a></li>
           <li><a href="pricing-guide.html">💰 2026 Cost Guide</a></li>
-          <li><a href="#popular-styles">Styles</a></li>
           <li><a href="#how-it-works">About</a></li>
         </ul>
       </nav>
       <div class="header-action">
-        <a href="#shops-section" class="btn btn-primary">Find an Artist</a>
+        <a href="#directory-view-switcher" class="btn btn-primary">Find an Artist</a>
       </div>
     </div>
   </header>
@@ -42,9 +53,9 @@
     <!-- Homepage Hero Section -->
     <section class="home-hero">
       <div class="container hero-box">
-        <div class="hero-badge">Colorado Springs Local Directory</div>
-        <h1 class="hero-main-title">Discover the Best Tattoo Studios in Colorado Springs</h1>
-        <p class="hero-sub">Unbiased ratings, full positive and critical review breakdowns, and verified studio information to help you pick the right artist.</p>
+        <div class="hero-badge">CONSUMER DOSSIER • ARTISTS FIRST • 100% UNBIASED</div>
+        <h1 class="hero-main-title">Artists Behind the Needle. Unfiltered Studio Truth.</h1>
+        <p class="hero-sub">Promoting exceptional local craftsmanship and independent collectives across Colorado Springs. Complete transparent review breakdowns, verified policies, and resident artist waitlists.</p>
         
         <!-- Interactive Search Bar -->
         <div class="search-bar-container">
@@ -53,7 +64,7 @@
             <input 
               type="text" 
               id="search-input" 
-              placeholder="Search by studio name, style, or address (e.g., Riot, Fine Line, Tejon St)..." 
+              placeholder="Search by artist, studio, style, or street (e.g. Reece Allen, Paes, Fine Line, Tejon)..." 
               autocomplete="off"
             />
             <button type="button" id="clear-search-btn" class="clear-btn" style="display: none;">✕</button>
@@ -63,7 +74,7 @@
         <!-- 30-Second Match Quiz CTA -->
         <div class="hero-quiz-cta">
           <button type="button" class="btn btn-secondary btn-quiz-launch" id="open-quiz-btn">
-            ⚡ <strong>Take the 30-Second Artist Match Quiz</strong> — Match with the best studio for your style &amp; timeline
+            ⚡ <strong>Take the 30-Second Artist Match Quiz</strong> — Match with the best artist for your concept &amp; timeline
           </button>
         </div>
 
@@ -83,7 +94,7 @@
             </button>
             <button class="hub-tab" data-tab="vibes" id="tab-btn-vibes" type="button">
               <span class="tab-icon">🎧</span>
-              <span class="tab-text">Studio Vibe</span>
+              <span class="tab-text">Studio Atmosphere</span>
               <span class="tab-dot" id="dot-vibes" style="display: none;"></span>
             </button>
           </div>
@@ -120,10 +131,10 @@
             <div class="hub-panel" id="panel-vibes" style="display: none;">
               <div class="filters-pills" id="vibe-filters-container">
                 <button class="vibe-badge active" data-vibe="all">All Atmospheres</button>
-                <button class="vibe-badge" data-vibe="sanctuary">🌿 Quiet Sanctuary (Zero Ego)</button>
-                <button class="vibe-badge" data-vibe="inclusive-heritage">🌹 Inclusive Modern Club</button>
-                <button class="vibe-badge" data-vibe="street-shop">⚡ High-Energy Street Shop</button>
-                <button class="vibe-badge" data-vibe="mega-shop">🏢 High-Volume Mega-Shop</button>
+                <button class="vibe-badge" data-vibe="sanctuary">🌿 Indie Sanctuaries (Quiet &amp; Focused)</button>
+                <button class="vibe-badge" data-vibe="inclusive-heritage">🌹 Modern Inclusive Collectives</button>
+                <button class="vibe-badge" data-vibe="street-shop">⚡ High-Energy Street Shops</button>
+                <button class="vibe-badge" data-vibe="mega-shop">🏢 High-Volume Commercial Complexes</button>
               </div>
             </div>
           </div>
@@ -138,33 +149,112 @@
       </div>
     </section>
 
-    <!-- Studios Directory Grid Section -->
+    <!-- Studios vs. Resident Artists Directory Section -->
     <section class="directory-section" id="shops-section">
       <div class="container">
-        <header class="section-header">
-          <div class="section-header-left">
-            <h2>Featured Tattoo Studios</h2>
-            <p class="section-subtext">Verified studios across Colorado Springs ranked by customer satisfaction.</p>
-          </div>
-          <div class="section-header-right">
-            <span class="results-count" id="results-count">Loading studios...</span>
-          </div>
-        </header>
-
-        <!-- Dynamic Grid Container populated by app.js -->
-        <div class="shops-listings-grid" id="shops-grid">
-          <div class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading tattoo studios...</p>
+        
+        <!-- View Mode Switcher -->
+        <div class="directory-view-switcher" id="directory-view-switcher">
+          <div class="view-switch-tabs" role="tablist">
+            <button class="view-switch-btn active" id="view-studios-tab" data-view="studios" type="button">
+              <span class="tab-icon">🏛️</span>
+              <span class="tab-text">Explore Studios</span>
+              <span class="tab-badge" id="studios-badge-count">7 Studios</span>
+            </button>
+            <button class="view-switch-btn" id="view-artists-tab" data-view="artists" type="button">
+              <span class="tab-icon">🎨</span>
+              <span class="tab-text">Resident Artists Roster</span>
+              <span class="tab-badge badge-highlight" id="artists-badge-count">18 Artists</span>
+            </button>
           </div>
         </div>
 
-        <!-- No Results Fallback Message -->
-        <div class="no-results" id="no-results-msg" style="display: none;">
-          <h3>No studios found matching your search.</h3>
-          <p>Try clearing your search term or selecting "All Styles" above.</p>
-          <button type="button" class="btn btn-secondary" id="reset-filters-btn">Reset All Filters</button>
+        <!-- 1. Studios View Container -->
+        <div id="studios-view-container">
+          <header class="section-header">
+            <div class="section-header-left">
+              <h2>Verified Tattoo Studios</h2>
+              <p class="section-subtext">Independent collectives, neighborhood street shops, and high-volume complexes analyzed by verified client reviews.</p>
+            </div>
+            <div class="section-header-right">
+              <span class="results-count" id="results-count">Loading studios...</span>
+            </div>
+          </header>
+
+          <!-- Dynamic Grid Container populated by app.js -->
+          <div class="shops-listings-grid" id="shops-grid">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Loading tattoo studios...</p>
+            </div>
+          </div>
+
+          <!-- No Results Fallback Message -->
+          <div class="no-results" id="no-results-msg" style="display: none;">
+            <h3>No studios found matching your search.</h3>
+            <p>Try clearing your search term or selecting "All Styles" above.</p>
+            <button type="button" class="btn btn-secondary" id="reset-filters-btn">Reset All Filters</button>
+          </div>
         </div>
+
+        <!-- 2. Resident Artists View Container (Toggled) -->
+        <div id="artists-view-container" style="display: none;">
+          <header class="section-header">
+            <div class="section-header-left">
+              <h2>Resident Artists Roster</h2>
+              <p class="section-subtext">Promoting the craftspeople holding the machine. Explore verified specialties, waitlists, and direct portfolios across Colorado Springs.</p>
+            </div>
+            <div class="section-header-right">
+              <span class="results-count" id="artists-results-count">Loading artists...</span>
+            </div>
+          </header>
+
+          <!-- Artist Filter Toolbar -->
+          <div class="artist-filters-toolbar">
+            <div class="artist-filters-group">
+              <span class="artist-filter-label">Specialty:</span>
+              <div class="artist-filter-chips" id="artist-specialty-chips">
+                <button type="button" class="artist-chip active" data-specialty="all">All Specialties</button>
+                <button type="button" class="artist-chip" data-specialty="Anime">Anime &amp; Gaming</button>
+                <button type="button" class="artist-chip" data-specialty="Cover-Ups">Cover-Up Wizards</button>
+                <button type="button" class="artist-chip" data-specialty="American Traditional">Traditional Americana</button>
+                <button type="button" class="artist-chip" data-specialty="Dark Realism">Dark Realism &amp; Portraits</button>
+                <button type="button" class="artist-chip" data-specialty="Fine Line">Fine Line &amp; Botanicals</button>
+                <button type="button" class="artist-chip" data-specialty="Illustrative">Illustrative &amp; Blackwork</button>
+                <button type="button" class="artist-chip" data-specialty="Precision Piercing">Body Piercing</button>
+              </div>
+            </div>
+
+            <div class="artist-filters-group sub-group">
+              <span class="artist-filter-label">Availability:</span>
+              <div class="artist-filter-chips" id="artist-status-chips">
+                <button type="button" class="artist-chip active" data-status="all">All Books</button>
+                <button type="button" class="artist-chip" data-status="open">🟢 Books Open</button>
+                <button type="button" class="artist-chip" data-status="waitlist">🟡 Waitlist</button>
+              </div>
+              <label class="artist-indie-toggle">
+                <input type="checkbox" id="indie-only-checkbox" />
+                <span>🌿 Indie Collectives Only</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Artists Grid Container populated by app.js -->
+          <div class="artists-listings-grid" id="artists-grid">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Loading resident artists...</p>
+            </div>
+          </div>
+
+          <!-- No Artists Fallback Message -->
+          <div class="no-results" id="no-artists-msg" style="display: none;">
+            <h3>No artists found matching your criteria.</h3>
+            <p>Try resetting the specialty or availability filters.</p>
+            <button type="button" class="btn btn-secondary" id="reset-artist-filters-btn">Reset Artist Filters</button>
+          </div>
+        </div>
+
       </div>
     </section>
 
